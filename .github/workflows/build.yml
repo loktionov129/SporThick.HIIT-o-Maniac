@@ -18,14 +18,10 @@ jobs:
         sudo xcode-select -s /Applications/Xcode.app
         xcodebuild -version
 
-    - name: Install CocoaPods (if used)
-      if: hash("Podfile") == 0
-      run: pod install
-
     - name: Build and archive iOS app
       run: |
         xcodebuild \
-          -workspace SporThick.xcodeproj \
+          -project SporThick.xcodeproj \
           -scheme SporThick \
           -configuration Release \
           -archivePath build/SporThick-iOS.xcarchive \
@@ -43,20 +39,11 @@ jobs:
     - name: Build and archive watchOS app
       run: |
         xcodebuild \
-          -workspace SporThick.xcodeproj \
+          -project SporThick.xcodeproj \
           -scheme "SporThick WatchKit App" \
           -configuration Release \
           -archivePath build/SporThick-watchOS.xcarchive \
           archive
-
-    - name: Export watchOS .ipa
-      run: |
-        mkdir -p artifacts/watchos
-        xcrun xcodebuild \
-          -exportArchive \
-          -archivePath build/SporThick-watchOS.xcarchive \
-          -exportOptionsPlist exportOptions.plist \
-          -exportPath artifacts/watchos/
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
