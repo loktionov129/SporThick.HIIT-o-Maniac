@@ -5,6 +5,10 @@
   <key>method</key>
   <string>development</string>
   <key>signingStyle</key>
-  <string>automatic</string>
+  <string>manual</string>
+  <key>provisioningProfiles</key>
+  <dict/>
+  <key>signingCertificate</key>
+  <string></string>
 </dict>
 </plist>
