@@ -41,7 +41,7 @@ jobs:
           -exportPath artifacts/ios/
 
     - name: Upload artifacts
-      uses: upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: sporthick-builds
         path: artifacts/
