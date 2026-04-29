@@ -3,7 +3,7 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 
 export default defineConfig({
-  base: './SporThick.HIIT-o-Maniac/',
+  base: './',
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] })

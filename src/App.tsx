@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { PageContainer } from './components/Layout/PageContainer';
 import WorkoutList from './features/workout-list';
 import CreateEditWorkoutScreen from './features/workout-form';
@@ -8,7 +8,7 @@ import './App.css';
 
 const App: React.FC = () => {
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router>
       <Routes>
         <Route 
           path="/" 
