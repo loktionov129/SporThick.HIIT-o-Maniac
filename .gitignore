@@ -67,3 +67,41 @@ iOSSimulator/
 
 # Личные настройки
 *.xcsettings
+
+# Dependencies
+.pnp
+.pnp.js
+
+# Production Build
+dist/
+build/
+
+# Testing
+coverage/
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript Specific
+*.tsbuildinfo
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS Files
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
