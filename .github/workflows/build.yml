@@ -23,6 +23,7 @@ jobs:
         xcodebuild \
           -project SporThick.xcodeproj \
           -scheme SporThick \
+          -destination 'generic/platform=iOS' \
           -configuration Release \
           -archivePath build/SporThick-iOS.xcarchive \
           archive
@@ -41,6 +42,7 @@ jobs:
         xcodebuild \
           -project SporThick.xcodeproj \
           -scheme "SporThick WatchKit App" \
+          -destination 'generic/platform=watchOS' \
           -configuration Release \
           -archivePath build/SporThick-watchOS.xcarchive \
           archive
