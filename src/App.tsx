@@ -14,9 +14,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<WorkoutList />} />
             <Route path="/timer" element={<TimerScreen />} />
-            <Route path="/create-edit-workout"
-              element={<CreateEditWorkoutScreen workoutId={null} />}
-            />
+            <Route path="/create-edit-workout" element={<CreateEditWorkoutScreen />} />
           </Routes>
         </div>
       </div>
