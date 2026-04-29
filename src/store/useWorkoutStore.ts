@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import type { Workout } from '../types';
 
 interface WorkoutState {
@@ -14,7 +15,8 @@ interface WorkoutState {
   setCurrentExerciseIndex(index?: number): void;
 }
 
-const useWorkoutStore = create<WorkoutState>((set) => ({
+const useWorkoutStore = create<WorkoutState>()(persist(
+  (set, get) => ({
   workouts: [],
   settings: { soundEnabled: true },
   filterQuery: '',
@@ -27,6 +29,10 @@ const useWorkoutStore = create<WorkoutState>((set) => ({
   toggleSound: () => set((state) => ({ settings: { soundEnabled: !state.settings.soundEnabled } })),
   setFilter: (query) => set({ filterQuery: query }),
   setCurrentExerciseIndex: (index) => set({ currentExerciseIndex: index }),
-}));
+  }),
+  {
+    name: 'workout_store'
+  }
+));
 
 export default useWorkoutStore;
