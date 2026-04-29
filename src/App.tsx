@@ -1,34 +1,27 @@
-import { useState } from 'react'
 import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header.tsx';
+import WorkoutList from './components/WorkoutList.tsx';
+import CreateEditWorkoutScreen from './components/CreateEditWorkoutScreen.tsx';
+import TimerScreen from './components/TimerScreen.tsx';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>s</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-      <div className="p-4 bg-blue-500 text-white">
-        Пример компонента с Tailwind CSS
+    <Router>
+      <div className="container mx-auto p-4">
+        <Header />
+        <Routes>
+          <Route path="/" element={<WorkoutList />} />
+          <Route path="/timer" element={<TimerScreen />} />
+          <Route path="/create-edit-workout"
+            element={<CreateEditWorkoutScreen workoutId={null} />}
+          />
+        </Routes>
       </div>
-      <section id="spacer"></section>
-    </>
-  )
-}
+    </Router>
+  );
+};
 
-export default App
+export default App;
