@@ -16,7 +16,7 @@ interface WorkoutState {
 }
 
 const useWorkoutStore = create<WorkoutState>()(persist(
-  (set, get) => ({
+  (set, _) => ({
   workouts: [],
   settings: { soundEnabled: true },
   filterQuery: '',
