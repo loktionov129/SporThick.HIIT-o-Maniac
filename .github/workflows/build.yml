@@ -1,0 +1,62 @@
+name: Build SporThick.HIIT-o-Maniac
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: List Available Xcode Versions
+      run: ls /Applications | grep Xcode
+
+    - name: Show Xcode versions
+      run: |
+        ls -la /Applications/Xcode*.app
+        xcodebuild -version
+
+    - name: Verify Xcode Version
+      run: xcodebuild -version
+
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode.app
+
+    - name: Build iOS App
+      run: |
+        xcodebuild -project SporThick.xcodeproj \
+                  -scheme SporThick \
+                  -destination 'platform=iOS Simulator,name=iPhone 13 mini' \
+                  build
+
+  build-watchos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: List Available Xcode Versions
+      run: ls /Applications | grep Xcode
+
+    - name: Show Xcode versions
+      run: |
+        ls -la /Applications/Xcode*.app
+        xcodebuild -version
+
+    - name: Verify Xcode Version
+      run: xcodebuild -version
+
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode.app
+
+    - name: Build WatchOS App
+      run: |
+        xcodebuild -project SporThick.xcodeproj \
+                  -scheme "SporThick WatchKit App" \
+                  -destination 'platform=watchOS Simulator,name=Apple Watch Series 4 - 40mm' \
+                  build

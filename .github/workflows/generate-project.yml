@@ -1,0 +1,41 @@
+name: Generate Xcode Project
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  generate:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install xcodegen
+      run: brew install xcodegen
+
+    - name: Create project.yml
+      run: |
+        cat > project.yml << EOF
+        name: SporThick
+        targets:
+          SporThick:
+            type: application
+            platform: iOS
+            sources:
+              - path: ./
+                includes:
+                  - "**/*.swift"
+            settings:
+              base:
+                IPHONE_DEPLOYMENT_TARGET: '16.0'
+                PRODUCT_BUNDLE_IDENTIFIER: com.yourname.SporThick
+        EOF
+
+    - name: Generate .xcodeproj
+      run: xcodegen generate
+
+    - name: Commit and Push Generated Project
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Add generated SporThick.xcodeproj"
+        file_pattern: SporThick.xcodeproj/

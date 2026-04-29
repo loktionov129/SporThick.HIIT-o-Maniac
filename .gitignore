@@ -1,0 +1,69 @@
+# ОС macOS
+.DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+
+# Xcode
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.xcworkspace
+xcuserdata/
+!default.xcworkspace
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+# Артефакты сборки
+build/
+DerivedData/
+*.o
+*.hmap
+*.LinkFileList
+*.pidb
+*.dSYM/
+*.dSYM.package/
+
+# Pod-файлы (CocoaPods)
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/
+
+# SwiftPM
+.swiftpm/
+
+# Node_modules (если используете npm)
+node_modules/
+
+# Временные файлы
+tmp/
+*.tmp
+*.swp
+*~
+*~.nib
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Конфигурации окружения
+.env
+.env.*
+
+# Игнорировать файлы кэша и логи
+*.log
+*.cache
+
+# Исключить файлы симулятора
+iOSSimulator/
+
+# Личные настройки
+*.xcsettings
