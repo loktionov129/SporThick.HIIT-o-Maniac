@@ -12,31 +12,41 @@ const TimerScreen: React.FC = () => {
   const selectedWorkoutId = searchParams.get('workoutId');
   const workouts = useWorkoutStore((state) => state.workouts);
   const workout = selectedWorkoutId ? workouts.find(w => w.id === selectedWorkoutId) : null;
-  
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [remainingTime, setRemainingTime] = useState<number>(0);
   const [isRunning, setIsRunning] = useState(false);
-
+  const [currentRound, setCurrentRound] = useState(1);
   const currentExercise = workout?.exercises[currentExerciseIndex];
 
   useEffect(() => {
-    if (currentExercise) setRemainingTime(currentExercise.duration);
-  }, [currentExerciseIndex, workout]);
+    if (currentExercise && remainingTime === 0 && !isRunning) {
+      setRemainingTime(currentExercise.duration);
+    }
+  }, [workout]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
+    
     if (isRunning && remainingTime > 0) {
       interval = setInterval(() => setRemainingTime(prev => prev - 1), 1000);
-    } else if (remainingTime === 0 && isRunning) {
-      if (workout && currentExerciseIndex < workout.exercises.length - 1) {
-        setCurrentExerciseIndex(prev => prev + 1);
-        setIsRunning(false); 
-      } else {
+    } else if (remainingTime === 0 && isRunning && workout) {
+      if (currentExerciseIndex < workout.exercises.length - 1) {
+        const nextIndex = currentExerciseIndex + 1;
+        setCurrentExerciseIndex(nextIndex);
+        setRemainingTime(workout.exercises[nextIndex].duration);
+      } 
+      else if (currentRound < (workout.rounds || 1)) {
+        setCurrentRound(prev => prev + 1);
+        setCurrentExerciseIndex(0);
+        setRemainingTime(workout.exercises[0].duration);
+      } 
+      else {
         setIsRunning(false);
       }
     }
     return () => clearInterval(interval!);
-  }, [isRunning, remainingTime]);
+  }, [isRunning, remainingTime, currentExerciseIndex, currentRound, workout]);
+
 
   const FullScreenCenter = ({ children }: { children: React.ReactNode }) => (
     <div className="h-[70vh] flex flex-col items-center justify-center animate-in fade-in duration-500">
@@ -74,9 +84,11 @@ const TimerScreen: React.FC = () => {
           <ArrowLeft size={20} />
         </button>
         <div className="text-right">
-          <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] leading-none mb-1">{workout.name}</p>
+          <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] leading-none mb-1">
+            Раунд {currentRound} из {workout.rounds}
+          </p>
           <p className="text-blue-500 font-black text-sm leading-none">
-            {currentExerciseIndex + 1} <span className="text-[10px] text-slate-600">из</span> {workout.exercises.length}
+            Упр. {currentExerciseIndex + 1}/{workout.exercises.length}
           </p>
         </div>
       </div>
@@ -84,7 +96,7 @@ const TimerScreen: React.FC = () => {
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-2 mb-3">
            <Zap size={16} className="text-blue-500 fill-blue-500 animate-pulse" />
-           <span className="text-blue-500 font-black uppercase tracking-[0.3em] text-[10px]">В процессе</span>
+           <span className="text-blue-500 font-black uppercase tracking-[0.3em] text-[10px]">{workout.name}</span>
         </div>
         <h2 className="text-4xl font-black text-white uppercase tracking-tighter sm:text-6xl drop-shadow-2xl">
           {currentExercise?.name}

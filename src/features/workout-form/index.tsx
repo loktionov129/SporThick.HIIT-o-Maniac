@@ -18,6 +18,7 @@ const CreateEditWorkoutScreen: React.FC = () => {
   const currentWorkout = workoutId ? workouts.find(w => w.id === workoutId) : null;
 
   const [name, setName] = useState(currentWorkout?.name || '');
+  const [rounds, setRounds] = useState(currentWorkout?.rounds || 1);
   const [exercises, setExercises] = useState(
     currentWorkout?.exercises || [{ id: Date.now().toString(), name: '', duration: 30 }]
   );
@@ -70,6 +71,29 @@ const CreateEditWorkoutScreen: React.FC = () => {
           placeholder="Напр. Утренняя жара"
           required
         />
+
+        <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl mb-8 flex items-center justify-between">
+          <div className="flex flex-col">
+            <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold ml-1">
+              Количество раундов (кругов)
+            </label>
+            <p className="text-xs text-slate-600 mt-1">Весь список повторится X раз</p>
+          </div>
+          
+          <div className="flex items-center gap-4 bg-slate-800/50 p-2 rounded-xl border border-slate-700">
+            <button 
+              type="button"
+              onClick={() => setRounds(Math.max(1, rounds - 1))}
+              className="w-8 h-8 flex items-center justify-center bg-slate-700 rounded-lg text-white font-bold hover:bg-slate-600"
+            >–</button>
+            <span className="text-xl font-black text-blue-500 min-w-[20px] text-center">{rounds}</span>
+            <button 
+              type="button"
+              onClick={() => setRounds(rounds + 1)}
+              className="w-8 h-8 flex items-center justify-center bg-slate-700 rounded-lg text-white font-bold hover:bg-slate-600"
+            >+</button>
+          </div>
+        </div>
 
         <div className="space-y-4">
           <div className="flex items-center justify-between px-1">
