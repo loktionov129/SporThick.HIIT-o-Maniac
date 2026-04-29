@@ -6,14 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+
 jobs:
   build-ios-and-watchos:
     runs-on: macos-latest
-
-    env:
-      DEVELOPMENT_TEAM: ""  # Пустая переменная — обходим требование Team ID
-      CODE_SIGN_IDENTITY: "-"  # Отключаем подпись
-
 
     steps:
     - uses: actions/checkout@v4
@@ -45,7 +41,7 @@ jobs:
           -exportPath artifacts/ios/
 
     - name: Upload artifacts
-      uses: upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: sporthick-builds
         path: artifacts/
