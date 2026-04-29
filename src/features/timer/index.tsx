@@ -5,6 +5,7 @@ import useWorkoutStore from '../../store/useWorkoutStore';
 import { ProgressCircle } from './components/ProgressCircle';
 import { TimerFinished } from './components/TimerFinished';
 import { Button } from '../../components/ui/Button';
+import { playBeep } from '../../utils/beep';
 
 const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -28,8 +29,15 @@ const TimerScreen: React.FC = () => {
     let interval: NodeJS.Timeout | null = null;
     
     if (isRunning && remainingTime > 0) {
-      interval = setInterval(() => setRemainingTime(prev => prev - 1), 1000);
+      interval = setInterval(() => {
+        if (remainingTime <= 3 && remainingTime > 0) {
+          playBeep(440, 100, 0.05);
+        }
+        setRemainingTime(prev => prev - 1);
+      }, 1000);
     } else if (remainingTime === 0 && isRunning && workout) {
+      playBeep(880, 500, 0.1); 
+
       if (currentExerciseIndex < workout.exercises.length - 1) {
         const nextIndex = currentExerciseIndex + 1;
         setCurrentExerciseIndex(nextIndex);
