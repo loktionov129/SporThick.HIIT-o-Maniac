@@ -6,9 +6,8 @@ on:
   pull_request:
     branches: [ main ]
 
-
 jobs:
-  build-ios-and-watchos:
+  build-ios:
     runs-on: macos-latest
 
     steps:
@@ -16,33 +15,36 @@ jobs:
 
     - name: Select Xcode version
       run: |
-        sudo xcode-select -s /Applications/Xcode.app
+        # Используем актуальную версию Xcode
+        sudo xcode-select -s /Applications/Xcode_16.app 
         xcodebuild -version
 
-    - name: Build and archive iOS app
+    - name: Build iOS app (No Signing)
       run: |
-        xcodebuild \
+        # Собираем архив, отключая все проверки подписи
+        xcodebuild archive \
           -project SporThick.xcodeproj \
           -scheme SporThick \
           -destination 'generic/platform=iOS' \
           -configuration Release \
-          CODE_SIGN_STYLE="Automatic" \
-          PROVISIONING_PROFILE_SPECIFIER="" \
           -archivePath build/SporThick-iOS.xcarchive \
-          archive
+          CODE_SIGNING_ALLOWED=NO \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGN_ENTITLEMENTS="" \
+          CODE_SIGN_IDENTITY=""
 
-    - name: Export iOS .ipa
+    - name: Create IPA (Manual Packaging)
       run: |
-        mkdir -p artifacts/ios
-        xcrun xcodebuild \
-          -exportArchive \
-          -archivePath build/SporThick-iOS.xcarchive \
-          -exportOptionsPlist exportOptions.plist \
-          -exportPath artifacts/ios/
+        # Создаем структуру IPA без использования exportOptions.plist
+        mkdir -p artifacts/Payload
+        cp -r build/SporThick-iOS.xcarchive/Products/Applications/*.app artifacts/Payload/
+        cd artifacts
+        zip -r SporThick.ipa Payload
+        rm -rf Payload
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: sporthick-builds
-        path: artifacts/
+        name: SporThick-Unsigned-IPA
+        path: artifacts/SporThick.ipa
         retention-days: 7
