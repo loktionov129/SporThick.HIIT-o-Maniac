@@ -34,7 +34,7 @@ jobs:
             settings:
               base:
                 IPHONE_DEPLOYMENT_TARGET: '16.0'
-                PRODUCT_BUNDLE_IDENTIFIER: com.yourname.SporThick
+                PRODUCT_BUNDLE_IDENTIFIER: com.HIIToManiac.SporThick
         EOF
 
     - name: Generate .xcodeproj

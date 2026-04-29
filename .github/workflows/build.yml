@@ -7,56 +7,60 @@ on:
     branches: [ main ]
 
 jobs:
-  build-ios:
+  build-ios-and-watchos:
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: List Available Xcode Versions
-      run: ls /Applications | grep Xcode
-
-    - name: Show Xcode versions
+    - name: Select Xcode version
       run: |
-        ls -la /Applications/Xcode*.app
+        sudo xcode-select -s /Applications/Xcode.app
         xcodebuild -version
 
-    - name: Verify Xcode Version
-      run: xcodebuild -version
+    - name: Install CocoaPods (if used)
+      if: hash("Podfile") == 0
+      run: pod install
 
-    - name: Select Xcode
-      run: sudo xcode-select -s /Applications/Xcode.app
-
-    - name: Build iOS App
+    - name: Build and archive iOS app
       run: |
-        xcodebuild -project SporThick.xcodeproj \
-                  -scheme SporThick \
-                  -destination 'platform=iOS Simulator,name=iPhone 13 mini' \
-                  build
+        xcodebuild \
+          -workspace SporThick.xcodeproj \
+          -scheme SporThick \
+          -configuration Release \
+          -archivePath build/SporThick-iOS.xcarchive \
+          archive
 
-  build-watchos:
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: List Available Xcode Versions
-      run: ls /Applications | grep Xcode
-
-    - name: Show Xcode versions
+    - name: Export iOS .ipa
       run: |
-        ls -la /Applications/Xcode*.app
-        xcodebuild -version
+        mkdir -p artifacts/ios
+        xcrun xcodebuild \
+          -exportArchive \
+          -archivePath build/SporThick-iOS.xcarchive \
+          -exportOptionsPlist exportOptions.plist \
+          -exportPath artifacts/ios/
 
-    - name: Verify Xcode Version
-      run: xcodebuild -version
-
-    - name: Select Xcode
-      run: sudo xcode-select -s /Applications/Xcode.app
-
-    - name: Build WatchOS App
+    - name: Build and archive watchOS app
       run: |
-        xcodebuild -project SporThick.xcodeproj \
-                  -scheme "SporThick WatchKit App" \
-                  -destination 'platform=watchOS Simulator,name=Apple Watch Series 4 - 40mm' \
-                  build
+        xcodebuild \
+          -workspace SporThick.xcodeproj \
+          -scheme "SporThick WatchKit App" \
+          -configuration Release \
+          -archivePath build/SporThick-watchOS.xcarchive \
+          archive
+
+    - name: Export watchOS .ipa
+      run: |
+        mkdir -p artifacts/watchos
+        xcrun xcodebuild \
+          -exportArchive \
+          -archivePath build/SporThick-watchOS.xcarchive \
+          -exportOptionsPlist exportOptions.plist \
+          -exportPath artifacts/watchos/
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: sporthick-builds
+        path: artifacts/
+        retention-days: 7
