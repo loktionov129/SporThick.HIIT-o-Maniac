@@ -8,7 +8,7 @@ import './App.css';
 
 const App: React.FC = () => {
   return (
-    <Router basename="/SporThick.HIIT-o-Maniac">
+    <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route 
           path="/" 

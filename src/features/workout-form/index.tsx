@@ -30,7 +30,7 @@ const CreateEditWorkoutScreen: React.FC = () => {
     const workoutData = {
       name,
       exercises: exercises.filter(ex => ex.name.trim() !== ''),
-      rounds: 1,
+      rounds,
     };
 
     if (workoutId) updateWorkout(workoutId, workoutData);
