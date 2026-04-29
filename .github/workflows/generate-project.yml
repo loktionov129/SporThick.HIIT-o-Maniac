@@ -3,12 +3,18 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   generate:
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Install xcodegen
       run: brew install xcodegen
@@ -39,3 +45,5 @@ jobs:
       with:
         commit_message: "Add generated SporThick.xcodeproj"
         file_pattern: SporThick.xcodeproj/
+        create_branch: true
+        branch: add-xcodeproj
