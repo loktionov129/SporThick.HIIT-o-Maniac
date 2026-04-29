@@ -77,14 +77,11 @@ const TimerScreen: React.FC = () => {
   const progress = currentExercise ? (remainingTime / currentExercise.duration) * 100 : 0;
 
   return (
-    // Добавляем h-[80vh] и justify-center, чтобы контент был по центру экрана
     <div className="max-w-md mx-auto h-[85vh] flex flex-col items-center justify-center">
-      
-      {/* Улучшенная навигация */}
       <div className="w-full absolute top-8 left-0 px-6 flex items-center justify-between">
         <button 
           onClick={() => navigate(-1)} 
-          className="p-3 bg-slate-900/50 border border-slate-800 text-slate-400 hover:text-white rounded-2xl transition-all active:scale-90"
+          className="cursor-pointer p-3 bg-slate-900/50 border border-slate-800 text-slate-400 hover:text-white rounded-2xl transition-all active:scale-90"
         >
           <ArrowLeft size={20} />
         </button>
@@ -93,7 +90,7 @@ const TimerScreen: React.FC = () => {
             {workout.name}
           </p>
           <p className="text-blue-500 font-black text-sm">
-            EXERCISE {currentExerciseIndex + 1}/{workout.exercises.length}
+            Упражнение {currentExerciseIndex + 1}/{workout.exercises.length}
           </p>
         </div>
       </div>
@@ -106,46 +103,44 @@ const TimerScreen: React.FC = () => {
               <Trophy className="text-yellow-500 w-20 h-20" />
             </div>
           </div>
-          <h2 className="text-4xl font-black text-white mb-3 tracking-tight">BEAST MODE ON!</h2>
-          <p className="text-slate-400 mb-10 text-lg">Workout completed successfully.</p>
+          <h2 className="text-4xl font-black text-white mb-3 tracking-tight">ПОБЕДА!</h2>
+          <p className="text-slate-400 mb-10 text-lg">Тренировка успешно завершена.</p>
           <button 
             onClick={() => navigate('/')}
-            className="w-full bg-blue-600 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-wider hover:bg-blue-500 transition-all shadow-xl shadow-blue-600/20 active:scale-95"
+            className="mt-10 cursor-pointer w-full bg-blue-600 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-wider hover:bg-blue-500 transition-all shadow-xl shadow-blue-600/20 active:scale-95"
           >
-            Finish Session
+            Финиш
           </button>
         </div>
       ) : (
         <>
-          {/* Название упражнения с иконкой */}
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-3">
                <Zap size={18} className="text-blue-500 fill-blue-500" />
-               <span className="text-blue-500 font-bold uppercase tracking-[0.2em] text-[12px]">Current</span>
+               <span className="text-blue-500 font-bold uppercase tracking-[0.2em] text-[12px]">Тренировка</span>
             </div>
             <h2 className="text-4xl font-black text-white uppercase tracking-tighter sm:text-5xl">
               {currentExercise?.name}
             </h2>
           </div>
 
-          {/* Кольцо таймера — увеличил размер и добавил тени */}
           <div className="relative w-72 h-72 flex items-center justify-center mb-16">
             <div className="absolute inset-0 bg-blue-600/5 blur-3xl rounded-full" />
-            <svg className="absolute w-full h-full -rotate-90 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+            <svg className="absolute w-full h-full -rotate-90 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" viewBox="0 0 288 288">
               <circle
-                cx="144" cy="144" r="130"
+                cx="144" cy="144" r="132"
                 fill="transparent"
                 stroke="currentColor"
                 strokeWidth="12"
                 className="text-slate-900"
               />
               <circle
-                cx="144" cy="144" r="130"
+                cx="144" cy="144" r="132"
                 fill="transparent"
                 stroke="currentColor"
                 strokeWidth="12"
-                strokeDasharray={816}
-                strokeDashoffset={816 - (816 * progress) / 100}
+                strokeDasharray={829}
+                strokeDashoffset={829 - (829 * progress) / 100}
                 className="text-blue-500 transition-all duration-1000 ease-linear"
                 strokeLinecap="round"
               />
@@ -156,30 +151,29 @@ const TimerScreen: React.FC = () => {
                 {remainingTime}
               </span>
               <span className="text-slate-500 font-bold uppercase tracking-[0.4em] text-[11px] mt-1">
-                Seconds
+                сек.
               </span>
             </div>
           </div>
 
-          {/* Улучшенные контролы */}
           <div className="flex items-center gap-4 w-full">
             <button 
               onClick={() => { setIsRunning(false); setRemainingTime(currentExercise?.duration || 0); }}
-              className="p-5 bg-slate-900 border border-slate-800 text-slate-500 rounded-3xl hover:text-white transition-all active:scale-90"
+              className="cursor-pointer p-5 bg-slate-900 border border-slate-800 text-slate-500 rounded-3xl hover:text-white transition-all active:scale-90"
             >
               <RotateCcw size={24} />
             </button>
             
             <button 
               onClick={() => setIsRunning(!isRunning)}
-              className={`flex-1 py-5 rounded-3xl font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95 shadow-2xl ${
+              className={`cursor-pointer flex-1 py-5 rounded-3xl font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95 shadow-2xl ${
                 isRunning 
                   ? 'bg-slate-100 text-slate-950 shadow-white/5' 
                   : 'bg-blue-600 text-white shadow-blue-600/30'
               }`}
             >
               {isRunning ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" />}
-              <span className="text-lg">{isRunning ? 'Pause' : 'Start'}</span>
+              <span className="text-lg">{isRunning ? 'Пауза' : 'Старт'}</span>
             </button>
           </div>
         </>

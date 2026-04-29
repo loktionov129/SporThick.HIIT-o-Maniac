@@ -17,8 +17,8 @@ const WorkoutList: React.FC = () => {
           <div className="bg-slate-800/50 p-4 rounded-full mb-4">
             <Dumbbell className="h-10 w-10 text-slate-600" />
           </div>
-          <p className="text-slate-400 font-medium">No workouts found</p>
-          <p className="text-slate-600 text-sm mt-1">Ready to break some sweat?</p>
+          <p className="text-slate-400 font-medium">Тренировок пока нет...</p>
+          <p className="text-slate-600 text-sm mt-1">Готовы хорошенько попотеть?</p>
         </div>
       </div>
     );
@@ -43,20 +43,20 @@ const WorkoutList: React.FC = () => {
                     {workout.name}
                   </h3>
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-bold uppercase tracking-wider">
-                    {workout.exercises.length} ex
+                    {workout.exercises.length} упр.
                   </span>
                 </div>
                 
                 <p className="text-sm text-slate-500 line-clamp-1 italic font-light">
                   {workout.exercises.length > 0 
                     ? workout.exercises.map((ex) => ex.name).join(' • ')
-                    : 'No exercises added yet'}
+                    : 'Упражнений нет'}
                 </p>
 
                 <div className="mt-4 flex items-center gap-2">
                   <div className="cursor-pointer flex items-center text-[11px] font-black text-blue-500 uppercase tracking-[0.15em]">
                     <Play size={14} className="mr-1.5 fill-current" />
-                    Start Session
+                    Старт
                   </div>
                   <ChevronRight size={14} className="cursor-pointer text-slate-700 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -69,7 +69,7 @@ const WorkoutList: React.FC = () => {
                     navigate(`/create-edit-workout?workoutId=${workout.id}`);
                   }}
                   className="cursor-pointer p-3 text-slate-500 hover:text-blue-400 hover:bg-blue-500/10 rounded-xl transition-all active:scale-90"
-                  title="Edit"
+                  title="Редактировать"
                 >
                   <Pencil size={18} />
                 </button>
@@ -79,7 +79,7 @@ const WorkoutList: React.FC = () => {
                     if (confirm('Delete workout?')) deleteWorkout(workout.id);
                   }}
                   className="cursor-pointer p-3 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all active:scale-90"
-                  title="Delete"
+                  title="Удалить"
                 >
                   <Trash2 size={18} />
                 </button>
