@@ -18,16 +18,16 @@ jobs:
         sudo xcode-select -s /Applications/Xcode.app
         xcodebuild -version
 
-    - name: Build and archive iOS app (with automatic signing)
+    - name: Build and archive iOS app
       run: |
         xcodebuild \
           -project SporThick.xcodeproj \
           -scheme SporThick \
           -destination 'generic/platform=iOS' \
           -configuration Release \
-          -archivePath build/SporThick-iOS.xcarchive \
           CODE_SIGN_STYLE="Automatic" \
           PROVISIONING_PROFILE_SPECIFIER="" \
+          -archivePath build/SporThick-iOS.xcarchive \
           archive
 
     - name: Export iOS .ipa
