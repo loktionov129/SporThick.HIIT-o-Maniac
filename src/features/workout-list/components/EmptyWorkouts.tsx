@@ -1,0 +1,38 @@
+import React from 'react';
+import { Dumbbell, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../../../components/ui/Button';
+
+export const EmptyWorkouts: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex flex-col items-center justify-center py-16 px-6 bg-slate-900/40 border border-slate-800/60 rounded-[32px] backdrop-blur-md relative overflow-hidden">
+      <div className="absolute -top-24 -left-24 w-48 h-48 bg-blue-600/10 blur-[80px] rounded-full" />
+      <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-blue-600/10 blur-[80px] rounded-full" />
+
+      <div className="relative mb-6">
+        <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full" />
+        <div className="relative bg-slate-800 border border-slate-700 p-5 rounded-3xl shadow-xl">
+          <Dumbbell className="h-10 w-10 text-blue-500" />
+        </div>
+      </div>
+
+      <h3 className="text-xl font-black text-white uppercase tracking-tight mb-2 text-center">
+        Тренировок пока нет
+      </h3>
+      <p className="text-slate-400 text-sm text-center max-w-[240px] leading-relaxed mb-8">
+        Твой путь к телу мечты начинается здесь. Создай свою первую программу!
+      </p>
+
+      <Button 
+        onClick={() => navigate('/create-edit-workout')}
+        variant="primary"
+        className="mt-10 shadow-lg shadow-blue-600/20"
+      >
+        <Plus size={18} />
+        Создать тренировку
+      </Button>
+    </div>
+  );
+};
