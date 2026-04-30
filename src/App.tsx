@@ -1,14 +1,19 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { PageContainer } from './components/Layout/PageContainer';
 import WorkoutList from './features/workout-list';
 import CreateEditWorkoutScreen from './features/workout-form';
 import TimerScreen from './features/timer';
+import { HistoryScreen } from './features/history';
+import { BottomNav } from './components/Layout/BottomNav';
 import './App.css';
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
+  const location = useLocation();
+  const showBottomNav = location.pathname !== '/timer';
+
   return (
-    <Router>
+    <>
       <Routes>
         <Route 
           path="/" 
@@ -19,6 +24,15 @@ const App: React.FC = () => {
           } 
         />
         
+        <Route 
+          path="/history" 
+          element={
+            <PageContainer withHeader maxWidth="md">
+              <HistoryScreen />
+            </PageContainer>
+          } 
+        />
+
         <Route 
           path="/timer" 
           element={
@@ -37,6 +51,16 @@ const App: React.FC = () => {
           } 
         />
       </Routes>
+
+      {showBottomNav && <BottomNav />}
+    </>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 };

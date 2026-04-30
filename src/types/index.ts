@@ -18,3 +18,12 @@ export interface AppState {
     soundEnabled: boolean;
   };
 }
+
+export interface WorkoutHistoryEntry {
+  id: string;
+  workoutId: string;
+  workoutName: string;
+  timestamp: number;
+  totalTime: number;
+  totalRounds: number;
+}

@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Workout } from '../types';
+import type { Workout, WorkoutHistoryEntry } from '../types';
 
 interface WorkoutState {
   workouts: Workout[];
+  history: WorkoutHistoryEntry[];
   settings: { 
     soundEnabled: boolean;
     vibrationEnabled: boolean;
@@ -15,11 +16,18 @@ interface WorkoutState {
   deleteWorkout(id: string): void;
   toggleSound(): void;
   setFilter(query: string): void;
+  addHistoryEntry: (entry: WorkoutHistoryEntry) => void;
+  clearHistory: () => void;
 }
 
 const useWorkoutStore = create<WorkoutState>()(persist(
   (set) => ({
     workouts: [],
+    history: [],
+    addHistoryEntry: (entry) => set((state) => ({ 
+      history: [entry, ...state.history]
+    })),
+    clearHistory: () => set({ history: [] }),
     settings: { 
       soundEnabled: true,
       vibrationEnabled: false 

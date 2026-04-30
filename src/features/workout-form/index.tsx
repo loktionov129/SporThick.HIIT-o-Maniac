@@ -28,8 +28,10 @@ const CreateEditWorkoutScreen: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
-
+    if (!name.trim()) {
+      return;
+    }
+    
     const workoutData = {
       name,
       exercises: exercises.filter(ex => ex.name.trim() !== ''),

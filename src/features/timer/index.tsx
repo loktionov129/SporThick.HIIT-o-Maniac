@@ -13,6 +13,7 @@ const TimerScreen: React.FC = () => {
   const navigate = useNavigate();
   const selectedWorkoutId = searchParams.get('workoutId');
   const workouts = useWorkoutStore((state) => state.workouts);
+  const addHistoryEntry = useWorkoutStore((state) => state.addHistoryEntry);
   const workout = selectedWorkoutId ? workouts.find(w => w.id === selectedWorkoutId) : null;
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
@@ -20,6 +21,7 @@ const TimerScreen: React.FC = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [currentRound, setCurrentRound] = useState(1);
   const [isResting, setIsResting] = useState(false);
+  const [wasStarted, setWasStarted] = useState(false);
 
   const currentExercise = workout?.exercises[currentExerciseIndex];
 
@@ -73,6 +75,30 @@ const TimerScreen: React.FC = () => {
     return () => clearInterval(interval!);
   }, [isRunning, remainingTime, currentExerciseIndex, currentRound, isResting, workout]);
 
+  const isFinished = wasStarted && currentRound >= (workout?.rounds || 1) && 
+                     currentExerciseIndex >= (workout?.exercises.length || 1) - 1 && 
+                     remainingTime === 0 && !isResting;
+
+  const hasSaved = React.useRef(false);
+  useEffect(() => {
+    if (isFinished && workout && !hasSaved.current) {
+      const exercisesTime = workout.exercises.reduce((acc, ex) => acc + ex.duration, 0);
+      const totalRestTime = workout.exercises.length * (workout.restDuration || 0);
+      const totalTime = (exercisesTime + totalRestTime) * (workout.rounds || 1);
+      console.log('saved');
+      hasSaved.current = true;
+
+      addHistoryEntry({
+        id: Date.now().toString(),
+        workoutId: workout.id,
+        workoutName: workout.name,
+        timestamp: Date.now(),
+        totalTime,
+        totalRounds: workout.rounds,
+      });
+    }
+  }, [isFinished, workout, addHistoryEntry]);
+
   if (!workout) {
     return (
       <FullScreenCenter>
@@ -84,10 +110,6 @@ const TimerScreen: React.FC = () => {
       </FullScreenCenter>
     );
   }
-
-  const isFinished = currentRound >= (workout?.rounds || 1) && 
-                     currentExerciseIndex >= (workout?.exercises.length || 1) - 1 && 
-                     remainingTime === 0 && !isResting;
 
   if (isFinished) {
     const totalExercisesTime = workout.exercises.reduce((acc, ex) => acc + ex.duration, 0);
@@ -149,7 +171,7 @@ const TimerScreen: React.FC = () => {
       <div className="flex items-center gap-4 w-full max-w-sm">
         <Button 
           variant="secondary" 
-          onClick={() => { setIsRunning(false); setIsResting(false); setCurrentExerciseIndex(0); setRemainingTime(workout.exercises[0].duration); setCurrentRound(1)}}
+          onClick={() => { setIsRunning(false); setIsResting(false); setCurrentExerciseIndex(0); setRemainingTime(workout.exercises[0].duration); setCurrentRound(1); setWasStarted(false);}}
           className="p-5"
         >
           <RotateCcw size={24} />
@@ -157,7 +179,7 @@ const TimerScreen: React.FC = () => {
         
         <Button 
           variant={isRunning ? 'secondary' : 'primary'}
-          onClick={() => setIsRunning(!isRunning)}
+          onClick={() => {setWasStarted(true); setIsRunning(!isRunning)}}
           className="flex-1 py-5 text-lg uppercase tracking-[0.2em]"
         >
           {isRunning ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" />}
