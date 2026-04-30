@@ -18,6 +18,7 @@ interface WorkoutState {
   setFilter(query: string): void;
   addHistoryEntry: (entry: WorkoutHistoryEntry) => void;
   clearHistory: () => void;
+  deleteHistoryEntry: (id: string) => void;
 }
 
 const useWorkoutStore = create<WorkoutState>()(persist(
@@ -28,6 +29,9 @@ const useWorkoutStore = create<WorkoutState>()(persist(
       history: [entry, ...state.history]
     })),
     clearHistory: () => set({ history: [] }),
+    deleteHistoryEntry: (id) => set((state) => ({
+      history: state.history.filter((entry) => entry.id !== id)
+    })),
     settings: { 
       soundEnabled: true,
       vibrationEnabled: false 
