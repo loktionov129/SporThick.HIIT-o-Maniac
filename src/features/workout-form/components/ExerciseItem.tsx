@@ -22,7 +22,7 @@ export const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, index, onU
         type="text"
         value={exercise.name}
         onChange={(e) => onUpdate(exercise.id, 'name', e.target.value)}
-        placeholder="Название упражнения"
+        placeholder="Напр. Анжуманя"
         className="flex-1 bg-transparent text-white font-bold focus:outline-none placeholder:text-slate-800"
       />
 
