@@ -16,7 +16,6 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, onStart, onEd
       onClick={() => onStart(workout.id)} 
       className="group relative"
     >
-      {/* Акцентная полоска */}
       <div className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-blue-500 rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity" />
 
       <div className="flex items-center justify-between gap-4">
