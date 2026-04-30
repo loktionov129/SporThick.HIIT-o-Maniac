@@ -9,11 +9,12 @@ export const useWorkoutTimer = (workout: Workout | null, onFinish: (totalTime: n
   const [currentRound, setRound] = useState(1);
   const [isResting, setIsResting] = useState(false);
   const [wasStarted, setWasStarted] = useState(false);
-  
   const lastTickRef = useRef<number>(Date.now());
 
   useEffect(() => {
-    if (workout && !wasStarted) setRemainingTime(workout.exercises[0].duration);
+    if (workout && !wasStarted) {
+      setRemainingTime(workout.exercises[0].duration);
+    }
   }, [workout, wasStarted]);
 
   useEffect(() => {
@@ -26,7 +27,9 @@ export const useWorkoutTimer = (workout: Workout | null, onFinish: (totalTime: n
         if (delta >= 1) {
           setRemainingTime(prev => {
             const next = Math.max(0, prev - delta);
-            if (next <= 3 && next > 0 && prev > 3) playSignal('COUNTDOWN');
+            if (Math.floor(next) < Math.floor(prev) && next <= 3 && next > 0) {
+              playSignal('COUNTDOWN');
+            }
             return next;
           });
           lastTickRef.current = now;
