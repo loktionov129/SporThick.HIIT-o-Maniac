@@ -19,6 +19,8 @@ interface WorkoutState {
   addHistoryEntry: (entry: WorkoutHistoryEntry) => void;
   clearHistory: () => void;
   deleteHistoryEntry: (id: string) => void;
+  importData: (data: { workouts: Workout[], history: WorkoutHistoryEntry[] }) => void;
+  resetAll: () => void;
 }
 
 const useWorkoutStore = create<WorkoutState>()(persist(
@@ -64,6 +66,16 @@ const useWorkoutStore = create<WorkoutState>()(persist(
     })),
 
     setFilter: (query) => set({ filterQuery: query }),
+    importData: (data) => set({ 
+      workouts: data.workouts || [], 
+      history: data.history || [] 
+    }),
+    resetAll: () => {
+      if (confirm('ВНИМАНИЕ! Это удалит ВСЕ твои тренировки и всю историю без возможности восстановления. Вы уверены?')) {
+        set({ workouts: [], history: [] });
+        alert('Все данные стерты. Начинаем с чистого листа! 🚀');
+      }
+    },
   }),
   {
     name: 'workout_store'

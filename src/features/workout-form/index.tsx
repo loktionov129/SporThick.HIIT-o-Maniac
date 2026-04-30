@@ -8,7 +8,7 @@ import { ExerciseItem } from './components/ExerciseItem';
 import { TimerInput } from '../../components/ui/TimerInput';
 import { PlusMinusInput } from '../../components/ui/PlusMinusInput';
 
-const CreateEditWorkoutScreen: React.FC = () => {
+export const CreateEditWorkoutScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
   const workoutId = searchParams.get('workoutId');
   const navigate = useNavigate();
@@ -189,5 +189,3 @@ const CreateEditWorkoutScreen: React.FC = () => {
     </div>
   );
 };
-
-export default CreateEditWorkoutScreen;

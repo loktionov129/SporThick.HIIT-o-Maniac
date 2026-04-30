@@ -7,7 +7,7 @@ import { WorkoutCard } from './components/WorkoutCard';
 import { EmptyWorkouts } from './components/EmptyWorkouts';
 import { Input } from '../../components/ui/Input';
 
-const WorkoutList: React.FC = () => {
+export const WorkoutList: React.FC = () => {
   const { workouts, reorderWorkouts, deleteWorkout } = useWorkoutStore();
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();

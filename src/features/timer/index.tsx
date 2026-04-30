@@ -8,7 +8,7 @@ import { Button } from '../../components/ui/Button';
 import { playSignal } from '../../utils/beep';
 import { FullScreenCenter } from './components/FullScreenCenter';
 
-const TimerScreen: React.FC = () => {
+export const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const selectedWorkoutId = searchParams.get('workoutId');
@@ -189,5 +189,3 @@ const TimerScreen: React.FC = () => {
     </div>
   );
 };
-
-export default TimerScreen;

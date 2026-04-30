@@ -7,7 +7,7 @@ export const BottomNav: React.FC = () => {
     { to: '/', icon: <Dumbbell size={24} />, label: 'Зал' },
     { to: '/history', icon: <History size={24} />, label: 'История' },
     { to: '/theme', icon: <SunMoon size={24} />, label: 'Тема', isPlaceholder: true },
-    { to: '/data', icon: <DownloadCloud size={24} />, label: 'Данные', isPlaceholder: true },
+    { to: '/data', icon: <DownloadCloud size={24} />, label: 'Данные' },
   ];
 
   return (
