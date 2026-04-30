@@ -5,7 +5,7 @@ interface ExerciseSectionProps {
   exercises: any[];
   onAdd: () => void;
   onRemove: (id: string) => void;
-  onUpdate: (id: string, field: string, value: any) => void;
+  onUpdate: (id: string, field: 'name' | 'duration', value: string | number) => void;
   onDragEnd: (result: any) => void;
 }
 
