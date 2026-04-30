@@ -13,15 +13,16 @@ import { NotFoundView } from './components/NotFoundView';
 export const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  
   const { workouts } = useWorkoutStore();
   const { addHistoryEntry } = useWorkoutActions();
   
   const workout = workouts.find(w => w.id === searchParams.get('workoutId')) || null;
 
   const onFinish = useCallback((totalTime: number) => {
-    if (!workout) return;
-
+    if (!workout) {
+      return;
+    }
+    
     addHistoryEntry({
       id: Date.now().toString(),
       workoutId: workout.id,
@@ -38,7 +39,6 @@ export const TimerScreen: React.FC = () => {
   if (!workout) return <NotFoundView onBack={() => navigate('/')} />;
 
   const isFinished = state.wasStarted && state.remainingTime === 0 && !state.isRunning;
-  
   if (isFinished) {
     return <TimerFinished onFinish={() => navigate('/')} totalTime={0} totalRounds={workout.rounds} />;
   }
@@ -47,36 +47,43 @@ export const TimerScreen: React.FC = () => {
   const totalDuration = state.isResting ? (workout.restDuration || 1) : (currentEx?.duration || 1);
 
   return (
-    <div className="flex flex-col items-center min-h-[80svh] justify-center relative py-12 animate-in fade-in zoom-in-95 duration-500">
+    <div className="flex flex-col h-[100svh] relative overflow-hidden bg-surface-main animate-in fade-in duration-500">
       
-      <TimerHeader 
-        round={state.currentRound} 
-        totalRounds={workout.rounds}
-        currentEx={state.currentExerciseIndex} 
-        totalEx={workout.exercises.length}
-        isResting={state.isResting} 
-        onBack={() => navigate(-1)}
-      />
-
-      <div className="flex flex-col items-center w-full space-y-12">
-        <TimerDisplay 
+      <div className="w-full max-w-md mx-auto px-4 pt-4 z-20">
+        <TimerHeader 
+          round={state.currentRound} 
+          totalRounds={workout.rounds}
+          currentEx={state.currentExerciseIndex} 
+          totalEx={workout.exercises.length}
           isResting={state.isResting} 
-          workoutName={workout.name} 
-          exerciseName={currentEx?.name} 
-        />
-
-        <ProgressCircle 
-          remainingTime={state.remainingTime} 
-          progress={(state.remainingTime / totalDuration) * 100} 
-          isResting={state.isResting}
-        />
-
-        <TimerControls 
-          isRunning={state.isRunning}
-          onToggle={actions.toggleRunning}
-          onReset={actions.handleReset}
+          onBack={() => navigate(-1)}
         />
       </div>
+
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md mx-auto px-6 -mt-10 sm:-mt-16">
+        <div className="w-full space-y-10 sm:space-y-14">
+          <TimerDisplay 
+            isResting={state.isResting} 
+            workoutName={workout.name} 
+            exerciseName={currentEx?.name} 
+          />
+
+          <div className="flex justify-center transform scale-90 sm:scale-100">
+            <ProgressCircle 
+              remainingTime={state.remainingTime} 
+              progress={(state.remainingTime / totalDuration) * 100} 
+              isResting={state.isResting}
+            />
+          </div>
+        </div>
+      </div>
+
+      <TimerControls 
+        isRunning={state.isRunning}
+        onToggle={actions.toggleRunning}
+        onReset={actions.handleReset}
+      />
+      
     </div>
   );
 };

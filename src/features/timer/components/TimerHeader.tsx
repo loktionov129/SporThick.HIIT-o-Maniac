@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { SoundToggle } from '../../../components/ui/SoundToggle';
 
 interface Props {
   round: number;
@@ -10,27 +11,31 @@ interface Props {
 }
 
 export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting, onBack }: Props) => (
-  <div className="w-full absolute -top-4 left-0 flex items-center justify-between px-2 transition-colors duration-300">
+  <div className="w-full flex items-center justify-between mb-6 sm:mb-10 transition-colors duration-300">
     <button 
       onClick={onBack} 
-      className="cursor-pointer p-3.5 bg-surface-accent/80 backdrop-blur-md border border-text-muted/10 text-text-muted hover:text-text-primary rounded-2xl active:scale-90 transition-all shadow-sm"
+      className="cursor-pointer p-3 bg-surface-accent/50 backdrop-blur-md border border-text-muted/10 text-text-muted hover:text-text-primary rounded-2xl active:scale-90 transition-all"
       aria-label="Назад"
     >
-      <ArrowLeft size={20} strokeWidth={2.5} />
+      <ArrowLeft size={22} strokeWidth={2.5} />
     </button>
 
-    <div className="text-right space-y-0.5">
-      <p className="text-text-muted font-black uppercase tracking-[0.2em] text-[10px] opacity-70 italic">
+    <div className="flex flex-col items-center text-center">
+      <p className="text-text-muted font-black uppercase tracking-[0.2em] text-[10px] opacity-60 italic mb-1">
         Круг {round} <span className="opacity-40">/</span> {totalRounds}
       </p>
       
-      <p className="text-brand-blue font-black text-sm uppercase tracking-wider italic leading-none">
-        {isResting ? (
-          <span className="text-brand-emerald">ОТДЫХ</span>
-        ) : (
-          `УПР. ${currentEx + 1} / ${totalEx}`
-        )}
-      </p>
+      <div className={`px-4 py-1.5 rounded-full border shadow-lg transition-colors duration-500 ${
+        isResting ? 'bg-brand-emerald/10 border-brand-emerald/20' : 'bg-brand-blue/10 border-brand-blue/20'
+      }`}>
+        <p className={`font-black text-[11px] uppercase tracking-widest italic leading-none ${
+          isResting ? 'text-brand-emerald' : 'text-brand-blue'
+        }`}>
+          {isResting ? 'ОТДЫХ' : `УПР. ${currentEx + 1} / ${totalEx}`}
+        </p>
+      </div>
     </div>
+
+    <SoundToggle className="!bg-surface-accent/50 backdrop-blur-md !border-text-muted/10 shadow-sm" />
   </div>
 );

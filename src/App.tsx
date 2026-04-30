@@ -27,7 +27,7 @@ const AppContent: React.FC = () => {
         </Route>
 
         <Route path="/timer" element={
-          <PageContainer withHeader maxWidth="sm" className="animate-in fade-in zoom-in-95">
+          <PageContainer maxWidth="sm" className="animate-in fade-in zoom-in-95">
             <TimerScreen />
           </PageContainer>
         } />

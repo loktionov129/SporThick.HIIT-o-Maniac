@@ -1,18 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Activity, Volume2, VolumeX } from 'lucide-react';
-import { useWorkoutActions, useWorkoutStore } from '../../store/useWorkoutStore';
-import { useToastStore } from '../../store/useToastStore';
+import { Activity } from 'lucide-react';
+import { SoundToggle } from '../ui/SoundToggle';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
-  const { toggleSound } = useWorkoutActions();
-  const soundEnabled = useWorkoutStore((s) => s.settings.soundEnabled);
-  const showToast = useToastStore((s) => s.showToast);
-  const handleToggleSound = () => {
-    toggleSound();
-    showToast(soundEnabled ? 'Звук выключен' : 'Звук включен', 'info');
-  };
 
   return (
     <header className="w-full sticky top-0 z-50 bg-surface-main/80 backdrop-blur-xl transition-colors duration-300">
@@ -40,25 +32,7 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        <button 
-          onClick={handleToggleSound}
-          className={`
-            cursor-pointer relative flex items-center justify-center p-3 rounded-2xl transition-all duration-300 active:scale-90 border
-            ${soundEnabled 
-              ? 'bg-brand-blue/10 border-brand-blue/20 text-brand-blue shadow-[0_0_15px_rgba(59,130,246,0.1)]' 
-              : 'bg-surface-accent border-surface-card text-text-muted'}
-          `}
-          title={soundEnabled ? "Выключить звук" : "Включить звук"}
-        >
-          {soundEnabled ? (
-            <div className="relative">
-               <div className="absolute inset-0 blur-md bg-brand-blue/50" />
-               <Volume2 size={22} className="relative z-10" />
-            </div>
-          ) : (
-            <VolumeX size={22} />
-          )}
-        </button>
+        <SoundToggle />
       </div>
 
       <div className="w-full h-px bg-gradient-to-r from-transparent via-text-muted/10 to-transparent" />
