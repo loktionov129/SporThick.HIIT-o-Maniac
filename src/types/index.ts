@@ -1,14 +1,15 @@
 export interface Exercise {
   id: string;
   name: string;
-  duration: number; // in seconds
+  duration: number;
 }
 
 export interface Workout {
   id: string;
   name: string;
   exercises: Exercise[];
-  rounds: number; // 0 means infinite
+  rounds: number;
+  restDuration: number;
 }
 
 export interface AppState {
