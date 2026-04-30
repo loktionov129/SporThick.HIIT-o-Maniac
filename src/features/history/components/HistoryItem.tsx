@@ -3,7 +3,9 @@ import { Calendar, Trash2, X } from 'lucide-react';
 import { Card } from '../../../components/ui/Card';
 import { formatDate, formatDuration } from '../../../utils/formatters';
 import type { WorkoutHistoryEntry } from '../../../types';
+import { useModalStore } from '../../../store/useModalStore';
 import { Stat } from './Stat';
+import { useToastStore } from '../../../store/useToastStore';
 
 interface Props {
   entry: WorkoutHistoryEntry;
@@ -11,8 +13,19 @@ interface Props {
 }
 
 export const HistoryItem = ({ entry, onDelete }: Props) => {
+  const openModal = useModalStore(s => s.openModal);
+  const showToast = useToastStore((s) => s.showToast);
   const handleDelete = () => {
-    if (window.confirm('Удалить эту запись?')) onDelete(entry.id);
+    openModal({
+      title: "Удалить?",
+      message: "Эта запись исчезнет навсегда. Ты уверен?",
+      confirmText: "Удалить",
+      variant: "danger",
+      onConfirm: () => {
+        onDelete(entry.id);
+        showToast('Запись удалена', 'info');
+      },
+    });
   };
 
   return (

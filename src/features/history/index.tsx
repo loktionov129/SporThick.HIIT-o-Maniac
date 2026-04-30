@@ -3,11 +3,13 @@ import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore'
 import { EmptyHistory } from './components/EmptyHistory';
 import { HistoryItem } from './components/HistoryItem';
 import { useToastStore } from '../../store/useToastStore';
+import { useModalStore } from '../../store/useModalStore';
 
 export const HistoryScreen = () => {
   const history = useWorkoutStore((s) => s.history);
   const { clearHistory, deleteHistoryEntry } = useWorkoutActions();
   const showToast = useToastStore((s) => s.showToast);
+  const openModal = useModalStore(s => s.openModal);
 
   if (history.length === 0) {
     return <EmptyHistory />;
@@ -19,10 +21,16 @@ export const HistoryScreen = () => {
   }
 
   const handleClearAll = () => {
-    if (window.confirm('Очистить всю историю тренировок?')) {
-      clearHistory();
-      showToast('История очищена', 'error');
-    }
+    openModal({
+      title: "Очистить?",
+      message: "История тренировок исчезнет навсегда. Ты уверен?",
+      confirmText: "Очистить",
+      variant: "danger",
+      onConfirm: () => {
+        clearHistory();
+        showToast('История очищена', 'error');
+      },
+    });
   };
 
   return (

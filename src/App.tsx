@@ -1,9 +1,10 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { ToastContainer } from './components/ui/ToastContainer';
-import { PageContainer } from './components/Layout/PageContainer';
+import { ConfirmModal } from './components/ui/ConfirmModal';
 import { MainLayout } from './components/Layout/MainLayout';
+import { PageContainer } from './components/Layout/PageContainer';
+import { ToastContainer } from './components/ui/ToastContainer';
 import { WorkoutList } from './features/workout-list';
 import { CreateEditWorkoutScreen } from './features/workout-form';
 import { TimerScreen } from './features/timer';
@@ -47,6 +48,7 @@ export const App: React.FC = () => {
       <div className="min-h-screen bg-surface-main transition-colors duration-300">
         <AppContent />
         <ToastContainer />
+        <ConfirmModal />
       </div>
     </Router>
   );

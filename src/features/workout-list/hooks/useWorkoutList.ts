@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
 import type { DropResult } from '@hello-pangea/dnd';
+import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
 import { useToastStore } from '../../../store/useToastStore';
+import { useModalStore } from '../../../store/useModalStore';
 
 export const useWorkoutList = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export const useWorkoutList = () => {
   const { reorderWorkouts, deleteWorkout } = useWorkoutActions();
   const [searchQuery, setSearchQuery] = useState('');
   const showToast = useToastStore((s) => s.showToast);
+  const openModal = useModalStore(s => s.openModal);
 
   const filteredWorkouts = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
@@ -33,10 +35,16 @@ export const useWorkoutList = () => {
     edit: (id: string) => navigate(`/create-edit-workout?workoutId=${id}`),
     create: () => navigate('/create-edit-workout'),
     delete: (id: string) => {
-      if (window.confirm('Удалить эту тренировку?')) {
-        deleteWorkout(id);
-        showToast('Тренировка удалена', 'info')
-      }
+      openModal({
+        title: "Удалить?",
+        message: "Эта тренировка исчезнет навсегда. Ты уверен?",
+        confirmText: "Удалить",
+        variant: "primary",
+        onConfirm: () => {
+          deleteWorkout(id);
+          showToast('Тренировка удалена', 'info');
+        },
+      });
     }
   };
 

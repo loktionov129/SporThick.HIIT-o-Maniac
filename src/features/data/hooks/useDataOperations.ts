@@ -2,8 +2,10 @@ import { useRef } from 'react';
 import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
 import { downloadJson } from '../../../utils/fileActions';
 import { useToastStore } from '../../../store/useToastStore';
+import { useModalStore } from '../../../store/useModalStore';
 
 export const useDataOperations = () => {
+  const openModal = useModalStore(s => s.openModal);
   const { workouts, history } = useWorkoutStore();
   const { importData, resetAll } = useWorkoutActions();
   const showToast = useToastStore((s) => s.showToast);
@@ -31,25 +33,41 @@ export const useDataOperations = () => {
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target?.result as string);
-        if (!Array.isArray(json.workouts) || !Array.isArray(json.history)) throw new Error();
-
-        if (window.confirm('Внимание! Это полностью заменит текущие данные. Продолжить?')) {
-          importData(json);
-          showToast('Данные успешно импортированы', 'success');
+        if (!Array.isArray(json.workouts) || !Array.isArray(json.history)) {
+          throw new Error();
         }
+
+        openModal({
+          title: "Продолжить?",
+          message: "Внимание! Это полностью заменит текущие данные.",
+          confirmText: "Продолжить",
+          variant: "primary",
+          onConfirm: () => {
+            importData(json);
+            showToast('Данные успешно импортированы', 'success');
+          },
+        });
       } catch {
         showToast('Ошибка: Файл поврежден или имеет неверный формат.', 'error');
       }
     };
     reader.readAsText(file);
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleReset = () => {
-    if (window.confirm('ВНИМАНИЕ! Это удалит ВСЕ данные. Ты уверен?')) {
-      resetAll();
-      showToast('Приложение сброшено', 'error');
-    }
+    openModal({
+      title: "Сбросить?",
+      message: "ВНИМАНИЕ! Это удалит ВСЕ данные. Ты уверен?",
+      confirmText: "Сбросить",
+      variant: "danger",
+      onConfirm: () => {
+        resetAll();
+        showToast('Приложение сброшено', 'error');
+      },
+    });
   };
 
   return {
