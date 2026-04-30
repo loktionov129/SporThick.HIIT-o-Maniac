@@ -69,7 +69,6 @@ export const CreateEditWorkoutScreen: React.FC = () => {
 
   return (
     <div className="pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Header */}
       <div className="flex items-center justify-between mb-12 py-2">
         <button onClick={() => navigate(-1)} className="cursor-pointer p-2 text-slate-400 hover:text-white transition-colors">
           <ArrowLeft size={24} />
@@ -81,25 +80,21 @@ export const CreateEditWorkoutScreen: React.FC = () => {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-10">
-        {/* Название */}
         <div className="space-y-3">
           <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold ml-1">Название тренировки</label>
           <div className="relative group">
-            {/* Тот самый эффект свечения при фокусе из макета */}
             <div className="absolute -inset-0.5 bg-blue-500/20 rounded-2xl blur opacity-0 group-focus-within:opacity-100 transition duration-500"></div>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="123"
+              placeholder="Разминка"
               className="relative w-full bg-[#050b18] border border-slate-800 text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500/50 transition-all text-lg font-bold"
             />
           </div>
         </div>
 
-        {/* Секция параметров Раунды / Отдых */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Раунды */}
           <div className="bg-[#0b1224]/50 border border-slate-800/60 p-6 rounded-[24px] flex items-center justify-between">
             <div className="space-y-1">
               <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold italic">Раунды</label>
@@ -109,7 +104,6 @@ export const CreateEditWorkoutScreen: React.FC = () => {
             <PlusMinusInput min={0} value={rounds} onChange={setRounds} />
           </div>
 
-          {/* Отдых */}
           <div className="bg-[#0b1224]/50 border border-slate-800/60 p-5 rounded-2xl flex items-center justify-between">
             <div className="flex flex-col">
               <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold ml-1">Отдых</label>
@@ -120,7 +114,6 @@ export const CreateEditWorkoutScreen: React.FC = () => {
           </div>
         </div>
 
-        {/* Список упражнений */}
         <div className="space-y-5">
           <div className="flex items-center justify-between px-2">
             <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold italic">Упражнения</label>
@@ -143,7 +136,6 @@ export const CreateEditWorkoutScreen: React.FC = () => {
                           {...provided.draggableProps}
                           className={`flex items-center gap-2 ${snapshot.isDragging ? 'z-50' : ''}`}
                         >
-                          {/* Ручка захвата */}
                           <div 
                             {...provided.dragHandleProps} 
                             className="p-1 text-slate-700 hover:text-slate-500 cursor-grab active:cursor-grabbing"

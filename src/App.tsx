@@ -46,7 +46,7 @@ const AppContent: React.FC = () => {
         <Route 
           path="/timer" 
           element={
-            <PageContainer maxWidth="sm">
+            <PageContainer withHeader maxWidth="sm">
               <TimerScreen />
             </PageContainer>
           } 

@@ -1,13 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Activity } from 'lucide-react';
+import { Activity, Volume2, VolumeX } from 'lucide-react'; // Добавили иконки звука
+import { useWorkoutStore } from '../store/useWorkoutStore'; // Подключаем стор
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
+  const { settings, toggleSound } = useWorkoutStore(); // Достаем логику звука
 
   return (
     <header className="w-full sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl">
       <div className="flex items-center justify-between py-6">
+        {/* LOGO */}
         <div 
           className="flex items-center gap-3 cursor-pointer group" 
           onClick={() => navigate('/')}
@@ -31,12 +34,25 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
+        {/* SOUND TOGGLE */}
         <button 
-          onClick={() => navigate('/create-edit-workout')} 
-          className="cursor-pointer group flex items-center gap-2.5 bg-white text-slate-950 px-5 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all duration-300 hover:bg-blue-50 hover:scale-[1.02] active:scale-95 shadow-2xl shadow-white/5"
+          onClick={toggleSound}
+          className={`
+            cursor-pointer relative flex items-center justify-center p-3 rounded-2xl transition-all duration-300 active:scale-90 border
+            ${settings.soundEnabled 
+              ? 'bg-blue-600/10 border-blue-500/20 text-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.1)]' 
+              : 'bg-slate-900/50 border-slate-800 text-slate-500'}
+          `}
+          title={settings.soundEnabled ? "Выключить звук" : "Включить звук"}
         >
-          <Plus size={18} className="group-hover:rotate-90 transition-transform duration-500" />
-          <span className="hidden sm:inline">Add Workout</span>
+          {settings.soundEnabled ? (
+            <div className="relative">
+               <div className="absolute inset-0 blur-md bg-blue-500/50" />
+               <Volume2 size={22} className="relative z-10" />
+            </div>
+          ) : (
+            <VolumeX size={22} />
+          )}
         </button>
       </div>
 

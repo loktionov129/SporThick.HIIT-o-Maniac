@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
-import { Search, GripVertical } from 'lucide-react';
+import { Search, GripVertical, Plus } from 'lucide-react'; // Добавил Plus
 import { useWorkoutStore } from '../../store/useWorkoutStore';
 import { WorkoutCard } from './components/WorkoutCard';
 import { EmptyWorkouts } from './components/EmptyWorkouts';
@@ -11,6 +11,7 @@ export const WorkoutList: React.FC = () => {
   const { workouts, reorderWorkouts, deleteWorkout } = useWorkoutStore();
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
   const filteredWorkouts = useMemo(() => {
     return workouts.filter((w) => {
       const query = searchQuery.toLowerCase();
@@ -18,6 +19,7 @@ export const WorkoutList: React.FC = () => {
        || w.exercises.some(e => e.name.toLowerCase().includes(query));
     });
   }, [workouts, searchQuery]);
+
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     reorderWorkouts(result.source.index, result.destination.index);
@@ -35,16 +37,28 @@ export const WorkoutList: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
-      <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
-        <Input
-          placeholder="Поиск тренировки..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-12"
-        />
+      {/* ПАНЕЛЬ УПРАВЛЕНИЯ: Поиск + Добавить */}
+      <div className="flex gap-3">
+        <div className="relative flex-1">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
+          <Input
+            placeholder="Поиск тренировки..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-12 py-6" // Сделал инпут чуть выше для солидности
+          />
+        </div>
+
+        <button 
+          onClick={() => navigate('/create-edit-workout')}
+          className="cursor-pointer group flex items-center justify-center bg-white text-slate-950 px-5 rounded-2xl transition-all duration-300 hover:bg-blue-50 hover:scale-[1.02] active:scale-95 shadow-xl shadow-white/5"
+          title="Создать тренировку"
+        >
+          <Plus size={24} className="group-hover:rotate-90 transition-transform duration-500" />
+        </button>
       </div>
 
+      {/* СПИСОК ТРЕНИРОВОК */}
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="workouts-list">
           {(provided) => (
@@ -79,7 +93,6 @@ export const WorkoutList: React.FC = () => {
                       
                       <div className="flex-1">
                         <WorkoutCard
-                          key={workout.id}
                           workout={workout}
                           onStart={handleStart}
                           onEdit={handleEdit}

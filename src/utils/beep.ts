@@ -1,6 +1,13 @@
+import { useWorkoutStore } from "../store/useWorkoutStore";
+
 const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
 
 export const playSignal = (type: 'START_WORK' | 'END_WORK' | 'END_ROUND' | 'FINISH' | 'COUNTDOWN') => {
+  const isSoundEnabled = useWorkoutStore.getState().settings.soundEnabled;
+  
+  if (!isSoundEnabled) {
+    return;
+  }
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
 
