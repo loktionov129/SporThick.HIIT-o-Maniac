@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Play, Pause, RotateCcw, ArrowLeft, Zap, Coffee } from 'lucide-react';
+import { Play, Pause, RotateCcw, ArrowLeft, Zap, Coffee, AlertCircle } from 'lucide-react';
 import useWorkoutStore from '../../store/useWorkoutStore';
 import { ProgressCircle } from './components/ProgressCircle';
 import { TimerFinished } from './components/TimerFinished';
 import { Button } from '../../components/ui/Button';
 import { playSignal } from '../../utils/beep';
+import { FullScreenCenter } from './components/FullScreenCenter';
 
 const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -72,12 +73,37 @@ const TimerScreen: React.FC = () => {
     return () => clearInterval(interval!);
   }, [isRunning, remainingTime, currentExerciseIndex, currentRound, isResting, workout]);
 
+  if (!workout) {
+    return (
+      <FullScreenCenter>
+        <div className="bg-red-500/10 p-6 rounded-full mb-6 border border-red-500/20">
+          <AlertCircle className="text-red-500 w-12 h-12" />
+        </div>
+        <h2 className="text-2xl font-black text-white uppercase tracking-tighter mb-8">Тренировка не найдена</h2>
+        <Button className="mt-10" variant="secondary" onClick={() => navigate('/')}>Назад в меню</Button>
+      </FullScreenCenter>
+    );
+  }
+
   const isFinished = currentRound >= (workout?.rounds || 1) && 
                      currentExerciseIndex >= (workout?.exercises.length || 1) - 1 && 
                      remainingTime === 0 && !isResting;
 
-  if (!workout) return <div className="text-white text-center py-20">Workout not found</div>;
-  if (isFinished) return <TimerFinished onFinish={() => navigate('/')} />;
+  if (isFinished) {
+    const totalExercisesTime = workout.exercises.reduce((acc, ex) => acc + ex.duration, 0);
+    const totalRestTimePerRound = (workout.exercises.length) * (workout.restDuration || 0);
+    const totalWorkoutSeconds = (totalExercisesTime + totalRestTimePerRound) * (workout.rounds || 1);
+
+    return (
+      <FullScreenCenter>
+        <TimerFinished 
+          onFinish={() => navigate('/')} 
+          totalTime={totalWorkoutSeconds}
+          totalRounds={workout.rounds || 1}
+        />
+      </FullScreenCenter>
+    );
+  }
 
   const totalDuration = isResting ? (workout.restDuration || 1) : (currentExercise?.duration || 1);
   const progress = (remainingTime / totalDuration) * 100;
