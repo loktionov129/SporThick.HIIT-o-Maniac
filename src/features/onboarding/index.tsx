@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Share, Library, Settings } from 'lucide-react';
 import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
