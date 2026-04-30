@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Activity, Volume2, VolumeX } from 'lucide-react'; // Добавили иконки звука
-import { useWorkoutStore } from '../store/useWorkoutStore'; // Подключаем стор
+import { useWorkoutStore } from '../../store/useWorkoutStore'; // Подключаем стор
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -10,7 +10,6 @@ export const Header: React.FC = () => {
   return (
     <header className="w-full sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl">
       <div className="flex items-center justify-between py-6">
-        {/* LOGO */}
         <div 
           className="flex items-center gap-3 cursor-pointer group" 
           onClick={() => navigate('/')}
@@ -34,7 +33,6 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* SOUND TOGGLE */}
         <button 
           onClick={toggleSound}
           className={`
