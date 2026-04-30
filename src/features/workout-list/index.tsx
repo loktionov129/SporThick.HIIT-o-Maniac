@@ -21,7 +21,7 @@ export const WorkoutList: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 pb-24 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-6 pb-32 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <SearchHeader 
         query={searchQuery} 
         onQueryChange={setSearchQuery} 

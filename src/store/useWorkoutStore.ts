@@ -12,6 +12,7 @@ interface WorkoutState {
   };
   filterQuery: string;
   actions: {
+    addPreset: (preset: Omit<Workout, 'id'>) => void;
     addWorkout: (workout: Workout) => void;
     reorderWorkouts: (startIndex: number, endIndex: number) => void;
     setFilter: (query: string) => void;
@@ -40,6 +41,12 @@ export const useWorkoutStore = create<WorkoutState>()(
       filterQuery: '',
 
       actions: {
+        addPreset: (preset) => set((state) => ({
+          workouts: [
+            ...state.workouts,
+            { ...preset, id: `workout-${Date.now()}-${Math.random().toString(36).substr(2, 9)}` }
+          ]
+        })),
         addWorkout: (workout) => set((state) => ({ 
           workouts: [
             ...state.workouts, 

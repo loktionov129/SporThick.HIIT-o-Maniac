@@ -2,13 +2,14 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { PageContainer } from './components/Layout/PageContainer';
+import { MainLayout } from './components/Layout/MainLayout';
 import { WorkoutList } from './features/workout-list';
 import { CreateEditWorkoutScreen } from './features/workout-form';
 import { TimerScreen } from './features/timer';
 import { HistoryScreen } from './features/history';
 import { DataScreen } from './features/data';
+import { PresetsScreen } from './features/presets';
 import './App.css';
-import { MainLayout } from './components/Layout/MainLayout';
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const AppContent: React.FC = () => {
       <Routes location={location} key={location.pathname}>
         <Route element={<MainLayout />}>
           <Route path="/" element={<WorkoutList />} />
+          <Route path="/presets" element={<PresetsScreen  />} />
           <Route path="/history" element={<HistoryScreen />} />
           <Route path="/data" element={<DataScreen />} />
         </Route>

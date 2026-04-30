@@ -9,6 +9,7 @@ import { ExerciseSection } from './components/ExerciseSection';
 import { FormFooterActions } from './components/FormFooterActions';
 import { WorkoutFormHeader } from './components/WorkoutFormHeader';
 import { WorkoutNameInput } from './components/WorkoutNameInput';
+import { PresetsButton } from '../presets/components/PresetsButton';
 
 export const CreateEditWorkoutScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -23,6 +24,21 @@ export const CreateEditWorkoutScreen: React.FC = () => {
   return (
     <div className="pb-32 animate-in fade-in slide-in-from-bottom-6 duration-700 ease-out">
       <WorkoutFormHeader isEdit={!!workoutId} />
+
+      {!workoutId && (
+        <div className="mb-12 animate-in zoom-in-95 duration-700 delay-150">
+          <PresetsButton />
+          
+          <div className="relative mt-12 mb-4">
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+              <div className="w-full border-t border-text-muted/10"></div>
+            </div>
+            <div className="relative flex justify-center text-[10px] uppercase font-black tracking-[0.3em]">
+              <span className="bg-surface-main px-4 text-text-muted/30 italic">Или создай свою</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <form onSubmit={controls.handleSubmit} className="space-y-8 md:space-y-10">
         <WorkoutNameInput value={state.name} onChange={controls.setName} />
