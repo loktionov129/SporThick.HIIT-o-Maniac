@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Plus, ArrowLeft, Save, Minus, Clock } from 'lucide-react';
+import { Plus, ArrowLeft, Save, GripVertical  } from 'lucide-react';
+import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
 import useWorkoutStore from '../../store/useWorkoutStore';
 import { Button } from '../../components/ui/Button';
-import { Input } from '../../components/ui/Input';
 import { ExerciseItem } from './components/ExerciseItem';
 import { TimerInput } from '../../components/ui/TimerInput';
 import { PlusMinusInput } from '../../components/ui/PlusMinusInput';
@@ -53,6 +53,16 @@ const CreateEditWorkoutScreen: React.FC = () => {
 
   const updateExercise = (id: string, field: 'name' | 'duration', value: string | number) => {
     setExercises(exercises.map(ex => ex.id === id ? { ...ex, [field]: value } : ex));
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+    const items = Array.from(exercises);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setExercises(items);
   };
 
   return (
@@ -115,17 +125,47 @@ const CreateEditWorkoutScreen: React.FC = () => {
             <span className="text-[10px] text-blue-500 font-black uppercase tracking-widest">{exercises.length} всего</span>
           </div>
 
-          <div className="space-y-4">
-            {exercises.map((exercise, index) => (
-              <ExerciseItem
-                key={exercise.id}
-                index={index}
-                exercise={exercise}
-                onUpdate={updateExercise}
-                onRemove={removeExercise}
-              />
-            ))}
-          </div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="exercises-list">
+              {(provided) => (
+                <div 
+                  {...provided.droppableProps} 
+                  ref={provided.innerRef} 
+                  className="space-y-4"
+                >
+                  {exercises.map((exercise, index) => (
+                    <Draggable key={exercise.id} draggableId={exercise.id} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          className={`flex items-center gap-2 ${snapshot.isDragging ? 'z-50' : ''}`}
+                        >
+                          {/* Ручка захвата */}
+                          <div 
+                            {...provided.dragHandleProps} 
+                            className="p-1 text-slate-700 hover:text-slate-500 cursor-grab active:cursor-grabbing"
+                          >
+                            <GripVertical size={20} />
+                          </div>
+
+                          <div className="flex-1">
+                            <ExerciseItem
+                              index={index}
+                              exercise={exercise}
+                              onUpdate={updateExercise}
+                              onRemove={removeExercise}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
 
           <button
             type="button"
@@ -137,9 +177,11 @@ const CreateEditWorkoutScreen: React.FC = () => {
           </button>
         </div>
 
-        <div className="pt-8 flex gap-4">
-          <Button type="button" variant="ghost" className="flex-1" onClick={() => navigate('/')}>Отмена</Button>
-          <Button type="submit" variant="primary" className="flex-[2]"><Save size={20} /> Сохранить</Button>
+        <div className="sticky bottom-0 left-0 right-0 pt-6 pb-4 bg-gradient-to-t from-[#020617] via-[#020617] to-transparent">
+          <div className="pt-8 flex gap-4">
+            <Button type="button" variant="ghost" className="flex-1" onClick={() => navigate('/')}>Отмена</Button>
+            <Button type="submit" variant="primary" className="flex-[2]"><Save size={20} /> Сохранить</Button>
+          </div>
         </div>
       </form>
     </div>
