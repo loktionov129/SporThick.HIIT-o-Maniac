@@ -48,22 +48,19 @@ src/
 ## 🛠 Установка и запуск
 
    1. Клонирование и зависимости:
-   
+   ```
    git clone https://github.com/loktionov129/SporThick.HIIT-o-Maniac
    npm install
+   ```
    
    2. Запуск в режиме разработки:
-   
+   ```
    npm run dev
-   
+   ```
    3. Сборка PWA (Production):
-   
+   ```
    npm run build
-   
-   4. Проверка типов:
-   
-   npm run type-check
-   
+   ```
    
 ## 📱 Установка как PWA (iOS)
 
