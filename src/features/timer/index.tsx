@@ -33,6 +33,23 @@ export const TimerScreen: React.FC = () => {
   }, [workout]);
 
   useEffect(() => {
+  let lock: any = null;
+  const requestLock = async () => {
+    try {
+      if ('wakeLock' in navigator) {
+        lock = await (navigator as any).wakeLock.request('screen');
+      }
+    } catch (err) {}
+  };
+
+  if (isRunning) requestLock();
+  else lock?.release().then(() => lock = null);
+
+  return () => { lock?.release(); };
+}, [isRunning]);
+
+
+  useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
     
     if (isRunning) {
