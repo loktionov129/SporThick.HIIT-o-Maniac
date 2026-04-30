@@ -5,6 +5,8 @@ import useWorkoutStore from '../../store/useWorkoutStore';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { ExerciseItem } from './components/ExerciseItem';
+import { TimerInput } from '../../components/ui/TimerInput';
+import { PlusMinusInput } from '../../components/ui/PlusMinusInput';
 
 const CreateEditWorkoutScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -55,66 +57,65 @@ const CreateEditWorkoutScreen: React.FC = () => {
 
   return (
     <div className="pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex items-center justify-between mb-8">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-12 py-2">
         <button onClick={() => navigate(-1)} className="cursor-pointer p-2 text-slate-400 hover:text-white transition-colors">
           <ArrowLeft size={24} />
         </button>
-        <h2 className="text-xl font-black text-white uppercase tracking-tight text-center flex-1">
+        <h2 className="text-xl font-black text-white uppercase tracking-wider text-center flex-1">
           {workoutId ? 'Редактирование' : 'Новая тренировка'}
         </h2>
         <div className="w-10" />
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <Input
-          label="Название тренировки"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Напр. Утренняя жара"
-          required
-        />
-
-        {/* БЛОК НАСТРОЕК ТРЕНИРОВКИ */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* РАУНДЫ */}
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-between">
-            <div className="flex flex-col">
-              <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold ml-1">Раунды</label>
-              <p className="text-[10px] text-slate-600 mt-0.5 uppercase tracking-tighter">Круги упражнений</p>
-            </div>
-            <div className="flex items-center gap-3 bg-slate-800/50 p-1.5 rounded-xl border border-slate-700">
-              <button type="button" onClick={() => setRounds(Math.max(1, rounds - 1))} className="w-8 h-8 flex items-center justify-center bg-slate-700 rounded-lg text-white hover:bg-slate-600 transition-colors"><Minus size={14}/></button>
-              <span className="text-lg font-black text-blue-500 min-w-[20px] text-center tabular-nums">{rounds}</span>
-              <button type="button" onClick={() => setRounds(rounds + 1)} className="w-8 h-8 flex items-center justify-center bg-slate-700 rounded-lg text-white hover:bg-slate-600 transition-colors"><Plus size={14}/></button>
-            </div>
-          </div>
-
-          {/* ОТДЫХ */}
-          <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-between">
-            <div className="flex flex-col">
-              <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold ml-1">Отдых</label>
-              <p className="text-[10px] text-slate-600 mt-0.5 uppercase tracking-tighter">Между упр-ми</p>
-            </div>
-            <div className="flex items-center gap-2 bg-slate-800/50 p-1.5 rounded-xl border border-slate-700">
-              <Clock size={14} className="text-slate-500 ml-1" />
-              <input 
-                type="number" 
-                value={restDuration} 
-                onChange={(e) => setRestDuration(Math.max(0, parseInt(e.target.value) || 0))}
-                className="w-10 bg-transparent text-blue-500 text-lg font-black focus:outline-none text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
-              <span className="text-[10px] text-slate-500 font-bold uppercase mr-1">s</span>
-            </div>
+      <form onSubmit={handleSubmit} className="space-y-10">
+        {/* Название */}
+        <div className="space-y-3">
+          <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold ml-1">Название тренировки</label>
+          <div className="relative group">
+            {/* Тот самый эффект свечения при фокусе из макета */}
+            <div className="absolute -inset-0.5 bg-blue-500/20 rounded-2xl blur opacity-0 group-focus-within:opacity-100 transition duration-500"></div>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="123"
+              className="relative w-full bg-[#050b18] border border-slate-800 text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-blue-500/50 transition-all text-lg font-bold"
+            />
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center justify-between px-1">
-            <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold">Упражнения</label>
-            <span className="text-[10px] text-blue-500 font-bold uppercase tracking-widest">{exercises.length} всего</span>
+        {/* Секция параметров Раунды / Отдых */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Раунды */}
+          <div className="bg-[#0b1224]/50 border border-slate-800/60 p-6 rounded-[24px] flex items-center justify-between">
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold italic">Раунды</label>
+              <p className="text-[9px] text-slate-600 uppercase font-bold tracking-tighter">Круги упражнений</p>
+            </div>
+            
+            <PlusMinusInput min={0} value={rounds} onChange={setRounds} />
           </div>
 
-          <div className="space-y-3">
+          {/* Отдых */}
+          <div className="bg-[#0b1224]/50 border border-slate-800/60 p-5 rounded-2xl flex items-center justify-between">
+            <div className="flex flex-col">
+              <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold ml-1">Отдых</label>
+              <p className="text-[9px] text-slate-600 uppercase font-bold tracking-tighter mt-0.5">Между упр-ми</p>
+            </div>
+
+            <TimerInput value={restDuration} onChange={setRestDuration} />
+          </div>
+        </div>
+
+        {/* Список упражнений */}
+        <div className="space-y-5">
+          <div className="flex items-center justify-between px-2">
+            <label className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold italic">Упражнения</label>
+            <span className="text-[10px] text-blue-500 font-black uppercase tracking-widest">{exercises.length} всего</span>
+          </div>
+
+          <div className="space-y-4">
             {exercises.map((exercise, index) => (
               <ExerciseItem
                 key={exercise.id}
@@ -126,16 +127,14 @@ const CreateEditWorkoutScreen: React.FC = () => {
             ))}
           </div>
 
-          <Button 
-            type="button" 
-            variant="ghost" 
-            fullWidth 
+          <button
+            type="button"
             onClick={addExercise}
-            className="border-2 border-dashed border-slate-800 py-6 hover:border-slate-700 transition-all"
+            className="w-full py-5 border-2 border-dashed border-slate-800/60 rounded-[20px] text-slate-500 font-bold flex items-center justify-center gap-2 hover:border-blue-500/30 hover:text-slate-300 transition-all active:scale-[0.99] bg-[#0b1224]/20"
           >
-            <Plus size={20} />
+            <Plus size={18} />
             Добавить упражнение
-          </Button>
+          </button>
         </div>
 
         <div className="pt-8 flex gap-4">
