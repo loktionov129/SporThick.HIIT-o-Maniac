@@ -14,9 +14,7 @@ export interface Workout {
 
 export interface AppState {
   workouts: Workout[];
-  settings: {
-    soundEnabled: boolean;
-  };
+  settings: WorkoutSettings;
 }
 
 export interface WorkoutHistoryEntry {
@@ -32,6 +30,7 @@ export interface WorkoutSettings {
   soundEnabled: boolean;
   vibrationEnabled: boolean;
   theme: 'dark' | 'light';
+  hasSeenOnboarding: boolean;
 }
 
 export interface WorkoutState {
@@ -40,6 +39,7 @@ export interface WorkoutState {
   settings: WorkoutSettings;
   filterQuery: string;
   actions: {
+    completeOnboarding: () => void;
     addPreset: (preset: Omit<Workout, 'id'>) => void;
     addWorkout: (workout: Workout) => void;
     reorderWorkouts: (startIndex: number, endIndex: number) => void;

@@ -7,6 +7,7 @@ const defaultSettings: WorkoutSettings = {
   soundEnabled: true,
   vibrationEnabled: false,
   theme: 'dark',
+  hasSeenOnboarding: false,
 };
 
 export const useWorkoutStore = create<WorkoutState>()(
@@ -18,6 +19,9 @@ export const useWorkoutStore = create<WorkoutState>()(
       filterQuery: '',
 
       actions: {
+        completeOnboarding: () => set((state) => ({
+          settings: { ...state.settings, hasSeenOnboarding: true }
+        })),
         addPreset: (preset) => set((state) => ({
           workouts: [
             ...state.workouts,
@@ -77,7 +81,10 @@ export const useWorkoutStore = create<WorkoutState>()(
           history: data.history ?? [] 
         }),
 
-        resetAll: () => set({ workouts: [], history: [], settings: defaultSettings }),
+        resetAll: () => {
+          set({ workouts: [], history: [], settings: defaultSettings });
+          window.location.hash = '#/';
+        },
       },
     }),
     {

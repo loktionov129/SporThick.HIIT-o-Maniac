@@ -11,6 +11,7 @@ import { TimerScreen } from './features/timer';
 import { HistoryScreen } from './features/history';
 import { DataScreen } from './features/data';
 import { PresetsScreen } from './features/presets';
+import { Onboarding } from './features/onboarding';
 import './App.css';
 
 const AppContent: React.FC = () => {
@@ -46,6 +47,7 @@ export const App: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen bg-surface-main transition-colors duration-300">
+        <Onboarding />
         <AppContent />
         <ToastContainer />
         <ConfirmModal />
