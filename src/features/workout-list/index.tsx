@@ -1,14 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
-import { Search, GripVertical, Plus } from 'lucide-react'; // Добавил Plus
-import { useWorkoutStore } from '../../store/useWorkoutStore';
+import { Search, GripVertical, Plus } from 'lucide-react';
+import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { WorkoutCard } from './components/WorkoutCard';
 import { EmptyWorkouts } from './components/EmptyWorkouts';
 import { Input } from '../../components/ui/Input';
 
 export const WorkoutList: React.FC = () => {
-  const { workouts, reorderWorkouts, deleteWorkout } = useWorkoutStore();
+  const { workouts } = useWorkoutStore();
+  const { reorderWorkouts, deleteWorkout } = useWorkoutActions();
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -37,7 +38,6 @@ export const WorkoutList: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
-      {/* ПАНЕЛЬ УПРАВЛЕНИЯ: Поиск + Добавить */}
       <div className="flex gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
@@ -45,7 +45,7 @@ export const WorkoutList: React.FC = () => {
             placeholder="Поиск тренировки..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-12 py-6" // Сделал инпут чуть выше для солидности
+            className="pl-12 py-6"
           />
         </div>
 
@@ -58,7 +58,6 @@ export const WorkoutList: React.FC = () => {
         </button>
       </div>
 
-      {/* СПИСОК ТРЕНИРОВОК */}
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="workouts-list">
           {(provided) => (

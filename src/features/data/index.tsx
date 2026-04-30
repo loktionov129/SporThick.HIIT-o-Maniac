@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 import { DownloadCloud, UploadCloud, Database, Trash2, ShieldCheck } from 'lucide-react';
-import { useWorkoutStore } from '../../store/useWorkoutStore';
+import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 
 export const DataScreen: React.FC = () => {
-  const { workouts, history, importData, resetAll } = useWorkoutStore();
+  const { workouts, history } = useWorkoutStore();
+  const { importData, resetAll } = useWorkoutActions();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -51,6 +52,13 @@ export const DataScreen: React.FC = () => {
     };
     reader.readAsText(file);
     if (fileInputRef.current) fileInputRef.current.value = ''; // Сброс инпута
+  };
+
+  const handleReset = () => {
+    if (confirm('ВНИМАНИЕ! Это удалит ВСЕ твои тренировки и всю историю без возможности восстановления. Вы уверены?')) {
+      resetAll();
+      alert('Все данные стерты. Начинаем с чистого листа! 🚀');
+    }
   };
 
   return (
@@ -136,7 +144,7 @@ export const DataScreen: React.FC = () => {
       </div>
       
       <button 
-        onClick={resetAll} 
+        onClick={handleReset} 
         className="cursor-pointer group/btn relative flex items-center justify-center gap-3 bg-red-500/10 hover:bg-red-500 border border-red-500/20 text-red-500 hover:text-white px-8 py-4 rounded-2xl font-black uppercase text-[11px] tracking-[0.15em] transition-all active:scale-95 shadow-xl shadow-red-500/5"
       >
         <Trash2 size={18} className="transition-transform group-hover/btn:rotate-12" />

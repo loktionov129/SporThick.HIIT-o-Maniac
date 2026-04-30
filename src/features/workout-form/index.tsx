@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Plus, ArrowLeft, Save, GripVertical  } from 'lucide-react';
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
-import { useWorkoutStore } from '../../store/useWorkoutStore';
+import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { Button } from '../../components/ui/Button';
 import { ExerciseItem } from './components/ExerciseItem';
 import { TimerInput } from '../../components/ui/TimerInput';
@@ -12,13 +12,9 @@ export const CreateEditWorkoutScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
   const workoutId = searchParams.get('workoutId');
   const navigate = useNavigate();
-  
-  const workouts = useWorkoutStore((state) => state.workouts);
-  const addWorkout = useWorkoutStore((state) => state.addWorkout);
-  const updateWorkout = useWorkoutStore((state) => state.updateWorkout);
-
+  const { workouts } = useWorkoutStore();
+  const { addWorkout, updateWorkout } = useWorkoutActions();
   const currentWorkout = workoutId ? workouts.find(w => w.id === workoutId) : null;
-
   const [name, setName] = useState(currentWorkout?.name || '');
   const [rounds, setRounds] = useState(currentWorkout?.rounds || 1);
   const [restDuration, setRestDuration] = useState(currentWorkout?.restDuration || 0);

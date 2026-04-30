@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Play, Pause, RotateCcw, ArrowLeft, Zap, Coffee, AlertCircle } from 'lucide-react';
-import { useWorkoutStore } from '../../store/useWorkoutStore';
+import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { ProgressCircle } from './components/ProgressCircle';
 import { TimerFinished } from './components/TimerFinished';
 import { Button } from '../../components/ui/Button';
@@ -13,8 +13,8 @@ export const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const selectedWorkoutId = searchParams.get('workoutId');
-  const workouts = useWorkoutStore((state) => state.workouts);
-  const addHistoryEntry = useWorkoutStore((state) => state.addHistoryEntry);
+  const { workouts } = useWorkoutStore();
+  const { addHistoryEntry } = useWorkoutActions();
   const workout = selectedWorkoutId ? workouts.find(w => w.id === selectedWorkoutId) : null;
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);

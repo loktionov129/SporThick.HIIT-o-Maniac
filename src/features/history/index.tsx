@@ -1,11 +1,12 @@
 import { Calendar, Trash2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useWorkoutStore } from '../../store/useWorkoutStore';
+import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { Card } from '../../components/ui/Card';
 import { EmptyHistory } from './components/EmptyHistory';
 
 export const HistoryScreen = () => {
-  const { history, clearHistory, deleteHistoryEntry } = useWorkoutStore();
+  const { history } = useWorkoutStore();
+  const { clearHistory, deleteHistoryEntry } = useWorkoutActions();
 
   if (history.length === 0) {
     return <EmptyHistory />;
