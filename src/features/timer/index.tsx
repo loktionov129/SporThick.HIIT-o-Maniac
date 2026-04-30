@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Play, Pause, RotateCcw, ArrowLeft, Zap, Coffee, AlertCircle } from 'lucide-react';
 import { useWorkoutStore } from '../../store/useWorkoutStore';
@@ -9,6 +9,7 @@ import { playSignal } from '../../utils/beep';
 import { FullScreenCenter } from './components/FullScreenCenter';
 
 export const TimerScreen: React.FC = () => {
+  const lastTickRef = useRef<number>(Date.now());
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const selectedWorkoutId = searchParams.get('workoutId');
@@ -34,46 +35,77 @@ export const TimerScreen: React.FC = () => {
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
     
-    if (isRunning && remainingTime > 0) {
+    if (isRunning) {
+      lastTickRef.current = Date.now();
+
       interval = setInterval(() => {
-        // Звук за 3 секунды до конца (в любой фазе)
-        if (remainingTime <= 3) playSignal('COUNTDOWN');
-        setRemainingTime(prev => prev - 1);
-      }, 1000);
-    } else if (remainingTime === 0 && isRunning && workout) {
-      
-      // ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ФАЗ
+        const now = Date.now();
+        const delta = Math.floor((now - lastTickRef.current) / 1000);
+
+        if (delta >= 1) {
+          setRemainingTime((prev) => {
+            const newValue = prev - delta;
+            const finalValue = newValue < 0 ? 0 : newValue;
+            
+            if (finalValue <= 3 && finalValue > 0 && prev > 3) {
+              playSignal('COUNTDOWN');
+            }
+            
+            return finalValue;
+          });
+          lastTickRef.current = now;
+        }
+      }, 100);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isRunning]);
+
+  useEffect(() => {
+    if (remainingTime === 0 && isRunning && workout) {
       if (!isResting && (workout.restDuration || 0) > 0) {
-        // 1. Закончили упражнение -> Уходим на отдых (если он настроен)
         setIsResting(true);
         setRemainingTime(workout.restDuration || 0);
         playSignal('END_WORK');
       } else {
-        // 2. Закончили отдых (или его не было) -> Следующее упражнение
         setIsResting(false);
-        
         if (currentExerciseIndex < workout.exercises.length - 1) {
           const nextIndex = currentExerciseIndex + 1;
           setCurrentExerciseIndex(nextIndex);
           setRemainingTime(workout.exercises[nextIndex].duration);
           playSignal('START_WORK');
-        } 
-        else if (currentRound < (workout.rounds || 1)) {
-          // Конец круга
+        } else if (currentRound < (workout.rounds || 1)) {
           setCurrentRound(prev => prev + 1);
           setCurrentExerciseIndex(0);
           setRemainingTime(workout.exercises[0].duration);
           playSignal('END_ROUND');
-        } 
-        else {
-          // Финиш всей тренировки
+        } else {
           setIsRunning(false);
           playSignal('FINISH');
         }
       }
+      lastTickRef.current = Date.now();
     }
-    return () => clearInterval(interval!);
-  }, [isRunning, remainingTime, currentExerciseIndex, currentRound, isResting, workout]);
+  }, [remainingTime, isRunning, workout, isResting, currentExerciseIndex, currentRound]);
+
+useEffect(() => {
+  const syncTime = () => {
+    if (document.visibilityState === 'visible' && isRunning) {
+      const now = Date.now();
+      const delta = Math.floor((now - lastTickRef.current) / 1000);
+      if (delta >= 1) {
+        setRemainingTime(prev => Math.max(0, prev - delta));
+        lastTickRef.current = now;
+      }
+    }
+  };
+
+  document.addEventListener('visibilitychange', syncTime);
+  return () => document.removeEventListener('visibilitychange', syncTime);
+}, [isRunning]);
+
 
   const isFinished = wasStarted && currentRound >= (workout?.rounds || 1) && 
                      currentExerciseIndex >= (workout?.exercises.length || 1) - 1 && 
@@ -179,7 +211,7 @@ export const TimerScreen: React.FC = () => {
         
         <Button 
           variant={isRunning ? 'secondary' : 'primary'}
-          onClick={() => {setWasStarted(true); setIsRunning(!isRunning)}}
+          onClick={() => {setWasStarted(true); setIsRunning(!isRunning); lastTickRef.current = Date.now(); }}
           className="flex-1 py-5 text-lg uppercase tracking-[0.2em]"
         >
           {isRunning ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" />}
