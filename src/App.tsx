@@ -6,20 +6,15 @@ import { CreateEditWorkoutScreen } from './features/workout-form';
 import { TimerScreen } from './features/timer';
 import { HistoryScreen } from './features/history';
 import { DataScreen } from './features/data';
-import { BottomNav } from './components/Layout/BottomNav';
 import './App.css';
 
 const AppContent: React.FC = () => {
-  const location = useLocation();
-  const showBottomNav = location.pathname !== '/timer';
-
   return (
-    <>
       <Routes>
         <Route 
           path="/" 
           element={
-            <PageContainer withHeader maxWidth="md">
+            <PageContainer withHeader withBottomNav maxWidth="md">
               <WorkoutList />
             </PageContainer>
           } 
@@ -28,7 +23,7 @@ const AppContent: React.FC = () => {
         <Route 
           path="/history" 
           element={
-            <PageContainer withHeader maxWidth="md">
+            <PageContainer withHeader withBottomNav maxWidth="md">
               <HistoryScreen />
             </PageContainer>
           } 
@@ -37,7 +32,7 @@ const AppContent: React.FC = () => {
         <Route 
           path="/data" 
           element={
-            <PageContainer withHeader maxWidth="md">
+            <PageContainer withHeader withBottomNav maxWidth="md">
               <DataScreen />
             </PageContainer>
           } 
@@ -61,9 +56,6 @@ const AppContent: React.FC = () => {
           } 
         />
       </Routes>
-
-      {showBottomNav && <BottomNav />}
-    </>
   );
 };
 

@@ -1,15 +1,18 @@
 import React from 'react';
 import { Header } from '../Header';
+import { BottomNav } from './BottomNav';
 
 interface PageContainerProps {
   children: React.ReactNode;
   withHeader?: boolean;
+  withBottomNav?: boolean;
   maxWidth?: 'sm' | 'md' | 'lg';
 }
 
 export const PageContainer: React.FC<PageContainerProps> = ({ 
   children, 
-  withHeader = false, 
+  withHeader = false,
+  withBottomNav = false,
   maxWidth = 'md' 
 }) => {
   
@@ -27,6 +30,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
           {children}
         </main>
       </div>
+      {withBottomNav && <BottomNav />}
     </div>
   );
 };
