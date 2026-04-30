@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { PageContainer } from './components/Layout/PageContainer';
 import { WorkoutList } from './features/workout-list';
 import { CreateEditWorkoutScreen } from './features/workout-form';
