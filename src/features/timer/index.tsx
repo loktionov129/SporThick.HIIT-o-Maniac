@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Play, Pause, RotateCcw, ArrowLeft, Zap, AlertCircle, Coffee } from 'lucide-react';
+import { Play, Pause, RotateCcw, ArrowLeft, Zap, Coffee } from 'lucide-react';
 import useWorkoutStore from '../../store/useWorkoutStore';
 import { ProgressCircle } from './components/ProgressCircle';
 import { TimerFinished } from './components/TimerFinished';
@@ -18,11 +18,10 @@ const TimerScreen: React.FC = () => {
   const [remainingTime, setRemainingTime] = useState<number>(0);
   const [isRunning, setIsRunning] = useState(false);
   const [currentRound, setCurrentRound] = useState(1);
-  const [isResting, setIsResting] = useState(false); // ФАЗА ОТДЫХА
+  const [isResting, setIsResting] = useState(false);
 
   const currentExercise = workout?.exercises[currentExerciseIndex];
 
-  // Инициализация времени при старте
   useEffect(() => {
     if (currentExercise && remainingTime === 0 && !isRunning && !isResting) {
       setRemainingTime(currentExercise.duration);
@@ -73,7 +72,6 @@ const TimerScreen: React.FC = () => {
     return () => clearInterval(interval!);
   }, [isRunning, remainingTime, currentExerciseIndex, currentRound, isResting, workout]);
 
-  // Проверка на финиш для рендера
   const isFinished = currentRound >= (workout?.rounds || 1) && 
                      currentExerciseIndex >= (workout?.exercises.length || 1) - 1 && 
                      remainingTime === 0 && !isResting;
@@ -81,13 +79,11 @@ const TimerScreen: React.FC = () => {
   if (!workout) return <div className="text-white text-center py-20">Workout not found</div>;
   if (isFinished) return <TimerFinished onFinish={() => navigate('/')} />;
 
-  // Расчет прогресса для круга
   const totalDuration = isResting ? (workout.restDuration || 1) : (currentExercise?.duration || 1);
   const progress = (remainingTime / totalDuration) * 100;
 
   return (
     <div className="flex flex-col items-center h-[75vh] justify-center relative">
-      {/* Навигация */}
       <div className="w-full absolute -top-4 left-0 flex items-center justify-between">
         <button onClick={() => navigate(-1)} className="cursor-pointer p-3 bg-slate-900/50 border border-slate-800 text-slate-400 hover:text-white rounded-2xl transition-all active:scale-90">
           <ArrowLeft size={20} />
@@ -102,7 +98,6 @@ const TimerScreen: React.FC = () => {
         </div>
       </div>
 
-      {/* Центральный блок */}
       <div className="text-center mb-12 animate-in fade-in duration-300" key={isResting ? 'rest' : 'work'}>
         <div className="flex items-center justify-center gap-2 mb-3">
            {isResting ? (
@@ -119,18 +114,16 @@ const TimerScreen: React.FC = () => {
         </h2>
       </div>
 
-      {/* Кольцо с поддержкой цвета отдыха */}
       <ProgressCircle 
         remainingTime={remainingTime} 
         progress={progress} 
-        variant={isResting ? 'rest' : 'work'} 
+        isResting={isResting}
       />
 
-      {/* Контролы */}
       <div className="flex items-center gap-4 w-full max-w-sm">
         <Button 
           variant="secondary" 
-          onClick={() => { setIsRunning(false); setIsResting(false); setCurrentExerciseIndex(0); setRemainingTime(workout.exercises[0].duration); }}
+          onClick={() => { setIsRunning(false); setIsResting(false); setCurrentExerciseIndex(0); setRemainingTime(workout.exercises[0].duration); setCurrentRound(1)}}
           className="p-5"
         >
           <RotateCcw size={24} />

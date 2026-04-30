@@ -3,7 +3,7 @@ import React from 'react';
 interface ProgressCircleProps {
   remainingTime: number;
   progress: number;
-  isResting?: boolean; // Добавляем флаг фазы отдыха
+  isResting?: boolean;
 }
 
 export const ProgressCircle: React.FC<ProgressCircleProps> = ({ 
@@ -11,14 +11,19 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
   progress, 
   isResting = false 
 }) => {
-  // Динамические цвета: синий для работы, изумрудный для отдыха
+  const getTimeColor = () => {
+    if (isResting) return 'text-emerald-400';
+    if (remainingTime > 10) return 'text-blue-500';
+    if (remainingTime > 5) return 'text-yellow-500';
+    return 'text-red-500 animate-pulse';
+  };
+
   const strokeColor = isResting ? 'text-emerald-500' : 'text-blue-500';
   const glowColor = isResting ? 'rgba(16,185,129,0.3)' : 'rgba(59,130,246,0.3)';
   const blurBg = isResting ? 'bg-emerald-600/5' : 'bg-blue-600/5';
 
   return (
     <div className="relative w-72 h-72 flex items-center justify-center mb-16">
-      {/* Фоновое свечение, меняющее цвет */}
       <div className={`absolute inset-0 ${blurBg} blur-3xl rounded-full transition-colors duration-500`} />
       
       <svg 
@@ -26,7 +31,6 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
         style={{ filter: `drop-shadow(0 0 15px ${glowColor})` }}
         viewBox="0 0 288 288"
       >
-        {/* Подложка (серая дорожка) */}
         <circle 
           cx="144" 
           cy="144" 
@@ -36,8 +40,6 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
           strokeWidth="12" 
           className="text-slate-900" 
         />
-        
-        {/* Активная полоса прогресса */}
         <circle
           cx="144" 
           cy="144" 
@@ -53,10 +55,10 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
       </svg>
       
       <div className="flex flex-col items-center relative z-10">
-        <span className="text-8xl font-black text-white tabular-nums tracking-tighter">
+        <span className={`text-8xl font-black tabular-nums tracking-tighter transition-colors duration-300 ${getTimeColor()}`}>
           {remainingTime}
         </span>
-        <span className="text-slate-500 font-bold uppercase tracking-[0.4em] text-[11px] mt-1">
+        <span className="text-slate-500 font-bold uppercase tracking-[0.4em] text-[11px] mt-1 italic">
           {isResting ? 'отдых' : 'сек.'}
         </span>
       </div>
