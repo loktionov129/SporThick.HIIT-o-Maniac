@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
 import { Search, GripVertical } from 'lucide-react';
-import useWorkoutStore from '../../store/useWorkoutStore';
+import { useWorkoutStore } from '../../store/useWorkoutStore';
 import { WorkoutCard } from './components/WorkoutCard';
 import { EmptyWorkouts } from './components/EmptyWorkouts';
 import { Input } from '../../components/ui/Input';
@@ -98,5 +98,3 @@ export const WorkoutList: React.FC = () => {
     </div>
   );
 };
-
-export default WorkoutList;

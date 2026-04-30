@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Plus, ArrowLeft, Save, GripVertical  } from 'lucide-react';
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
-import useWorkoutStore from '../../store/useWorkoutStore';
+import { useWorkoutStore } from '../../store/useWorkoutStore';
 import { Button } from '../../components/ui/Button';
 import { ExerciseItem } from './components/ExerciseItem';
 import { TimerInput } from '../../components/ui/TimerInput';

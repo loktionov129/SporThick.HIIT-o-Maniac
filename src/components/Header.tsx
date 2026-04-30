@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Activity } from 'lucide-react';
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -12,7 +12,6 @@ const Header: React.FC = () => {
           className="flex items-center gap-3 cursor-pointer group" 
           onClick={() => navigate('/')}
         >
-          {/* Лого с мягким свечением */}
           <div className="relative">
             <div className="absolute inset-0 bg-blue-500 blur-xl opacity-40 group-hover:opacity-60 transition-opacity" />
             <div className="relative bg-blue-600 p-2.5 rounded-2xl shadow-lg shadow-blue-600/20">
@@ -41,10 +40,7 @@ const Header: React.FC = () => {
         </button>
       </div>
 
-      {/* Та самая "черточка" — стильный градиентный разделитель */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent opacity-50" />
     </header>
   );
 };
-
-export default Header;

@@ -23,7 +23,7 @@ interface WorkoutState {
   resetAll: () => void;
 }
 
-const useWorkoutStore = create<WorkoutState>()(persist(
+export const useWorkoutStore = create<WorkoutState>()(persist(
   (set) => ({
     workouts: [],
     history: [],
@@ -81,5 +81,3 @@ const useWorkoutStore = create<WorkoutState>()(persist(
     name: 'workout_store'
   }
 ));
-
-export default useWorkoutStore;

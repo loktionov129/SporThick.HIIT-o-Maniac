@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { DownloadCloud, UploadCloud, Database, Trash2, AlertTriangle, ShieldCheck } from 'lucide-react';
-import useWorkoutStore from '../../store/useWorkoutStore';
+import { DownloadCloud, UploadCloud, Database, Trash2, ShieldCheck } from 'lucide-react';
+import { useWorkoutStore } from '../../store/useWorkoutStore';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 

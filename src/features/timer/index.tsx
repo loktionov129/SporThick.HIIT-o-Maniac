@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Play, Pause, RotateCcw, ArrowLeft, Zap, Coffee, AlertCircle } from 'lucide-react';
-import useWorkoutStore from '../../store/useWorkoutStore';
+import { useWorkoutStore } from '../../store/useWorkoutStore';
 import { ProgressCircle } from './components/ProgressCircle';
 import { TimerFinished } from './components/TimerFinished';
 import { Button } from '../../components/ui/Button';

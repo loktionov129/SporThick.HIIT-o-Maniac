@@ -67,12 +67,10 @@ const AppContent: React.FC = () => {
   );
 };
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <Router>
       <AppContent />
     </Router>
   );
 };
-
-export default App;

@@ -1,6 +1,6 @@
 import { Calendar, Trash2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import useWorkoutStore from '../../store/useWorkoutStore';
+import { useWorkoutStore } from '../../store/useWorkoutStore';
 import { Card } from '../../components/ui/Card';
 import { EmptyHistory } from './components/EmptyHistory';
 
