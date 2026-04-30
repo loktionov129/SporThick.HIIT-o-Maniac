@@ -1,1 +1,48 @@
 @import "tailwindcss";
+
+@theme {
+  --color-surface-main: var(--bg-main);
+  --color-surface-card: var(--bg-card);
+  --color-surface-accent: var(--bg-accent);
+  --color-text-primary: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-brand-blue: #3b82f6;
+  --color-brand-emerald: #10b981;
+  --color-brand-rose: #f43f5e;
+}
+
+@layer base {
+  :root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-accent: #f1f5f9;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+  }
+
+  .dark {
+    --bg-main: #020617;
+    --bg-card: #0b1224;
+    --bg-accent: #161f35;
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@utility app-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 448px;
+  min-height: 100vh;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

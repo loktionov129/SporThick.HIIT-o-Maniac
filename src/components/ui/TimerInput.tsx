@@ -19,8 +19,8 @@ export const TimerInput: React.FC<TimerInputProps> = ({
   const decrement = () => onChange(Math.max(0, value - 1));
 
   return (
-    <div className="flex items-center gap-2 bg-[#161f35] px-3 py-1.5 rounded-xl border border-slate-700/50 transition-colors focus-within:border-slate-600 shadow-inner">
-      <div className="text-slate-500 ml-1">
+    <div className="flex items-center gap-2 bg-surface-accent px-4 py-2 rounded-2xl border border-text-muted/10 transition-all focus-within:border-brand-blue/40 shadow-inner group">
+      <div className="text-text-muted group-focus-within:text-brand-blue transition-colors">
         {icon}
       </div>
 
@@ -28,27 +28,29 @@ export const TimerInput: React.FC<TimerInputProps> = ({
         type="number"
         value={value}
         onChange={(e) => onChange(Math.max(0, parseInt(e.target.value) || 0))}
-        className="w-10 bg-transparent text-blue-500 text-xl font-black focus:outline-none text-center tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+        className="w-12 bg-transparent text-brand-blue text-2xl font-black focus:outline-none text-center tabular-nums [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:text-text-muted/30"
       />
 
-      <span className="text-[10px] text-slate-500 font-bold uppercase mr-1">
+      <span className="text-[10px] text-text-muted font-black uppercase tracking-widest mr-1 opacity-70">
         {label}
       </span>
 
-      <div className="flex flex-col border-l border-slate-700/50 pl-2 gap-0.5">
+      <div className="flex flex-col border-l border-text-muted/10 pl-3 gap-1">
         <button 
           type="button" 
           onClick={increment}
-          className="cursor-pointer text-slate-600 hover:text-blue-500 transition-colors active:scale-110"
+          className="cursor-pointer p-1 text-text-muted hover:text-brand-blue transition-all active:scale-125"
+          aria-label="Увеличить"
         >
-          <ChevronUp size={14} strokeWidth={3} />
+          <ChevronUp size={16} strokeWidth={3} />
         </button>
         <button 
           type="button" 
           onClick={decrement}
-          className="cursor-pointer text-slate-600 hover:text-blue-500 transition-colors active:scale-110"
+          className="cursor-pointer p-1 text-text-muted hover:text-brand-rose transition-all active:scale-125"
+          aria-label="Уменьшить"
         >
-          <ChevronDown size={14} strokeWidth={3} />
+          <ChevronDown size={16} strokeWidth={3} />
         </button>
       </div>
     </div>

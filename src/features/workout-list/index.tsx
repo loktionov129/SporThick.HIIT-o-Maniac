@@ -21,7 +21,7 @@ export const WorkoutList: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
+    <div className="space-y-6 pb-24 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <SearchHeader 
         query={searchQuery} 
         onQueryChange={setSearchQuery} 
@@ -34,7 +34,7 @@ export const WorkoutList: React.FC = () => {
             <div 
               {...provided.droppableProps} 
               ref={provided.innerRef} 
-              className="grid gap-4"
+              className="grid gap-4 sm:gap-5"
             >
               {workouts.map((workout, index) => (
                 <DraggableWorkoutItem
@@ -50,6 +50,12 @@ export const WorkoutList: React.FC = () => {
           )}
         </Droppable>
       </DragDropContext>
+
+      {workouts.length > 3 && !isSearchActive && (
+        <p className="text-center text-[9px] text-text-muted uppercase font-black tracking-[0.3em] opacity-30 pt-4">
+          Зажми и тяни для сортировки
+        </p>
+      )}
     </div>
   );
 };

@@ -13,17 +13,19 @@ export const Button: React.FC<ButtonProps> = ({
   ...props 
 }) => {
   const variants = {
-    primary: 'bg-blue-600 text-white shadow-blue-600/20 hover:bg-blue-500',
-    secondary: 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white',
-    danger: 'bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white',
-    ghost: 'bg-transparent text-slate-500 hover:bg-slate-800',
+    primary: 'bg-brand-blue text-white shadow-lg shadow-brand-blue/20 hover:bg-blue-500',
+    secondary: 'bg-surface-accent text-text-primary border border-text-muted/10 hover:bg-surface-card hover:border-brand-blue/30',
+    danger: 'bg-brand-rose/10 text-brand-rose border border-brand-rose/20 hover:bg-brand-rose hover:text-white',
+    ghost: 'bg-transparent text-text-muted hover:bg-surface-accent hover:text-text-primary',
   };
 
   return (
     <button 
       className={`
-        flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-bold 
-        transition-all duration-200 active:scale-95 cursor-pointer disabled:opacity-50
+        flex items-center justify-center gap-2 px-6 py-4 rounded-[20px] font-black uppercase text-[11px] tracking-[0.15em]
+        transition-all duration-200 active:scale-95 cursor-pointer 
+        disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100
+        touch-manipulation
         ${variants[variant]} 
         ${fullWidth ? 'w-full' : ''} 
         ${className}

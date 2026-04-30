@@ -31,14 +31,18 @@ export const DraggableWorkoutItem: React.FC<DraggableWorkoutItemProps> = ({
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className={`relative flex items-center gap-2 transition-all ${
-            snapshot.isDragging ? 'z-50 scale-[1.02] rotate-1' : ''
+          className={`relative flex items-center gap-1 sm:gap-2 transition-all duration-300 ${
+            snapshot.isDragging 
+              ? 'z-50 scale-[1.03] rotate-2 shadow-2xl shadow-brand-blue/20' 
+              : ''
           }`}
         >
           {!isDragDisabled && (
             <div 
               {...provided.dragHandleProps} 
-              className="text-slate-700 hover:text-slate-400 cursor-grab active:cursor-grabbing p-2 transition-colors"
+              className={`p-2 transition-colors duration-200 cursor-grab active:cursor-grabbing ${
+                snapshot.isDragging ? 'text-brand-blue' : 'text-text-muted hover:text-text-primary'
+              }`}
             >
               <GripVertical size={20} />
             </div>
@@ -50,6 +54,7 @@ export const DraggableWorkoutItem: React.FC<DraggableWorkoutItemProps> = ({
               onStart={actions.start}
               onEdit={actions.edit}
               onDelete={actions.delete}
+              isDragging={snapshot.isDragging}
             />
           </div>
         </div>

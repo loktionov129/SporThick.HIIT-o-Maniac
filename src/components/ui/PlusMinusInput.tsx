@@ -13,25 +13,28 @@ export const PlusMinusInput: React.FC<PlusMinusInputProps> = ({
   min = 1 
 }) => {
   return (
-    <div className="flex items-center gap-1 bg-[#161f35] p-1.5 rounded-xl border border-slate-700/50 shadow-inner">
+    <div className="flex items-center gap-1 bg-surface-accent p-1.5 rounded-2xl border border-text-muted/5 shadow-inner transition-colors duration-300">
       <button 
         type="button" 
         onClick={() => onChange(Math.max(min, value - 1))} 
-        className="cursor-pointer w-10 h-10 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-400 rounded-lg transition-all active:scale-90"
+        className="cursor-pointer w-11 h-11 flex items-center justify-center bg-surface-card hover:bg-brand-blue/10 text-text-muted hover:text-brand-blue rounded-xl border border-text-muted/5 transition-all active:scale-90 shadow-sm"
       >
-        <Minus size={16}/>
+        <Minus size={18} strokeWidth={3} />
       </button>
 
-      <span className="text-xl font-black text-blue-500 min-w-[40px] text-center tabular-nums">
-        {value}
-      </span>
+      <div className="relative min-w-[50px] flex items-center justify-center">
+        <div className="absolute inset-0 bg-brand-blue/10 blur-md rounded-full opacity-50" />
+        <span className="relative z-10 text-2xl font-black text-brand-blue tabular-nums tracking-tighter">
+          {value}
+        </span>
+      </div>
 
       <button 
         type="button" 
         onClick={() => onChange(value + 1)} 
-        className="cursor-pointer w-10 h-10 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-400 rounded-lg transition-all active:scale-90"
+        className="cursor-pointer w-11 h-11 flex items-center justify-center bg-surface-card hover:bg-brand-blue/10 text-text-muted hover:text-brand-blue rounded-xl border border-text-muted/5 transition-all active:scale-90 shadow-sm"
       >
-        <Plus size={16}/>
+        <Plus size={18} strokeWidth={3} />
       </button>
     </div>
   );

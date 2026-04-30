@@ -8,15 +8,17 @@ interface WorkoutState {
   settings: { 
     soundEnabled: boolean;
     vibrationEnabled: boolean;
+    theme: 'dark' | 'light';
   };
   filterQuery: string;
   actions: {
     addWorkout: (workout: Workout) => void;
-    updateWorkout: (id: string, workout: Partial<Workout>) => void;
     reorderWorkouts: (startIndex: number, endIndex: number) => void;
-    deleteWorkout: (id: string) => void;
-    toggleSound: () => void;
     setFilter: (query: string) => void;
+    deleteWorkout: (id: string) => void;
+    updateWorkout: (id: string, workout: Partial<Workout>) => void;
+    toggleSound: () => void;
+    toggleTheme: () => void;
     addHistoryEntry: (entry: WorkoutHistoryEntry) => void;
     clearHistory: () => void;
     deleteHistoryEntry: (id: string) => void;
@@ -32,7 +34,8 @@ export const useWorkoutStore = create<WorkoutState>()(
       history: [],
       settings: { 
         soundEnabled: true,
-        vibrationEnabled: false 
+        vibrationEnabled: false,
+        theme: 'dark',
       },
       filterQuery: '',
 
@@ -44,10 +47,6 @@ export const useWorkoutStore = create<WorkoutState>()(
           ] 
         })),
 
-        updateWorkout: (id, workout) => set((state) => ({
-          workouts: state.workouts.map((w) => w.id === id ? { ...w, ...workout } : w),
-        })),
-
         reorderWorkouts: (startIndex, endIndex) => set((state) => {
           const newWorkouts = [...state.workouts];
           const [removed] = newWorkouts.splice(startIndex, 1);
@@ -55,25 +54,39 @@ export const useWorkoutStore = create<WorkoutState>()(
           return { workouts: newWorkouts };
         }),
 
+        setFilter: (query) => set({ filterQuery: query }),
+
         deleteWorkout: (id) => set((state) => ({ 
           workouts: state.workouts.filter((w) => w.id !== id) 
         })),
 
-        addHistoryEntry: (entry) => set((state) => ({ 
-          history: [entry, ...state.history]
+        updateWorkout: (id, workout) => set((state) => ({
+          workouts: state.workouts.map((w) => w.id === id ? { ...w, ...workout } : w),
+        })),
+        
+        toggleSound: () => set((state) => ({ 
+          settings: { ...state.settings, soundEnabled: !state.settings.soundEnabled } 
         })),
 
+        toggleTheme: () => set((state) => {
+          const newTheme = state.settings.theme === 'dark' ? 'light' : 'dark';
+          if (newTheme === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+          
+          return { 
+            settings: { ...state.settings, theme: newTheme } 
+          };
+        }),
+
+        addHistoryEntry: (entry) => set((state) => ({ 
+          history: [entry, ...state.history]
+        })),        
+        
         clearHistory: () => set({ history: [] }),
 
         deleteHistoryEntry: (id) => set((state) => ({
           history: state.history.filter((entry) => entry.id !== id)
         })),
-
-        toggleSound: () => set((state) => ({ 
-          settings: { ...state.settings, soundEnabled: !state.settings.soundEnabled } 
-        })),
-
-        setFilter: (query) => set({ filterQuery: query }),
 
         importData: (data) => set({ 
           workouts: data.workouts ?? [], 
@@ -89,6 +102,13 @@ export const useWorkoutStore = create<WorkoutState>()(
         const { actions, ...rest } = state;
         return rest;
       },
+      onRehydrateStorage: () => (state) => {
+        if (state?.settings.theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
     }
   )
 );

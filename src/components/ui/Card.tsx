@@ -1,10 +1,12 @@
 import React from 'react';
 
-export const Card: React.FC<{ 
-  children: React.ReactNode; 
-  className?: string; 
-  onClick?: () => void 
-}> = ({ 
+interface CardProps {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+}
+
+export const Card: React.FC<CardProps> = ({ 
   children, 
   className = '', 
   onClick 
@@ -13,9 +15,13 @@ export const Card: React.FC<{
     <div 
       onClick={onClick}
       className={`
-        bg-[#0b1224] border border-slate-800/60 p-5 rounded-2xl 
-        transition-all duration-300 
-        ${onClick ? 'cursor-pointer hover:bg-slate-800/40 active:scale-[0.99]' : ''} 
+        bg-surface-card border border-text-muted/10 p-5 rounded-[24px] 
+        transition-all duration-300 shadow-sm
+        ${onClick ? `
+          cursor-pointer 
+          hover:bg-surface-accent hover:border-brand-blue/30 
+          hover:shadow-md active:scale-[0.98]
+        ` : ''} 
         ${className}
       `}
     >

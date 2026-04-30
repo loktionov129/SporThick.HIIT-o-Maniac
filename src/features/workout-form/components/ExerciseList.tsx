@@ -36,18 +36,26 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
-                    className={`flex items-center gap-2 transition-shadow ${
-                      snapshot.isDragging ? 'z-50 shadow-2xl scale-[1.02]' : ''
+                    className={`flex items-center gap-1 sm:gap-2 transition-all duration-300 ${
+                      snapshot.isDragging 
+                        ? 'z-50 scale-[1.03] rotate-1' 
+                        : 'opacity-100'
                     }`}
                   >
                     <div 
                       {...provided.dragHandleProps} 
-                      className="p-2 text-slate-700 hover:text-slate-500 cursor-grab active:cursor-grabbing transition-colors"
+                      className={`p-2 transition-colors duration-200 ${
+                        snapshot.isDragging 
+                          ? 'text-brand-blue' 
+                          : 'text-text-muted hover:text-text-primary'
+                      } cursor-grab active:cursor-grabbing`}
                     >
                       <GripVertical size={20} />
                     </div>
 
-                    <div className="flex-1 min-w-0">
+                    <div className={`flex-1 min-w-0 transition-shadow duration-300 ${
+                      snapshot.isDragging ? 'shadow-2xl shadow-brand-blue/10' : ''
+                    }`}>
                       <ExerciseItem
                         index={index}
                         exercise={exercise}

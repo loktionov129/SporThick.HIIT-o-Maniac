@@ -1,48 +1,43 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Dumbbell, History, SunMoon, DownloadCloud } from 'lucide-react';
+import { Dumbbell, History, Sun, Moon, DownloadCloud } from 'lucide-react';
+import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
+import { BottomNavItem } from './BottomNavItem';
 
 export const BottomNav: React.FC = () => {
+  const theme = useWorkoutStore((s) => s.settings.theme);
+  const { toggleTheme } = useWorkoutActions();
+
   const navItems = [
     { to: '/', icon: <Dumbbell size={24} />, label: 'Зал' },
     { to: '/history', icon: <History size={24} />, label: 'История' },
-    { to: '/theme', icon: <SunMoon size={24} />, label: 'Тема', isPlaceholder: true },
     { to: '/data', icon: <DownloadCloud size={24} />, label: 'Данные' },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-6 pt-2 bg-gradient-to-t from-[#020617] via-[#020617]/90 to-transparent">
-      <div className="max-w-md mx-auto bg-slate-900/80 backdrop-blur-xl border border-white/5 rounded-[24px] p-2 flex items-center justify-around shadow-2xl shadow-black/50">
+    <nav className="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-6 pt-2 bg-gradient-to-t from-surface-main via-surface-main/90 to-transparent">
+      <div className="max-w-md mx-auto bg-surface-card/80 backdrop-blur-xl border border-white/5 rounded-[24px] p-2 flex items-center justify-around shadow-2xl shadow-black/50">
+        
         {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            onClick={item.isPlaceholder ? (e) => e.preventDefault() : undefined}
-            className={({ isActive }) => `
-              relative flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300
-              ${isActive && !item.isPlaceholder ? 'text-blue-500' : 'text-slate-500 hover:text-slate-300'}
-              ${item.isPlaceholder ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
-            `}
-          >
-            {({ isActive }) => (
-              <>
-                {/* Акцентная точка над иконкой */}
-                {isActive && !item.isPlaceholder && (
-                  <div className="absolute -top-1 w-1 h-1 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-                )}
-                
-                <div className={`transition-transform duration-300 ${isActive && !item.isPlaceholder ? 'scale-110' : 'scale-100'}`}>
-                  {item.icon}
-                </div>
-                
-                <span className="text-[10px] font-black uppercase tracking-widest leading-none">
-                  {item.label}
-                </span>
-              </>
-            )}
-          </NavLink>
+          <BottomNavItem key={item.to} {...item} />
         ))}
+
+        <button
+          onClick={toggleTheme}
+          className="cursor-pointer flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300 text-text-muted hover:text-brand-blue active:scale-90"
+        >
+          <div className="transition-transform duration-500 rotate-0 dark:rotate-[360deg]">
+            {theme === 'dark' ? (
+              <Moon size={24} className="text-blue-400" />
+            ) : (
+              <Sun size={24} className="text-amber-500" />
+            )}
+          </div>
+          <span className="text-[10px] font-black uppercase tracking-widest leading-none">
+            {theme === 'dark' ? 'Темная' : 'Светлая'}
+          </span>
+        </button>
       </div>
     </nav>
   );
 };
+
