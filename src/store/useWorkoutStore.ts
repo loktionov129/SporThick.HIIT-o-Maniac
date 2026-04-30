@@ -1,43 +1,20 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Workout, WorkoutHistoryEntry } from '../types';
+import type { WorkoutSettings, WorkoutState } from '../types';
 
-interface WorkoutState {
-  workouts: Workout[];
-  history: WorkoutHistoryEntry[];
-  settings: { 
-    soundEnabled: boolean;
-    vibrationEnabled: boolean;
-    theme: 'dark' | 'light';
-  };
-  filterQuery: string;
-  actions: {
-    addPreset: (preset: Omit<Workout, 'id'>) => void;
-    addWorkout: (workout: Workout) => void;
-    reorderWorkouts: (startIndex: number, endIndex: number) => void;
-    setFilter: (query: string) => void;
-    deleteWorkout: (id: string) => void;
-    updateWorkout: (id: string, workout: Partial<Workout>) => void;
-    toggleSound: () => void;
-    toggleTheme: () => void;
-    addHistoryEntry: (entry: WorkoutHistoryEntry) => void;
-    clearHistory: () => void;
-    deleteHistoryEntry: (id: string) => void;
-    importData: (data: { workouts: Workout[], history: WorkoutHistoryEntry[] }) => void;
-    resetAll: () => void;
-  }
-}
+
+const defaultSettings: WorkoutSettings = { 
+  soundEnabled: true,
+  vibrationEnabled: false,
+  theme: 'dark',
+};
 
 export const useWorkoutStore = create<WorkoutState>()(
   persist(
     (set) => ({
       workouts: [],
       history: [],
-      settings: { 
-        soundEnabled: true,
-        vibrationEnabled: false,
-        theme: 'dark',
-      },
+      settings: defaultSettings,
       filterQuery: '',
 
       actions: {
@@ -100,7 +77,7 @@ export const useWorkoutStore = create<WorkoutState>()(
           history: data.history ?? [] 
         }),
 
-        resetAll: () => set({ workouts: [], history: [] }),
+        resetAll: () => set({ workouts: [], history: [], settings: defaultSettings }),
       },
     }),
     {

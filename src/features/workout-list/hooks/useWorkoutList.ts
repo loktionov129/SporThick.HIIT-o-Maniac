@@ -2,16 +2,20 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
 import type { DropResult } from '@hello-pangea/dnd';
+import { useToastStore } from '../../../store/useToastStore';
 
 export const useWorkoutList = () => {
   const navigate = useNavigate();
   const { workouts } = useWorkoutStore();
   const { reorderWorkouts, deleteWorkout } = useWorkoutActions();
   const [searchQuery, setSearchQuery] = useState('');
+  const showToast = useToastStore((s) => s.showToast);
 
   const filteredWorkouts = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
-    if (!query) return workouts;
+    if (!query) {
+      return workouts;
+    }
 
     return workouts.filter((w) => 
       w.name.toLowerCase().includes(query) || 
@@ -29,7 +33,10 @@ export const useWorkoutList = () => {
     edit: (id: string) => navigate(`/create-edit-workout?workoutId=${id}`),
     create: () => navigate('/create-edit-workout'),
     delete: (id: string) => {
-      if (window.confirm('Удалить эту тренировку?')) deleteWorkout(id);
+      if (window.confirm('Удалить эту тренировку?')) {
+        deleteWorkout(id);
+        showToast('Тренировка удалена', 'info')
+      }
     }
   };
 

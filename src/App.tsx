@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { ToastContainer } from './components/ui/ToastContainer';
 import { PageContainer } from './components/Layout/PageContainer';
 import { MainLayout } from './components/Layout/MainLayout';
 import { WorkoutList } from './features/workout-list';
@@ -45,6 +46,7 @@ export const App: React.FC = () => {
     <Router>
       <div className="min-h-screen bg-surface-main transition-colors duration-300">
         <AppContent />
+        <ToastContainer />
       </div>
     </Router>
   );

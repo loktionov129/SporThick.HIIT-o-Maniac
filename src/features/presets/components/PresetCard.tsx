@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Zap, Activity } from 'lucide-react';
 import { Card } from '../../../components/ui/Card';
 import { useWorkoutActions } from '../../../store/useWorkoutStore';
+import { useToastStore } from '../../../store/useToastStore';
 import type { PresetWorkout } from '../../../constants/presets';
 
 interface PresetCardProps {
@@ -32,6 +33,7 @@ const intensityStyles = {
 
 export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
   const { addWorkout } = useWorkoutActions();
+  const showToast = useToastStore((s) => s.showToast);
   const navigate = useNavigate();
   const style = intensityStyles[preset.intensity];
 
@@ -41,6 +43,7 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
       ...preset,
       id,
     });
+    showToast(`${preset.name} добавлен!`);
     navigate(`/create-edit-workout?workoutId=${id}`);
   };
 

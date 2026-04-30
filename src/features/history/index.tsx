@@ -2,18 +2,26 @@ import { AnimatePresence } from 'framer-motion';
 import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { EmptyHistory } from './components/EmptyHistory';
 import { HistoryItem } from './components/HistoryItem';
+import { useToastStore } from '../../store/useToastStore';
 
 export const HistoryScreen = () => {
   const history = useWorkoutStore((s) => s.history);
   const { clearHistory, deleteHistoryEntry } = useWorkoutActions();
+  const showToast = useToastStore((s) => s.showToast);
 
   if (history.length === 0) {
     return <EmptyHistory />;
   }
 
+  const handleClearEntry = (id: string) => {
+    deleteHistoryEntry(id);
+    showToast('Запись удалена', 'info');
+  }
+
   const handleClearAll = () => {
     if (window.confirm('Очистить всю историю тренировок?')) {
       clearHistory();
+      showToast('История очищена', 'error');
     }
   };
 
@@ -38,7 +46,7 @@ export const HistoryScreen = () => {
             <HistoryItem 
               key={entry.id} 
               entry={entry} 
-              onDelete={deleteHistoryEntry} 
+              onDelete={handleClearEntry} 
             />
           ))}
         </AnimatePresence>

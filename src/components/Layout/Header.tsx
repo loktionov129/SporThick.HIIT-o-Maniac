@@ -2,11 +2,17 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Activity, Volume2, VolumeX } from 'lucide-react';
 import { useWorkoutActions, useWorkoutStore } from '../../store/useWorkoutStore';
+import { useToastStore } from '../../store/useToastStore';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
   const { toggleSound } = useWorkoutActions();
   const soundEnabled = useWorkoutStore((s) => s.settings.soundEnabled);
+  const showToast = useToastStore((s) => s.showToast);
+  const handleToggleSound = () => {
+    toggleSound();
+    showToast(soundEnabled ? 'Звук выключен' : 'Звук включен', 'info');
+  };
 
   return (
     <header className="w-full sticky top-0 z-50 bg-surface-main/80 backdrop-blur-xl transition-colors duration-300">
@@ -35,7 +41,7 @@ export const Header: React.FC = () => {
         </div>
 
         <button 
-          onClick={toggleSound}
+          onClick={handleToggleSound}
           className={`
             cursor-pointer relative flex items-center justify-center p-3 rounded-2xl transition-all duration-300 active:scale-90 border
             ${soundEnabled 

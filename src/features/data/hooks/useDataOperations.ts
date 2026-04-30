@@ -1,10 +1,12 @@
 import { useRef } from 'react';
 import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
 import { downloadJson } from '../../../utils/fileActions';
+import { useToastStore } from '../../../store/useToastStore';
 
 export const useDataOperations = () => {
   const { workouts, history } = useWorkoutStore();
   const { importData, resetAll } = useWorkoutActions();
+  const showToast = useToastStore((s) => s.showToast);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -16,11 +18,14 @@ export const useDataOperations = () => {
     };
     const date = new Date().toLocaleDateString('ru-RU').replace(/\./g, '-');
     downloadJson(data, `sporthick-backup-${date}.json`);
+    showToast('Файл экспортирован', 'info');
   };
 
   const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -30,10 +35,10 @@ export const useDataOperations = () => {
 
         if (window.confirm('Внимание! Это полностью заменит текущие данные. Продолжить?')) {
           importData(json);
-          alert('Данные успешно импортированы! 🔥');
+          showToast('Данные успешно импортированы', 'success');
         }
       } catch {
-        alert('Ошибка: Файл поврежден или имеет неверный формат.');
+        showToast('Ошибка: Файл поврежден или имеет неверный формат.', 'error');
       }
     };
     reader.readAsText(file);
@@ -43,7 +48,7 @@ export const useDataOperations = () => {
   const handleReset = () => {
     if (window.confirm('ВНИМАНИЕ! Это удалит ВСЕ данные. Ты уверен?')) {
       resetAll();
-      alert('Все данные стерты. 🚀');
+      showToast('Приложение сброшено', 'error');
     }
   };
 
