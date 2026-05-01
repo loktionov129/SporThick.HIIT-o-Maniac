@@ -14,7 +14,15 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div 
       onClick={onClick}
-      className=""
+      className={`
+        bg-surface-card 
+        rounded-[2.5rem] 
+        p-6 
+        border border-text-primary/5 
+        transition-all duration-300
+        ${onClick ? 'cursor-pointer active:scale-[0.98] active:bg-surface-accent' : ''}
+        ${className}
+      `}
     >
       {children}
     </div>

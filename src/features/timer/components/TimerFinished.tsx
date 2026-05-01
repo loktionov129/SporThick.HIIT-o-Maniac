@@ -3,14 +3,14 @@ import { Trophy, Clock, RotateCcw } from 'lucide-react';
 import { Button } from '../../../components/ui/Button';
 import { FullScreenCenter } from './FullScreenCenter';
 import { StatBox } from './StatBox';
+import { NavLink } from 'react-router-dom';
 
 interface TimerFinishedProps {
-  onFinish: () => void;
   totalTime: number;
   totalRounds: number;
 }
 
-export const TimerFinished: React.FC<TimerFinishedProps> = ({ onFinish, totalTime, totalRounds }) => {
+export const TimerFinished: React.FC<TimerFinishedProps> = ({ totalTime, totalRounds }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -47,14 +47,15 @@ export const TimerFinished: React.FC<TimerFinishedProps> = ({ onFinish, totalTim
           />
         </div>
 
-        <Button 
-          onClick={onFinish} 
-          fullWidth 
-          variant="primary" 
-          className=""
-        >
-          Завершить
-        </Button>
+        <NavLink to="/history">
+          <Button 
+            fullWidth 
+            variant="primary" 
+            className=""
+          >
+            Завершить
+          </Button>
+        </NavLink>
       </div>
     </FullScreenCenter>
   );

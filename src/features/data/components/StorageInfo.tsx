@@ -1,37 +1,37 @@
+import React from 'react';
 import { Database, ShieldCheck } from 'lucide-react';
-import { Card } from '../../../components/ui/Card';
+import { DataCard } from './DataCard';
 import { StatBox } from './StatBox';
+import { NavLink } from 'react-router-dom';
 
-interface Props {
+interface StorageInfoProps {
   workoutsCount: number;
   historyCount: number;
 }
 
-export const StorageInfo = ({ workoutsCount, historyCount }: Props) => (
-  <Card className="">
-    <ShieldCheck 
-      size={140} 
-      className="" 
-    />
-    
-    <header className="">
-      <div className="">
-        <Database className="" size={24} />
-      </div>
-      
-      <div>
-        <h3 className="">
-          Локальное хранилище
-        </h3>
-        <p className="">
-          Данные только в этом браузере
-        </p>
-      </div>
-    </header>
 
-    <div className="">
-      <StatBox count={workoutsCount} label="Программ" color="text-brand-blue" />
-      <StatBox count={historyCount} label="Сессий" color="text-brand-emerald" />
+export const StorageInfo: React.FC<StorageInfoProps> = (props) => (
+  <DataCard
+    title="Хранилище"
+    subtitle="Локальная база активна"
+    icon={Database}
+    bgIcon={ShieldCheck}
+    iconBgClass="bg-brand-blue"
+    iconColorClass="text-white"
+  >
+    <div className="grid grid-cols-2 gap-3">
+      <NavLink 
+        to="/" 
+        className="bg-surface-main/50 p-4 rounded-[1.5rem] border border-text-primary/5 cursor-pointer active:scale-95 transition-all hover:bg-surface-accent/50"
+      >
+        <StatBox count={props.workoutsCount} label="Программ" color="text-brand-blue" />
+      </NavLink>
+      <NavLink 
+        to="/history" 
+        className="bg-surface-main/50 p-4 rounded-[1.5rem] border border-text-primary/5 cursor-pointer active:scale-95 transition-all hover:bg-surface-accent/50"
+      >
+        <StatBox count={props.historyCount} label="Сессий" color="text-brand-emerald" />
+      </NavLink>
     </div>
-  </Card>
+  </DataCard>
 );

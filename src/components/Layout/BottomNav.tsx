@@ -14,8 +14,8 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="">
-      <div className="">
+    <nav className="h-24 w-full bg-surface-card/80 backdrop-blur-xl border-t border-text-primary/5 px-8 flex items-center shrink-0">
+      <div className="flex w-full justify-between items-center max-w-md mx-auto">
         
         {navItems.map((item) => (
           <BottomNavItem key={item.to} {...item} />
@@ -23,21 +23,16 @@ export const BottomNav: React.FC = () => {
 
         <button
           onClick={toggleTheme}
-          className=""
+          className="flex flex-col items-center gap-1.5 cursor-pointer text-text-muted hover:text-text-primary transition-colors active:scale-90"
         >
-          <div className="">
-            {theme === 'dark' ? (
-              <Moon size={24} className="" />
-            ) : (
-              <Sun size={24} className="" />
-            )}
+          <div className="transition-transform duration-200">
+            {theme === 'dark' ? <Moon size={24} /> : <Sun size={24} />}
           </div>
-          <span className="">
-            {theme === 'dark' ? 'Темная' : 'Светлая'}
+          <span className="text-[10px] font-black uppercase tracking-[0.15em] leading-none">
+            {theme === 'dark' ? 'Тьма' : 'Свет'}
           </span>
         </button>
       </div>
     </nav>
   );
 };
-

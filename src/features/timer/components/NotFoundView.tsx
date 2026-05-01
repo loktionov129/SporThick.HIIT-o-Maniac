@@ -1,12 +1,9 @@
 import { AlertCircle } from 'lucide-react';
 import { Button } from '../../../components/ui/Button';
 import { FullScreenCenter } from './FullScreenCenter';
+import { NavLink } from 'react-router-dom';
 
-interface Props {
-  onBack: () => void;
-}
-
-export const NotFoundView = ({ onBack }: Props) => (
+export const NotFoundView = () => (
   <FullScreenCenter>
     <div className="">
       <div className="" />
@@ -23,12 +20,10 @@ export const NotFoundView = ({ onBack }: Props) => (
       </p>
     </div>
 
-    <Button 
-      variant="secondary" 
-      onClick={onBack}
-      className=""
-    >
-      Назад в меню
-    </Button>
+    <NavLink to="/">
+      <Button variant="secondary"className="">
+        Назад в меню
+      </Button>
+    </NavLink>
   </FullScreenCenter>
 );

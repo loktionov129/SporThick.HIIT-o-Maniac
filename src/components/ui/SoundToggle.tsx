@@ -2,6 +2,7 @@ import React from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 import { useWorkoutActions, useWorkoutStore } from '../../store/useWorkoutStore';
 import { useToastStore } from '../../store/useToastStore';
+import { Button } from './Button';
 
 interface SoundToggleProps {
   className?: string;
@@ -19,19 +20,15 @@ export const SoundToggle: React.FC<SoundToggleProps> = ({ className = "" }) => {
   };
 
   return (
-    <button 
+    <Button 
+      variant="ghost"
       onClick={handleToggle}
-      className=""
+      className={`p-2 rounded-xl ${
+        soundEnabled ? 'text-brand-blue' : 'text-text-muted'
+      } ${className}`}
       title={soundEnabled ? "Выключить звук" : "Включить звук"}
     >
-      {soundEnabled ? (
-        <div className="">
-           <div className="" />
-           <Volume2 size={22} className="" />
-        </div>
-      ) : (
-        <VolumeX size={22} />
-      )}
-    </button>
+      {soundEnabled ? <Volume2 size={24} /> : <VolumeX size={24} />}
+    </Button>
   );
 };

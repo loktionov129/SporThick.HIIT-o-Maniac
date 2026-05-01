@@ -17,22 +17,26 @@ export const PageContainer: React.FC<PageContainerProps> = ({
 }) => {
   
   return (
-    <div className="">
-      <div className="">
+    <div className="flex flex-col h-full w-full max-w-lg mx-auto overflow-hidden bg-surface-main">
+      <div className="flex-1 flex flex-col min-h-0">
         
         {withHeader && (
-          <header className="">
+          <header className="shrink-0">
             <Header />
           </header>
         )}
 
-        <main className="">
+        <main className={`flex-1 overflow-y-auto overflow-x-hidden ${className}`}>
           {children}
         </main>
 
       </div>
 
-      {withBottomNav && <BottomNav />}
+      {withBottomNav && (
+        <footer className="shrink-0">
+          <BottomNav />
+        </footer>
+      )}
     </div>
   );
 };

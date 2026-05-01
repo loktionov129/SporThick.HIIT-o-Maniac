@@ -14,11 +14,9 @@ import { PresetsButton } from '../presets/components/PresetsButton';
 export const CreateEditWorkoutScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
   const workoutId = searchParams.get('workoutId');
-  
   const currentWorkout = useWorkoutStore(s => 
     workoutId ? s.workouts.find(w => w.id === workoutId) : null
   );
-
   const { state, controls } = useWorkoutForm(currentWorkout as any);
 
   return (

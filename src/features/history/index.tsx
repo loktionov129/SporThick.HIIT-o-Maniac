@@ -4,6 +4,7 @@ import { EmptyHistory } from './components/EmptyHistory';
 import { HistoryItem } from './components/HistoryItem';
 import { useToastStore } from '../../store/useToastStore';
 import { useModalStore } from '../../store/useModalStore';
+import { Button } from '../../components/ui/Button';
 
 export const HistoryScreen = () => {
   const history = useWorkoutStore((s) => s.history);
@@ -16,8 +17,16 @@ export const HistoryScreen = () => {
   }
 
   const handleClearEntry = (id: string) => {
-    deleteHistoryEntry(id);
-    showToast('Запись удалена', 'info');
+    openModal({
+      title: "Удалить?",
+      message: "Эта запись исчезнет навсегда. Ты уверен?",
+      confirmText: "Удалить",
+      variant: "danger",
+      onConfirm: () => {
+        deleteHistoryEntry(id);
+        showToast('Запись удалена', 'info');
+      },
+    });
   }
 
   const handleClearAll = () => {
@@ -34,35 +43,37 @@ export const HistoryScreen = () => {
   };
 
   return (
-    <div className="">
-      <header className="">
-        <h2 className="">
-          История
-        </h2>
+    <div className="flex flex-col gap-6">
+      <header className="flex justify-between items-end px-2">
+        <div className="space-y-1">
+          <h2 className="text-4xl font-black italic uppercase tracking-tighter text-text-primary leading-none">
+            История
+          </h2>
+          <p className="text-[10px] font-bold text-text-muted uppercase tracking-[0.25em]">
+            Сессий: {history.length}
+          </p>
+        </div>
         
-        <button 
+        <Button 
+          variant="ghost" 
           onClick={handleClearAll}
-          className=""
+          className="text-brand-rose text-[10px] uppercase font-black tracking-widest px-4 py-2"
         >
           Очистить
-        </button>
+        </Button>
       </header>
 
-      <div className="">
+      <div className="flex flex-col gap-3">
         <AnimatePresence mode="popLayout">
           {history.map((entry) => (
             <HistoryItem 
               key={entry.id} 
               entry={entry} 
-              onDelete={handleClearEntry} 
+              onDelete={() => handleClearEntry(entry.id)} 
             />
           ))}
         </AnimatePresence>
       </div>
-      
-      <p className="">
-        Всего сессий: {history.length}
-      </p>
     </div>
   );
 };

@@ -1,11 +1,9 @@
 import React from 'react';
 import { Dumbbell, Plus } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../components/ui/Button';
+import { NavLink } from 'react-router-dom';
 
 export const EmptyWorkouts: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="">
       <div className="">
@@ -28,14 +26,12 @@ export const EmptyWorkouts: React.FC = () => {
           </p>
         </div>
 
-        <Button 
-          onClick={() => navigate('/create-edit-workout')}
-          variant="primary"
-          className=""
-        >
-          <Plus size={20} className="" />
-          <span className="">Создать программу</span>
-        </Button>
+        <NavLink to="/create-edit-workout">
+          <Button variant="primary"className="">
+            <Plus size={20} className="" />
+            <span className="">Создать программу</span>
+          </Button>
+        </NavLink>
       </div>
     </div>
   );

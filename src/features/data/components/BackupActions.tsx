@@ -1,5 +1,7 @@
+import React from 'react';
 import { DownloadCloud, UploadCloud } from 'lucide-react';
 import { Button } from '../../../components/ui/Button';
+import { DataCard } from './DataCard';
 
 interface Props {
   onExport: () => void;
@@ -9,39 +11,22 @@ interface Props {
 }
 
 export const BackupActions = ({ onExport, onImport, onTriggerImport, fileInputRef }: Props) => (
-  <section className="">
-    <label className="">
-      Резервное копирование
-    </label>
-    
-    <div className="">
-      <Button 
-        onClick={onExport} 
-        fullWidth 
-        variant="primary" 
-        className=""
-      >
-        <DownloadCloud size={20} /> 
-        Экспортировать JSON
+  <DataCard
+    title="Бэкап"
+    subtitle="Управление данными"
+    icon={UploadCloud}
+    bgIcon={DownloadCloud}
+  >
+    <div className="flex flex-col gap-3">
+      <Button onClick={onExport} variant="secondary" className="gap-3 py-4 text-xs uppercase font-black italic tracking-widest">
+        <DownloadCloud size={18} className="text-brand-blue" /> Экспортировать JSON
       </Button>
       
-      <input 
-        type="file" 
-        ref={fileInputRef} 
-        onChange={onImport} 
-        accept=".json" 
-        className="" 
-      />
+      <input type="file" ref={fileInputRef} onChange={onImport} accept=".json" className="hidden" />
       
-      <Button 
-        onClick={onTriggerImport} 
-        fullWidth 
-        variant="secondary" 
-        className=""
-      >
-        <UploadCloud size={20} /> 
-        Импортировать файл
+      <Button onClick={onTriggerImport} variant="secondary" className="gap-3 py-4 text-xs uppercase font-black italic tracking-widest">
+        <UploadCloud size={18} className="text-brand-emerald" /> Импортировать файл
       </Button>
     </div>
-  </section>
+  </DataCard>
 );

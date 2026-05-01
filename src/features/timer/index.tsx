@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { useWorkoutTimer } from './hooks/useWorkoutTimer';
 import { useWakeLock } from './hooks/useWakeLock';
@@ -12,7 +12,6 @@ import { NotFoundView } from './components/NotFoundView';
 
 export const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const { workouts } = useWorkoutStore();
   const { addHistoryEntry } = useWorkoutActions();
   
@@ -36,11 +35,16 @@ export const TimerScreen: React.FC = () => {
   const { state, actions } = useWorkoutTimer(workout, onFinish);
   useWakeLock(state.isRunning);
 
-  if (!workout) return <NotFoundView onBack={() => navigate('/')} />;
+  if (!workout) {
+    return <NotFoundView />;
+  }
 
   const isFinished = state.wasStarted && state.remainingTime === 0 && !state.isRunning;
   if (isFinished) {
-    return <TimerFinished onFinish={() => navigate('/')} totalTime={0} totalRounds={workout.rounds} />;
+    const totalExercisesTime = workout.exercises.reduce((acc, ex) => acc + ex.duration, 0);
+    const totalRestTimePerRound = (workout.exercises.length) * (workout.restDuration || 0);
+    const totalWorkoutSeconds = (totalExercisesTime + totalRestTimePerRound) * (workout.rounds || 1);
+    return <TimerFinished totalTime={totalWorkoutSeconds} totalRounds={workout.rounds} />;
   }
 
   const currentEx = workout.exercises[state.currentExerciseIndex];
@@ -56,7 +60,6 @@ export const TimerScreen: React.FC = () => {
           currentEx={state.currentExerciseIndex} 
           totalEx={workout.exercises.length}
           isResting={state.isResting} 
-          onBack={() => navigate(-1)}
         />
       </div>
 

@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { SoundToggle } from '../../../components/ui/SoundToggle';
+import { NavLink } from 'react-router-dom';
 
 interface Props {
   round: number;
@@ -7,18 +8,15 @@ interface Props {
   currentEx: number;
   totalEx: number;
   isResting: boolean;
-  onBack: () => void;
 }
 
-export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting, onBack }: Props) => (
+export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting }: Props) => (
   <div className="">
-    <button 
-      onClick={onBack} 
-      className=""
-      aria-label="Назад"
-    >
-      <ArrowLeft size={22} strokeWidth={2.5} />
-    </button>
+    <NavLink to="/">
+      <button className="" aria-label="Назад">
+        <ArrowLeft size={22} strokeWidth={2.5} />
+      </button>
+    </NavLink>
 
     <div className="">
       <p className="">
