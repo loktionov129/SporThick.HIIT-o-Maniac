@@ -11,14 +11,14 @@ export const DataScreen: React.FC = () => {
   const ops = useDataOperations();
 
   return (
-    <div className="space-y-8 pb-32 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <h2 className="text-2xl font-black uppercase tracking-tight text-text-primary italic px-1">
+    <div className="">
+      <h2 className="">
         Управление данными
       </h2>
 
       <StorageInfo workoutsCount={workoutsCount} historyCount={historyCount} />
 
-      <div className="space-y-6">
+      <div className="">
         <BackupActions 
           onExport={ops.handleExport}
           onImport={ops.handleImport}
@@ -26,12 +26,12 @@ export const DataScreen: React.FC = () => {
           fileInputRef={ops.fileInputRef}
         />
         
-        <div className="h-px bg-text-muted/10 w-full" />
+        <div className="" />
         
         <DangerZone onReset={ops.handleReset} />
       </div>
 
-      <p className="text-center text-[10px] text-text-muted uppercase font-black tracking-[0.3em] pt-4 opacity-50">
+      <p className="">
         SporThick HIIT • v1.0.8
       </p>
     </div>

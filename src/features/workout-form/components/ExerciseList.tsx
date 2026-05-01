@@ -24,7 +24,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
           <div 
             {...provided.droppableProps} 
             ref={provided.innerRef} 
-            className="space-y-4"
+            className=""
           >
             {exercises.map((exercise, index) => (
               <Draggable 
@@ -36,26 +36,16 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
-                    className={`flex items-center gap-1 sm:gap-2 transition-all duration-300 ${
-                      snapshot.isDragging 
-                        ? 'z-50 scale-[1.03] rotate-1' 
-                        : 'opacity-100'
-                    }`}
+                    className=""
                   >
                     <div 
                       {...provided.dragHandleProps} 
-                      className={`p-2 transition-colors duration-200 ${
-                        snapshot.isDragging 
-                          ? 'text-brand-blue' 
-                          : 'text-text-muted hover:text-text-primary'
-                      } cursor-grab active:cursor-grabbing`}
+                      className=""
                     >
                       <GripVertical size={20} />
                     </div>
 
-                    <div className={`flex-1 min-w-0 transition-shadow duration-300 ${
-                      snapshot.isDragging ? 'shadow-2xl shadow-brand-blue/10' : ''
-                    }`}>
+                    <div className="">
                       <ExerciseItem
                         index={index}
                         exercise={exercise}

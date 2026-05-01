@@ -11,24 +11,24 @@ interface Props {
 }
 
 export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting, onBack }: Props) => (
-  <div className="w-full flex items-center justify-between mb-6 sm:mb-10 transition-colors duration-300">
+  <div className="">
     <button 
       onClick={onBack} 
-      className="cursor-pointer p-3 bg-surface-accent/50 backdrop-blur-md border border-text-muted/10 text-text-muted hover:text-text-primary rounded-2xl active:scale-90 transition-all"
+      className=""
       aria-label="Назад"
     >
       <ArrowLeft size={22} strokeWidth={2.5} />
     </button>
 
-    <div className="flex flex-col items-center text-center">
-      <p className="text-text-muted font-black uppercase tracking-[0.2em] text-[10px] opacity-60 italic mb-1">
-        Круг {round} <span className="opacity-40">/</span> {totalRounds}
+    <div className="">
+      <p className="">
+        Круг {round} <span className="">/</span> {totalRounds}
       </p>
       
-      <div className={`px-4 py-1.5 rounded-full border shadow-lg transition-colors duration-500 ${
+      <div className={`${
         isResting ? 'bg-brand-emerald/10 border-brand-emerald/20' : 'bg-brand-blue/10 border-brand-blue/20'
       }`}>
-        <p className={`font-black text-[11px] uppercase tracking-widest italic leading-none ${
+        <p className={`${
           isResting ? 'text-brand-emerald' : 'text-brand-blue'
         }`}>
           {isResting ? 'ОТДЫХ' : `УПР. ${currentEx + 1} / ${totalEx}`}
@@ -36,6 +36,6 @@ export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting,
       </div>
     </div>
 
-    <SoundToggle className="!bg-surface-accent/50 backdrop-blur-md !border-text-muted/10 shadow-sm" />
+    <SoundToggle className="" />
   </div>
 );

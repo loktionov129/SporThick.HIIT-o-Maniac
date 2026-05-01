@@ -50,55 +50,55 @@ export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
   return (
     <Card 
       onClick={handleAdd}
-      className={`group relative flex flex-col h-full border transition-all duration-300 active:scale-[0.98] ${style.border} ${style.glow}`}
+      className=""
     >
-      <div className="flex items-start justify-between mb-4">
-        <div className={`p-2.5 rounded-xl transition-transform group-hover:scale-110 duration-300 ${style.bg} ${style.accent}`}>
-          <Zap size={20} fill="currentColor" className="opacity-80" />
+      <div className="">
+        <div className="">
+          <Zap size={20} fill="currentColor" className="" />
         </div>
         
-        <div className="bg-surface-accent p-2 rounded-xl text-text-muted group-hover:bg-brand-blue group-hover:text-white transition-all duration-500 shadow-sm">
+        <div className="">
           <Plus size={18} strokeWidth={3} />
         </div>
       </div>
 
-      <div className="space-y-1 mb-4">
-        <h4 className="text-lg font-black text-text-primary uppercase italic tracking-tight leading-tight">
+      <div className="">
+        <h4 className="">
           {preset.name}
         </h4>
-        <div className="flex items-center gap-2">
-          <span className={`text-[10px] font-black uppercase tracking-widest ${style.accent}`}>
+        <div className="">
+          <span className="">
             {preset.rounds} раунд.
           </span>
-          <span className="w-1 h-1 bg-text-muted/20 rounded-full" />
-          <span className="text-[10px] text-text-muted font-bold uppercase opacity-70">
+          <span className="" />
+          <span className="">
             {preset.restDuration}с отдых
           </span>
         </div>
       </div>
 
-      <div className="mt-auto pt-4 border-t border-text-muted/5">
-        <div className="flex flex-wrap gap-1.5">
+      <div className="">
+        <div className="">
           {preset.exercises.slice(0, 3).map((ex) => (
             <div 
               key={ex.id} 
-              className="flex items-center gap-1 bg-surface-accent px-2 py-1 rounded-md"
+              className=""
             >
-              <Activity size={10} className="text-text-muted" />
-              <span className="text-[9px] font-bold text-text-muted uppercase truncate max-w-[80px]">
+              <Activity size={10} className="" />
+              <span className="">
                 {ex.name}
               </span>
             </div>
           ))}
           {preset.exercises.length > 3 && (
-            <span className="text-[9px] font-black text-text-muted/40 self-center ml-1">
+            <span className="">
               +{preset.exercises.length - 3}
             </span>
           )}
         </div>
       </div>
 
-      <div className={`absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity pointer-events-none rounded-[24px] ${style.accent.replace('text', 'bg')}`} />
+      <div className="" />
     </Card>
   );
 };

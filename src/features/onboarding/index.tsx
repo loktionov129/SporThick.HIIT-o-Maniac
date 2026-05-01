@@ -9,14 +9,14 @@ const SLIDES = [
     id: 'welcome',
     title: 'MANIAC MODE',
     desc: 'Здесь нет места оправданиям. Только ты и твой результат.',
-    icon: <Zap size={48} className="text-brand-blue" />,
+    icon: <Zap size={48} className="" />,
     color: 'bg-brand-blue'
   },
   {
     id: 'pwa',
     title: 'ПРИЛОЖЕНИЕ ВСЕГДА С ТОБОЙ',
     desc: 'Нажми "Поделиться" и выбери "На экран Домой", чтобы тренироваться в один тап.',
-    icon: <Share size={48} className="text-brand-emerald" />,
+    icon: <Share size={48} className="" />,
     color: 'bg-brand-emerald',
     isPWA: true
   },
@@ -24,14 +24,14 @@ const SLIDES = [
     id: 'presets',
     title: 'ГОТОВЫЕ ПРОГРАММЫ',
     desc: 'В библиотеке уже ждут Tabata, HIIT и авторские протоколы.',
-    icon: <Library size={48} className="text-brand-blue" />,
+    icon: <Library size={48} className="" />,
     color: 'bg-brand-blue'
   },
   {
     id: 'custom',
     title: 'ПОДСТРОЙ ПОД СЕБЯ',
     desc: 'Меняй раунды, отдых и звуковые сигналы. Маньяк любит контроль.',
-    icon: <Settings size={48} className="text-text-muted" />,
+    icon: <Settings size={48} className="" />,
     color: 'bg-surface-accent'
   }
 ];
@@ -64,12 +64,12 @@ export const Onboarding = () => {
   const slide = SLIDES[current];
 
   return (
-    <div className="fixed inset-0 z-[200] bg-surface-main flex flex-col overflow-hidden">
-      <div className="flex gap-1.5 px-4 pt-6 relative z-10">
+    <div className="">
+      <div className="">
         {SLIDES.map((_, i) => (
-          <div key={i} className="h-1 flex-1 bg-white/10 rounded-full overflow-hidden">
+          <div key={i} className="">
             <motion.div 
-              className="h-full bg-white"
+              className=""
               initial={{ width: 0 }}
               animate={{ width: i === current ? '100%' : i < current ? '100%' : '0%' }}
               transition={{ duration: 0.5 }}
@@ -84,43 +84,43 @@ export const Onboarding = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
-          className="flex-1 flex flex-col items-center justify-center p-8 text-center"
+          className=""
         >
-          <div className={`p-8 rounded-[40px] ${slide.color}/10 mb-10 relative`}>
-            <div className={`absolute inset-0 ${slide.color}/20 blur-3xl rounded-full`} />
-            <div className="relative z-10 text-white">{slide.icon}</div>
+          <div className="">
+            <div className="" />
+            <div className="">{slide.icon}</div>
             
             {slide.isPWA && !isStandalone && (
               <motion.div 
                 animate={{ y: [0, -10, 0] }} 
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap"
+                className=""
               >
                 ЖМИ ПОДЕЛИТЬСЯ ↑
               </motion.div>
             )}
           </div>
 
-          <h2 className="text-3xl font-black text-text-primary uppercase italic tracking-tighter mb-4">
+          <h2 className="">
             {slide.title}
           </h2>
-          <p className="text-text-muted text-base font-medium leading-relaxed max-w-[280px]">
+          <p className="">
             {slide.desc}
           </p>
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute inset-0 flex">
-        <div className="w-1/3 h-full cursor-pointer" onClick={prev} />
-        <div className="w-2/3 h-full cursor-pointer" onClick={next} />
+      <div className="">
+        <div className="" onClick={prev} />
+        <div className="" onClick={next} />
       </div>
 
-      <div className="p-8 relative z-20">
+      <div className="">
         <Button 
           variant={current === SLIDES.length - 1 ? 'primary' : 'ghost'} 
           fullWidth 
           onClick={next}
-          className="py-6"
+          className=""
         >
           {current === SLIDES.length - 1 ? 'ПОГНАЛИ ТРЕНИТЬ!' : 'ДАЛЕЕ'}
         </Button>

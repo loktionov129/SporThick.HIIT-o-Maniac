@@ -21,15 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button 
-      className={`
-        flex items-center justify-center gap-2 px-6 py-4 rounded-[20px] font-black uppercase text-[11px] tracking-[0.15em]
-        transition-all duration-200 active:scale-95 cursor-pointer 
-        disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100
-        touch-manipulation
-        ${variants[variant]} 
-        ${fullWidth ? 'w-full' : ''} 
-        ${className}
-      `}
+      className=""
       {...props}
     >
       {children}

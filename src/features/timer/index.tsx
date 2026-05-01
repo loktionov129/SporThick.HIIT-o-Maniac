@@ -47,9 +47,9 @@ export const TimerScreen: React.FC = () => {
   const totalDuration = state.isResting ? (workout.restDuration || 1) : (currentEx?.duration || 1);
 
   return (
-    <div className="flex flex-col h-[100svh] relative overflow-hidden bg-surface-main animate-in fade-in duration-500">
+    <div className="">
       
-      <div className="w-full max-w-md mx-auto px-4 pt-4 z-20">
+      <div className="">
         <TimerHeader 
           round={state.currentRound} 
           totalRounds={workout.rounds}
@@ -60,15 +60,15 @@ export const TimerScreen: React.FC = () => {
         />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md mx-auto px-6 -mt-10 sm:-mt-16">
-        <div className="w-full space-y-10 sm:space-y-14">
+      <div className="">
+        <div className="">
           <TimerDisplay 
             isResting={state.isResting} 
             workoutName={workout.name} 
             exerciseName={currentEx?.name} 
           />
 
-          <div className="flex justify-center transform scale-90 sm:scale-100">
+          <div className="">
             <ProgressCircle 
               remainingTime={state.remainingTime} 
               progress={(state.remainingTime / totalDuration) * 100} 

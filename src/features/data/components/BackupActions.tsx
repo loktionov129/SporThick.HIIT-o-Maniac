@@ -9,17 +9,17 @@ interface Props {
 }
 
 export const BackupActions = ({ onExport, onImport, onTriggerImport, fileInputRef }: Props) => (
-  <section className="space-y-4">
-    <label className="text-[10px] font-black uppercase text-text-muted tracking-[0.2em] ml-2 opacity-80 italic">
+  <section className="">
+    <label className="">
       Резервное копирование
     </label>
     
-    <div className="flex flex-col gap-3">
+    <div className="">
       <Button 
         onClick={onExport} 
         fullWidth 
         variant="primary" 
-        className="py-5 gap-3 shadow-lg shadow-brand-blue/10"
+        className=""
       >
         <DownloadCloud size={20} /> 
         Экспортировать JSON
@@ -30,14 +30,14 @@ export const BackupActions = ({ onExport, onImport, onTriggerImport, fileInputRe
         ref={fileInputRef} 
         onChange={onImport} 
         accept=".json" 
-        className="hidden" 
+        className="" 
       />
       
       <Button 
         onClick={onTriggerImport} 
         fullWidth 
         variant="secondary" 
-        className="py-5 gap-3"
+        className=""
       >
         <UploadCloud size={20} /> 
         Импортировать файл

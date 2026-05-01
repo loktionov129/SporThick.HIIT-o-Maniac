@@ -21,19 +21,13 @@ export const SoundToggle: React.FC<SoundToggleProps> = ({ className = "" }) => {
   return (
     <button 
       onClick={handleToggle}
-      className={`
-        cursor-pointer relative flex items-center justify-center p-3 rounded-2xl transition-all duration-300 active:scale-90 border
-        ${soundEnabled 
-          ? 'bg-brand-blue/10 border-brand-blue/20 text-brand-blue shadow-[0_0_15px_rgba(59,130,246,0.1)]' 
-          : 'bg-surface-accent border-surface-card text-text-muted'}
-        ${className}
-      `}
+      className=""
       title={soundEnabled ? "Выключить звук" : "Включить звук"}
     >
       {soundEnabled ? (
-        <div className="relative">
-           <div className="absolute inset-0 blur-md bg-brand-blue/50 opacity-0 dark:opacity-100" />
-           <Volume2 size={22} className="relative z-10" />
+        <div className="">
+           <div className="" />
+           <Volume2 size={22} className="" />
         </div>
       ) : (
         <VolumeX size={22} />

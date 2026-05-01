@@ -22,28 +22,28 @@ export const CreateEditWorkoutScreen: React.FC = () => {
   const { state, controls } = useWorkoutForm(currentWorkout as any);
 
   return (
-    <div className="pb-32 animate-in fade-in slide-in-from-bottom-6 duration-700 ease-out">
+    <div className="">
       <WorkoutFormHeader isEdit={!!workoutId} />
 
       {!workoutId && (
-        <div className="mb-12 animate-in zoom-in-95 duration-700 delay-150">
+        <div className="">
           <PresetsButton />
           
-          <div className="relative mt-12 mb-4">
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-              <div className="w-full border-t border-text-muted/10"></div>
+          <div className="">
+            <div className="" aria-hidden="true">
+              <div className=""></div>
             </div>
-            <div className="relative flex justify-center text-[10px] uppercase font-black tracking-[0.3em]">
-              <span className="bg-surface-main px-4 text-text-muted/30 italic">Или создай свою</span>
+            <div className="">
+              <span className="">Или создай свою</span>
             </div>
           </div>
         </div>
       )}
 
-      <form onSubmit={controls.handleSubmit} className="space-y-8 md:space-y-10">
+      <form onSubmit={controls.handleSubmit} className="">
         <WorkoutNameInput value={state.name} onChange={controls.setName} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+        <div className="">
           <ConfigCard label="Раунды" subLabel="Круги упражнений">
             <PlusMinusInput min={1} value={state.rounds} onChange={controls.setRounds} />
           </ConfigCard>
@@ -53,7 +53,7 @@ export const CreateEditWorkoutScreen: React.FC = () => {
           </ConfigCard>
         </div>
 
-        <div className="pt-2">
+        <div className="">
           <ExerciseSection 
             exercises={state.exercises}
             onAdd={controls.addExercise}

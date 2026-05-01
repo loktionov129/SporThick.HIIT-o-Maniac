@@ -34,21 +34,21 @@ export const HistoryScreen = () => {
   };
 
   return (
-    <div className="space-y-6 pb-32 overflow-x-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="flex items-center justify-between px-2 pt-2">
-        <h2 className="text-2xl font-black uppercase tracking-tight text-text-primary italic">
+    <div className="">
+      <header className="">
+        <h2 className="">
           История
         </h2>
         
         <button 
           onClick={handleClearAll}
-          className="cursor-pointer text-text-muted hover:text-brand-rose text-[10px] font-black uppercase tracking-[0.2em] transition-all active:scale-90 px-2 py-1"
+          className=""
         >
           Очистить
         </button>
       </header>
 
-      <div className="space-y-4">
+      <div className="">
         <AnimatePresence mode="popLayout">
           {history.map((entry) => (
             <HistoryItem 
@@ -60,7 +60,7 @@ export const HistoryScreen = () => {
         </AnimatePresence>
       </div>
       
-      <p className="text-center text-[9px] text-text-muted uppercase font-black tracking-[0.4em] opacity-40 pt-4">
+      <p className="">
         Всего сессий: {history.length}
       </p>
     </div>

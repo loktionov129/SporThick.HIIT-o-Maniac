@@ -31,24 +31,18 @@ export const DraggableWorkoutItem: React.FC<DraggableWorkoutItemProps> = ({
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className={`relative flex items-center gap-1 sm:gap-2 transition-all duration-300 ${
-            snapshot.isDragging 
-              ? 'z-50 scale-[1.03] rotate-2 shadow-2xl shadow-brand-blue/20' 
-              : ''
-          }`}
+          className=""
         >
           {!isDragDisabled && (
             <div 
               {...provided.dragHandleProps} 
-              className={`p-2 transition-colors duration-200 cursor-grab active:cursor-grabbing ${
-                snapshot.isDragging ? 'text-brand-blue' : 'text-text-muted hover:text-text-primary'
-              }`}
+              className=""
             >
               <GripVertical size={20} />
             </div>
           )}
           
-          <div className="flex-1 min-w-0">
+          <div className="">
             <WorkoutCard
               workout={workout}
               onStart={actions.start}
