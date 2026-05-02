@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dumbbell, Plus, Zap } from 'lucide-react';
-import { Button } from '../../../components/ui/Button';
 import { NavLink } from 'react-router-dom';
-import { Card } from '../../../components/ui/Card';
+import { Dumbbell, Plus, Zap } from 'lucide-react';
+import { Button } from '@ui/Button';
+import { Card } from '@ui/Card';
 
 export const EmptyWorkouts: React.FC = () => {
   return (

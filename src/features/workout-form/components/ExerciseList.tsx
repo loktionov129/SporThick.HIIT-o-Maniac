@@ -1,8 +1,8 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
 import { GripVertical } from 'lucide-react';
+import type { Exercise } from '@app-types/index';
 import { ExerciseItem } from './ExerciseItem';
-import type { Exercise } from '../../../types';
 
 interface ExerciseListProps {
   exercises: Exercise[];

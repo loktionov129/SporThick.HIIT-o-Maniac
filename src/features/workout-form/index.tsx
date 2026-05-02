@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useWorkoutStore } from '../../store/useWorkoutStore';
-import { TimerInput } from '../../components/ui/TimerInput';
-import { PlusMinusInput } from '../../components/ui/PlusMinusInput';
+import { useWorkoutStore } from '@store/useWorkoutStore';
+import { TimerInput } from '@ui/TimerInput';
+import { PlusMinusInput } from '@ui/PlusMinusInput';
+import type { Workout } from '@app-types/index';
 import { useWorkoutForm } from './hooks/useWorkoutForm';
 import { ConfigCard } from './components/ConfigCard';
 import { ExerciseSection } from './components/ExerciseSection';
@@ -10,7 +11,6 @@ import { FormFooterActions } from './components/FormFooterActions';
 import { WorkoutFormHeader } from './components/WorkoutFormHeader';
 import { WorkoutNameInput } from './components/WorkoutNameInput';
 import { PresetsButton } from '../presets/components/PresetsButton';
-import type { Workout } from '../../types';
 
 export const CreateEditWorkoutScreen: React.FC = () => {
   const [searchParams] = useSearchParams();

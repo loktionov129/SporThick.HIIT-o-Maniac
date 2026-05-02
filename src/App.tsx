@@ -2,15 +2,15 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ConfirmModal } from './components/ui/ConfirmModal';
-import { PageContainer } from './components/Layout/PageContainer';
-import { ToastContainer } from './components/ui/ToastContainer';
-import { WorkoutList } from './features/workout-list';
-import { CreateEditWorkoutScreen } from './features/workout-form';
-import { TimerScreen } from './features/timer';
-import { HistoryScreen } from './features/history';
-import { DataScreen } from './features/data';
-import { PresetsScreen } from './features/presets';
-import { Onboarding } from './features/onboarding';
+import { PageContainer } from '@Layout/PageContainer';
+import { ToastContainer } from '@ui/ToastContainer';
+import { WorkoutList } from '@features/workout-list';
+import { CreateEditWorkoutScreen } from '@features/workout-form';
+import { TimerScreen } from '@features/timer';
+import { HistoryScreen } from '@features/history';
+import { DataScreen } from '@features/data';
+import { PresetsScreen } from '@features/presets';
+import { Onboarding } from '@features/onboarding';
 
 const AppContent: React.FC = () => {
   const location = useLocation();

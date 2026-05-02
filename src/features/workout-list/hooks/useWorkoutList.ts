@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import type { DropResult } from '@hello-pangea/dnd';
-import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
-import { useToastStore } from '../../../store/useToastStore';
-import { useModalStore } from '../../../store/useModalStore';
+import { useModalStore } from '@store/useModalStore';
+import { useToastStore } from '@store/useToastStore';
+import { useWorkoutStore, useWorkoutActions } from '@store/useWorkoutStore';
 
 export const useWorkoutList = () => {
   const { workouts } = useWorkoutStore();

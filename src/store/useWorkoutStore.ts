@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { SoundPreset, WorkoutSettings, WorkoutState } from '../types';
-import { initManiacSounds } from '../utils/beep';
+import type { SoundPreset, WorkoutSettings, WorkoutState } from '@app-types/index';
+import { initManiacSounds } from '@utils/beep';
 
 
 const defaultSettings: WorkoutSettings = { 
@@ -58,7 +58,6 @@ export const useWorkoutStore = create<WorkoutState>()(
           set((state) => ({
             settings: { ...state.settings, soundPreset: preset }
           }));
-          // После смены пресета перекачиваем буферы
           initManiacSounds(); 
         },
         toggleSound: () => set((state) => ({ 

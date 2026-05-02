@@ -1,8 +1,8 @@
 import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { DropResult } from '@hello-pangea/dnd';
-import { useWorkoutActions } from '../../../store/useWorkoutStore';
-import type { Exercise, Intensity, Workout } from '../../../types';
+import type { Exercise, Intensity, Workout } from '@app-types/index';
+import { useWorkoutActions } from '@store/useWorkoutStore';
 
 export const useWorkoutForm = (currentWorkout: Workout | null | undefined) => {
   const navigate = useNavigate();

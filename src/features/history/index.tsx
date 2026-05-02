@@ -1,10 +1,10 @@
 import { AnimatePresence } from 'framer-motion';
-import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
+import { useModalStore } from '@store/useModalStore';
+import { useToastStore } from '@store/useToastStore';
+import { useWorkoutStore, useWorkoutActions } from '@store/useWorkoutStore';
+import { Button } from '@ui/Button';
 import { EmptyHistory } from './components/EmptyHistory';
 import { HistoryItem } from './components/HistoryItem';
-import { useToastStore } from '../../store/useToastStore';
-import { useModalStore } from '../../store/useModalStore';
-import { Button } from '../../components/ui/Button';
 
 export const HistoryScreen = () => {
   const history = useWorkoutStore((s) => s.history);

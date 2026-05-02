@@ -1,6 +1,6 @@
-import { useWorkoutStore } from "../../store/useWorkoutStore";
-import type { SoundPreset } from "../../types";
-import { playSignal } from "../../utils/beep";
+import { useWorkoutStore } from '@store/useWorkoutStore';
+import type { SoundPreset } from '@app-types/index';
+import { playSignal } from '@utils/beep';
 
 const PRESETS: { id: SoundPreset; name: string; icon: string }[] = [
   { id: 'maniac', name: 'Маньяк', icon: '💀' },
@@ -15,7 +15,6 @@ export const SoundSettings = () => {
 
   const handlePresetChange = (presetId: SoundPreset) => {
     actions.setSoundPreset(presetId);
-    // Даем юзеру послушать звук сразу после выбора
     setTimeout(() => playSignal('START_WORK'), 100);
   };
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import { useWorkoutStore } from '../../store/useWorkoutStore';
+import { useWorkoutStore } from '@store/useWorkoutStore';
+import { SoundSettings } from '@ui/SoundSettings';
 import { useDataOperations } from './hooks/useDataOperations';
 import { StorageInfo } from './components/StorageInfo';
 import { BackupActions } from './components/BackupActions';
 import { DangerZone } from './components/DangerZone';
-import { SoundSettings } from '../../components/ui/SoundSettings';
 
 export const DataScreen: React.FC = () => {
   const workoutsCount = useWorkoutStore((s) => s.workouts.length);

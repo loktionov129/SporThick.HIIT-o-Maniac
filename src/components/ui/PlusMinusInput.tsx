@@ -50,10 +50,6 @@ export const PlusMinusInput: React.FC<PlusMinusInputProps> = ({ value, onChange,
           value={inputValue}
           onChange={handleInputChange}
           onBlur={handleBlur}
-          /* 
-            !w-full растянет инпут (и полоску внутри него) на всё место между кнопками.
-            px-0 убирает внутренние отступы текста, чтобы число было четко по центру.
-          */
           className="!bg-transparent !border-none !p-0 !h-10 text-2xl font-black italic text-text-primary text-center tracking-tighter shadow-none"
         />
       </div>

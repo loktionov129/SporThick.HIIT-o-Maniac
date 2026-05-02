@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useToastStore } from '../../store/useToastStore';
 import { CheckCircle2, AlertCircle, Info } from 'lucide-react';
+import { useToastStore } from '@store/useToastStore';
 
 const icons = {
   success: <CheckCircle2 size={18} className="" />,

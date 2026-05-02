@@ -1,7 +1,7 @@
 import React from 'react';
 import { Activity } from 'lucide-react';
-import { SoundToggle } from '../ui/SoundToggle';
 import { NavLink } from 'react-router-dom';
+import { SoundToggle } from '@ui/SoundToggle';
 
 export const Header: React.FC = () => {
 

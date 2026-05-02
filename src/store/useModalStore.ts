@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { ModalState } from '../types';
+import type { ModalState } from '@app-types/index';
 
 
 

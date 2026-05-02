@@ -1,12 +1,12 @@
 import React from 'react';
 import { ArrowLeft, Plus } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { PRESET_WORKOUTS } from '../../constants/presets';
-import { Button } from '../../components/ui/Button';
+import type { PresetWorkout } from '@app-types/index';
+import { PRESET_WORKOUTS } from '@constants/presets';
+import { useToastStore } from '@store/useToastStore';
+import { useWorkoutActions } from '@store/useWorkoutStore';
+import { Button } from '@ui/Button';
 import { WorkoutCard } from '../workout-list/components/WorkoutCard';
-import { useWorkoutActions } from '../../store/useWorkoutStore';
-import { useToastStore } from '../../store/useToastStore';
-import type { PresetWorkout } from '../../types';
 
 export const PresetsScreen: React.FC = () => {
   const { addWorkout } = useWorkoutActions();

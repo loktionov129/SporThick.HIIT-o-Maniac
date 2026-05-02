@@ -1,7 +1,7 @@
 import { AlertCircle } from 'lucide-react';
-import { Button } from '../../../components/ui/Button';
-import { FullScreenCenter } from './FullScreenCenter';
 import { NavLink } from 'react-router-dom';
+import { Button } from '@ui/Button';
+import { FullScreenCenter } from './FullScreenCenter';
 
 export const NotFoundView = () => (
   <FullScreenCenter>

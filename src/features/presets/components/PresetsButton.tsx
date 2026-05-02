@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { Button } from "../../../components/ui/Button";
 import { Library } from 'lucide-react';
+import { Button } from "@ui/Button";
 
 export const PresetsButton = () => {
   return (

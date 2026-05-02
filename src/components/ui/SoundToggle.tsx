@@ -1,7 +1,7 @@
 import React from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
-import { useWorkoutActions, useWorkoutStore } from '../../store/useWorkoutStore';
-import { useToastStore } from '../../store/useToastStore';
+import { useWorkoutActions, useWorkoutStore } from '@store/useWorkoutStore';
+import { useToastStore } from '@store/useToastStore';
 import { Button } from './Button';
 
 interface SoundToggleProps {

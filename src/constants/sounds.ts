@@ -1,5 +1,5 @@
-import type { SoundPreset } from "../types";
-import type { SignalType } from "../utils/beep";
+import type { SoundPreset } from '@app-types/index';
+import type { SignalType } from '@utils/beep';
 
 export const SOUND_PRESETS: Record<SoundPreset, Record<SignalType, string>> = {
   maniac: {

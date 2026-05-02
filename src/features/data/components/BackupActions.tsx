@@ -1,6 +1,6 @@
 import React from 'react';
 import { DownloadCloud, UploadCloud } from 'lucide-react';
-import { Button } from '../../../components/ui/Button';
+import { Button } from '@ui/Button';
 import { DataCard } from './DataCard';
 
 interface Props {

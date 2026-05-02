@@ -1,6 +1,6 @@
 import React from 'react';
-import { ArrowLeft } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { ArrowLeft } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 
 export const WorkoutFormHeader: React.FC<{ isEdit: boolean }> = ({ isEdit }) => (
   <div className="flex items-center justify-between px-2 mb-8 select-none" role="navigation">

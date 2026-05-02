@@ -1,8 +1,8 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Database, ShieldCheck } from 'lucide-react';
 import { DataCard } from './DataCard';
 import { StatBox } from './StatBox';
-import { NavLink } from 'react-router-dom';
 
 interface StorageInfoProps {
   workoutsCount: number;

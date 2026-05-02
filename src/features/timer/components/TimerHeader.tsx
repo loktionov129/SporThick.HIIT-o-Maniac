@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
-import { SoundToggle } from '../../../components/ui/SoundToggle';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../../../components/ui/Button';
+import { SoundToggle } from '@ui/SoundToggle';
+import { Button } from '@ui/Button';
 
 interface Props {
   round: number;

@@ -1,5 +1,5 @@
-import { SOUND_PRESETS } from "../constants/sounds";
-import { useWorkoutStore } from "../store/useWorkoutStore";
+import { SOUND_PRESETS } from '@constants/sounds';
+import { useWorkoutStore } from '@store/useWorkoutStore';
 
 const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
 const audioBuffers: Record<string, AudioBuffer> = {};

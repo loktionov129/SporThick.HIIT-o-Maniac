@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
+import { useWorkoutStore, useWorkoutActions } from '@store/useWorkoutStore';
 import { useWorkoutTimer } from './hooks/useWorkoutTimer';
 import { useWakeLock } from './hooks/useWakeLock';
 import { TimerHeader } from './components/TimerHeader';

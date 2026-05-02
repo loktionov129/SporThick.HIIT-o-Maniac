@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '../../../components/ui/Input';
+import { Input } from '@ui/Input';
 
 interface WorkoutNameInputProps {
   value: string;
