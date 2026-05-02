@@ -4,6 +4,7 @@ import { useDataOperations } from './hooks/useDataOperations';
 import { StorageInfo } from './components/StorageInfo';
 import { BackupActions } from './components/BackupActions';
 import { DangerZone } from './components/DangerZone';
+import { SoundSettings } from '../../components/ui/SoundSettings';
 
 export const DataScreen: React.FC = () => {
   const workoutsCount = useWorkoutStore((s) => s.workouts.length);
@@ -20,6 +21,8 @@ export const DataScreen: React.FC = () => {
         workoutsCount={workoutsCount}
         historyCount={historyCount}
       />
+
+      <SoundSettings />
       
       <BackupActions 
         onExport={ops.handleExport}

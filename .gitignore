@@ -57,6 +57,7 @@ fastlane/test_output/
 # Конфигурации окружения
 .env
 .env.*
+venv/
 
 # Игнорировать файлы кэша
 *.cache
