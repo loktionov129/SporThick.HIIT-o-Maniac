@@ -1,6 +1,6 @@
 import { Plus } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../../../components/ui/Button';
+import { Button } from '@ui/Button';
 
 export const FloatingAddButton = () => (
   <div className="fixed bottom-24 left-1/2 translate-x-[140px] max-md:left-auto max-md:right-6 max-md:translate-x-0 z-50">

@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
-import { Button } from "../../../components/ui/Button";
-import { Pencil, Play, Trash2 } from "lucide-react";
+import { NavLink } from 'react-router-dom';
+import { Pencil, Play, Trash2 } from 'lucide-react';
+import { Button } from '@ui/Button';
 
 export const WorkoutActions = ({ id, onDelete }: { id: string; onDelete: (id: string) => void }) => (
   <div className="flex items-center gap-2">

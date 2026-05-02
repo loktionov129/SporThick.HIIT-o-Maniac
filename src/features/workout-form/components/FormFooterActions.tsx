@@ -1,6 +1,6 @@
 import { Save, X } from "lucide-react";
-import { Button } from "../../../components/ui/Button";
 import { NavLink } from "react-router-dom";
+import { Button } from "@ui/Button";
 
 export const FormFooterActions = () => (
   <div className="sticky bottom-0 left-0 right-0 pt-10 pb-6 px-4 bg-linear-to-t from-surface-main via-surface-main/80 to-transparent z-40">

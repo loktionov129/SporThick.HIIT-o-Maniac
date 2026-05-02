@@ -2,15 +2,16 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ConfirmModal } from './components/ui/ConfirmModal';
-import { PageContainer } from './components/Layout/PageContainer';
-import { ToastContainer } from './components/ui/ToastContainer';
-import { WorkoutList } from './features/workout-list';
-import { CreateEditWorkoutScreen } from './features/workout-form';
-import { TimerScreen } from './features/timer';
-import { HistoryScreen } from './features/history';
-import { DataScreen } from './features/data';
-import { PresetsScreen } from './features/presets';
-import { Onboarding } from './features/onboarding';
+import { PageContainer } from '@Layout/PageContainer';
+import { ToastContainer } from '@ui/ToastContainer';
+import { WorkoutList } from '@features/workout-list';
+import { CreateEditWorkoutScreen } from '@features/workout-form';
+import { TimerScreen } from '@features/timer';
+import { HistoryScreen } from '@features/history';
+import { DataScreen } from '@features/data';
+import { PresetsScreen } from '@features/presets';
+import { Onboarding } from '@features/onboarding';
+import { SoundsScreen } from '@features/sounds';
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const AppContent: React.FC = () => {
         </Route>
         <Route element={<PageContainer><Outlet /></PageContainer>}>
           <Route path="/presets" element={<PresetsScreen />} />
+          <Route path="/sounds" element={<SoundsScreen />} />
           <Route path="/timer" element={<TimerScreen />} />
           <Route path="/workout/create" element={<CreateEditWorkoutScreen />} />
           <Route path="/workout/edit" element={<CreateEditWorkoutScreen />} />

@@ -57,6 +57,7 @@ fastlane/test_output/
 # Конфигурации окружения
 .env
 .env.*
+venv/
 
 # Игнорировать файлы кэша
 *.cache
@@ -128,3 +129,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ai audio models
+tools/beep/models

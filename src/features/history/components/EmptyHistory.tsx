@@ -1,8 +1,8 @@
 import React from 'react';
 import { History, Play } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../../../components/ui/Button';
-import { Card } from '../../../components/ui/Card';
+import { Button } from '@ui/Button';
+import { Card } from '@ui/Card';
 
 export const EmptyHistory: React.FC = () => {
   return (

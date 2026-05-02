@@ -1,7 +1,7 @@
 import { Coffee, ListChecks, RefreshCw, Timer } from "lucide-react";
-import { formatDuration } from "../../../utils/formatters";
-import { declOfNum } from "../../../utils/declOfNum";
-import type { PresetWorkout } from "../../../types";
+import type { PresetWorkout } from "@app-types/index";
+import { formatDuration } from "@utils/formatters";
+import { declOfNum } from "@utils/declOfNum";
 
 export const WorkoutDashboard = ({ workout }: { workout: PresetWorkout }) => {
   const totalSeconds = workout.exercises.reduce((acc, ex) => acc + ex.duration, 0) + 

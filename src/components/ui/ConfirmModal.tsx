@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, X } from 'lucide-react';
-import { useModalStore } from '../../store/useModalStore';
+import { useModalStore } from '@store/useModalStore';
 import { Button } from './Button';
 import { Card } from './Card';
 

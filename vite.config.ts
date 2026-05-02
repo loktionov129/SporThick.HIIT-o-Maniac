@@ -2,9 +2,22 @@ import { defineConfig } from 'vite'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 import { VitePWA } from 'vite-plugin-pwa'
+import path from 'path'
 
 export default defineConfig({
   base: './',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@Layout': path.resolve(__dirname, './src/components/Layout'),
+      "@ui": path.resolve(__dirname, "./src/components/ui"),
+      "@constants": path.resolve(__dirname, "./src/constants"),
+      "@features": path.resolve(__dirname, "./src/features"),
+      "@store": path.resolve(__dirname, "./src/store"),
+      "@app-types": path.resolve(__dirname, "./src/types"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
+    },
+  },
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),

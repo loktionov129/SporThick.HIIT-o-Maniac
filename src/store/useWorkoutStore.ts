@@ -1,10 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { WorkoutSettings, WorkoutState } from '../types';
+import type { SoundPreset, WorkoutSettings, WorkoutState } from '@app-types/index';
+import { initManiacSounds } from '@utils/beep';
 
 
 const defaultSettings: WorkoutSettings = { 
   soundEnabled: true,
+  soundPreset: 'maniac',
   vibrationEnabled: false,
   theme: 'dark',
   hasSeenOnboarding: false,
@@ -52,6 +54,12 @@ export const useWorkoutStore = create<WorkoutState>()(
           workouts: state.workouts.map((w) => w.id === id ? { ...w, ...workout } : w),
         })),
         
+        setSoundPreset: (preset: SoundPreset) => {
+          set((state) => ({
+            settings: { ...state.settings, soundPreset: preset }
+          }));
+          initManiacSounds(preset); 
+        },
         toggleSound: () => set((state) => ({ 
           settings: { ...state.settings, soundEnabled: !state.settings.soundEnabled } 
         })),
@@ -94,6 +102,9 @@ export const useWorkoutStore = create<WorkoutState>()(
         return rest;
       },
       onRehydrateStorage: () => (state) => {
+        if (state?.settings.soundEnabled) {
+          initManiacSounds(state.settings.soundPreset || 'maniac');
+        }
         if (state?.settings.theme === 'dark') {
           document.documentElement.classList.add('dark');
         } else {

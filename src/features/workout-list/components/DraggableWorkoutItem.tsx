@@ -1,9 +1,9 @@
 import React from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import { GripVertical } from 'lucide-react';
-import { WorkoutCard } from './WorkoutCard';
-import type { Workout } from '../../../types';
+import type { Workout } from '@app-types/index';
 import { WorkoutActions } from './WorkoutActions';
+import { WorkoutCard } from './WorkoutCard';
 import { WorkoutIntensityBadge } from './WorkoutIntensityBadge';
 
 interface DraggableWorkoutItemProps {

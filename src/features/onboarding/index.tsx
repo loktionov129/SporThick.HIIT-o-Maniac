@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Share, Settings, Moon, History, Database, Dumbbell, Volume2 } from 'lucide-react';
-import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
-import { Button } from '../../components/ui/Button';
+import { useWorkoutStore, useWorkoutActions } from '@store/useWorkoutStore';
+import { Button } from '@ui/Button';
 
 const SLIDES = [
   {

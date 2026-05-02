@@ -31,8 +31,11 @@ export interface WorkoutHistoryEntry {
   totalRounds: number;
 }
 
+export type SoundPreset = 'maniac' | 'army' | 'sexy' | 'tabata' | 'classic' | 'asmr_female' | 'cyberpunk' | 'fantasy';
+
 export interface WorkoutSettings { 
   soundEnabled: boolean;
+  soundPreset: SoundPreset;
   vibrationEnabled: boolean;
   theme: 'dark' | 'light';
   hasSeenOnboarding: boolean;
@@ -44,6 +47,7 @@ export interface WorkoutState {
   settings: WorkoutSettings;
   filterQuery: string;
   actions: {
+    setSoundPreset(presetId: string): unknown;
     completeOnboarding: () => void;
     addPreset: (preset: Omit<Workout, 'id'>) => void;
     addWorkout: (workout: Workout) => void;

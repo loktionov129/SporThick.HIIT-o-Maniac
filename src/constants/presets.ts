@@ -1,4 +1,4 @@
-import type { PresetWorkout } from "../types";
+import type { PresetWorkout } from '@app-types/index';
 
 export const PRESET_WORKOUTS: PresetWorkout[] = [
   {

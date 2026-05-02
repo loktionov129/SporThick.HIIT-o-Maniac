@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import { Calendar, Trash2, X, RotateCcw } from 'lucide-react';
-import { Card } from '../../../components/ui/Card';
-import { formatDate, formatDuration } from '../../../utils/formatters';
-import type { WorkoutHistoryEntry } from '../../../types';
+import type { WorkoutHistoryEntry } from '@app-types/index';
+import { formatDate, formatDuration } from '@utils/formatters';
+import { Button } from '@ui/Button';
+import { Card } from '@ui/Card';
 import { Stat } from './Stat';
-import { Button } from '../../../components/ui/Button';
 
 interface Props {
   entry: WorkoutHistoryEntry;

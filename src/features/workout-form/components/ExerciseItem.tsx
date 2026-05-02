@@ -1,9 +1,9 @@
 import React from 'react';
 import { Trash2 } from 'lucide-react';
-import { type Exercise } from '../../../types';
-import { TimerInput } from '../../../components/ui/TimerInput';
-import { Button } from '../../../components/ui/Button';
-import { Input } from '../../../components/ui/Input';
+import { type Exercise } from '@app-types/index';
+import { Button } from '@ui/Button';
+import { Input } from '@ui/Input';
+import { TimerInput } from '@ui/TimerInput';
 
 interface ExerciseItemProps {
   exercise: Exercise;

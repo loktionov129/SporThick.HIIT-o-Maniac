@@ -1,7 +1,7 @@
 import React from 'react';
 import { Activity } from 'lucide-react';
-import type { PresetWorkout } from '../../../types';
-import { Card } from '../../../components/ui/Card';
+import type { PresetWorkout } from '@app-types/index';
+import { Card } from '@ui/Card';
 import { WorkoutDashboard } from './WorkoutDashboard';
 
 interface WorkoutCardProps {

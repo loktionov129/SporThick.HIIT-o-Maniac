@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, ChevronUp, ChevronDown } from 'lucide-react';
 import { Input } from './Input';
-import { Button } from './Button'; // Наш маньячный Button
+import { Button } from './Button';
 
 interface TimerInputProps {
   value: number;
@@ -10,7 +10,6 @@ interface TimerInputProps {
   icon?: React.ReactNode;
 }
 
-/* В TimerInput.tsx */
 export const TimerInput: React.FC<TimerInputProps> = ({ value, onChange, label = "S", icon = <Clock size={14} /> }) => {
   return (
     <div className="relative flex items-center w-full group">

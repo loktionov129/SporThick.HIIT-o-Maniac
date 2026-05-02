@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dumbbell, History, Sun, Moon, DownloadCloud } from 'lucide-react';
-import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
+import { useWorkoutStore, useWorkoutActions } from '@store/useWorkoutStore';
 import { BottomNavItem } from './BottomNavItem';
 
 export const BottomNav: React.FC = () => {

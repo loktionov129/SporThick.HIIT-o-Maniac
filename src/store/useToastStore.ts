@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { type ToastState } from '../types';
+import { type ToastState } from '@app-types/index';
 
 export const useToastStore = create<ToastState>((set) => ({
   toasts: [],

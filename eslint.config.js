@@ -19,4 +19,9 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    rules: {
+      'quotes': ['error', 'single'],
+    }
+  }
 ])

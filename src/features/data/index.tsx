@@ -1,5 +1,6 @@
 import React from 'react';
-import { useWorkoutStore } from '../../store/useWorkoutStore';
+import { useWorkoutStore } from '@store/useWorkoutStore';
+import { SoundSettings } from '@/features/data/components/SoundSettings';
 import { useDataOperations } from './hooks/useDataOperations';
 import { StorageInfo } from './components/StorageInfo';
 import { BackupActions } from './components/BackupActions';
@@ -15,6 +16,8 @@ export const DataScreen: React.FC = () => {
       <h2 className="text-4xl font-black italic uppercase tracking-tighter text-text-primary px-2 mb-2">
         Данные
       </h2>
+
+      <SoundSettings />
 
       <StorageInfo
         workoutsCount={workoutsCount}

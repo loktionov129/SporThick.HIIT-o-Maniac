@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
-import { downloadJson } from '../../../utils/fileActions';
-import { useToastStore } from '../../../store/useToastStore';
-import { useModalStore } from '../../../store/useModalStore';
+import { useWorkoutStore, useWorkoutActions } from '@store/useWorkoutStore';
+import { useToastStore } from '@store/useToastStore';
+import { useModalStore } from '@store/useModalStore';
+import { downloadJson } from '@utils/fileActions';
 
 export const useDataOperations = () => {
   const openModal = useModalStore(s => s.openModal);

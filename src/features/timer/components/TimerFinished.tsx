@@ -1,9 +1,9 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Trophy, Clock, RotateCcw } from 'lucide-react';
-import { Button } from '../../../components/ui/Button';
+import { Button } from '@ui/Button';
 import { FullScreenCenter } from './FullScreenCenter';
 import { StatBox } from './StatBox';
-import { NavLink } from 'react-router-dom';
 
 interface TimerFinishedProps {
   totalTime: number;
