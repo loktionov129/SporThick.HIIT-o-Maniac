@@ -1,74 +1,66 @@
 import React from 'react';
-import { Pencil, Trash2, Play, ChevronRight } from 'lucide-react';
-import { type Workout } from '../../../types';
+import { Activity } from 'lucide-react';
+import type { PresetWorkout } from '../../../types';
 import { Card } from '../../../components/ui/Card';
+import { WorkoutDashboard } from './WorkoutDashboard';
 
 interface WorkoutCardProps {
-  workout: Workout;
-  onStart: (id: string) => void;
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
+  workout: PresetWorkout;
+  actions?: React.ReactNode;
+  headerBadge?: React.ReactNode;
+  onClick?: () => void;
   isDragging?: boolean;
 }
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({ 
   workout, 
-  onStart, 
-  onEdit, 
-  onDelete,
+  actions, 
+  headerBadge,
   isDragging 
 }) => {
   return (
     <Card 
-      onClick={() => onStart(workout.id)} 
-      className={`group relative overflow-hidden transition-all duration-300 ${
-        isDragging ? 'border-brand-blue/50 ring-4 ring-brand-blue/5' : 'border-text-muted/10'
-      }`}
+      className={`
+        relative overflow-hidden transition-all p-6
+        bg-surface-card border border-text-primary/5 shadow-xl
+        ${isDragging ? 'rotate-2 scale-105 z-50 opacity-90 shadow-2xl' : ''}
+      `}
     >
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-blue transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+      {/* Универсальный водяной знак */}
+      <Activity size={140} className="absolute -right-8 -top-8 text-text-primary/5 -rotate-12 pointer-events-none" />
 
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-lg font-black text-text-primary truncate group-hover:text-brand-blue transition-colors italic uppercase tracking-tight">
-              {workout.name}
-            </h3>
-            <span className="text-[9px] px-2 py-0.5 rounded-lg bg-surface-accent text-text-muted font-black uppercase tracking-widest border border-text-muted/5">
-              {workout.exercises.length} упр.
-            </span>
-          </div>
-          
-          <p className="text-[11px] text-text-muted line-clamp-1 italic font-medium opacity-60">
-            {workout.exercises.length > 0 
-              ? workout.exercises.map((ex) => ex.name).join(' • ')
-              : 'Программа пуста'}
-          </p>
+      <div className="relative z-10 flex flex-col gap-6">
+        {/* HEADER: Название + Гибкий бейдж */}
+        <div className="flex justify-between items-start gap-4">
+          <h3 className="text-3xl font-black italic uppercase tracking-tighter text-text-primary leading-none truncate">
+            {workout.name}
+          </h3>
+          {headerBadge}
+        </div>
 
-          <div className="mt-4 flex items-center gap-2">
-            <div className="flex items-center text-[10px] font-black text-brand-blue uppercase tracking-[0.2em] italic">
-              <Play size={12} className="mr-2 fill-current" />
-              Начать сессию
+        <WorkoutDashboard workout={workout} />
+        
+        {/* EXERCISES (Теги) */}
+        <div className="flex flex-wrap gap-1.5 px-1">
+          {workout.exercises.slice(0, 4).map((ex) => (
+            <div key={ex.id} className="flex items-center gap-1.5 bg-surface-accent/50 px-2.5 py-1 rounded-lg border border-text-primary/5">
+              <Activity size={10} className="text-brand-blue/40" />
+              <span className="text-[9px] font-bold uppercase text-text-muted italic">{ex.name}</span>
             </div>
-            <ChevronRight size={14} className="text-text-muted/40 group-hover:text-brand-blue group-hover:translate-x-1 transition-all" />
-          </div>
+          ))}
+          {workout.exercises.length > 4 && (
+            <span className="text-[9px] font-black text-text-muted/40 self-center ml-1">
+              +{workout.exercises.length - 4}
+            </span>
+          )}
         </div>
 
-        <div className="flex items-center gap-0.5 sm:gap-1">
-          <button
-            onClick={(e) => { e.stopPropagation(); onEdit(workout.id); }}
-            className="cursor-pointer p-3 text-text-muted hover:text-brand-blue hover:bg-brand-blue/10 rounded-2xl transition-all active:scale-90"
-            title="Редактировать"
-          >
-            <Pencil size={18} />
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); onDelete(workout.id); }}
-            className="cursor-pointer p-3 text-text-muted hover:text-brand-rose hover:bg-brand-rose/10 rounded-2xl transition-all active:scale-90"
-            title="Удалить"
-          >
-            <Trash2 size={18} />
-          </button>
-        </div>
+        {/* SLOT: ACTIONS */}
+        {actions && (
+          <div className="pt-2">
+            {actions}
+          </div>
+        )}
       </div>
     </Card>
   );

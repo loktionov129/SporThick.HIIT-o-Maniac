@@ -1,40 +1,38 @@
 import React from 'react';
 import { History, Play } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button } from '../../../components/ui/Button';
+import { Card } from '../../../components/ui/Card';
 
 export const EmptyHistory: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-6 bg-surface-accent/30 dark:bg-surface-accent/20 border border-text-muted/10 rounded-[40px] backdrop-blur-md relative overflow-hidden transition-colors duration-500">
-      <div className="absolute -top-24 -left-24 w-48 h-48 bg-brand-blue/5 dark:bg-brand-blue/10 blur-[80px] rounded-full" />
-      <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-brand-blue/5 dark:bg-brand-blue/10 blur-[80px] rounded-full" />
-
-      <div className="relative mb-8">
-        <div className="absolute inset-0 bg-brand-blue/20 dark:bg-brand-blue/30 blur-2xl rounded-full scale-150" />
-        <div className="relative bg-surface-card border border-text-muted/10 p-6 rounded-[32px] shadow-2xl dark:shadow-brand-blue/5">
-          <History className="h-12 w-12 text-brand-blue" />
-        </div>
+    <div className="flex flex-col items-center justify-center h-full text-center px-8">
+      <div className="relative mb-10">
+        <div className="absolute inset-0 bg-brand-blue blur-3xl opacity-10 rounded-full" />
+        <Card className="size-24 flex items-center justify-center text-text-muted border-none shadow-2xl">
+          <History size={40} strokeWidth={1.5} />
+        </Card>
       </div>
 
-      <div className="relative z-10 text-center space-y-3 mb-10">
-        <h3 className="text-2xl font-black text-text-primary uppercase tracking-tighter italic">
+      <div className="mb-10">
+        <h3 className="text-3xl font-black uppercase italic tracking-tighter text-text-primary mb-3">
           История пуста
         </h3>
-        <p className="text-text-muted text-sm max-w-[240px] leading-relaxed font-medium">
-          Ты еще не завершил ни одной сессии. Пора войти в историю <span className="text-brand-blue font-bold">Maniac Mode</span>!
+        <p className="text-sm text-text-muted leading-relaxed max-w-[260px]">
+          Ты еще не завершил ни одной сессии. Пора войти в историю <span className="text-brand-blue font-black italic">Maniac Mode</span>!
         </p>
       </div>
 
-      <Button 
-        onClick={() => navigate('/')}
-        variant="primary"
-        className="relative z-10 py-5 px-10 shadow-xl shadow-brand-blue/20 active:scale-95"
-      >
-        <Play size={20} className="fill-current" />
-        В зал
-      </Button>
+      <NavLink to="/" className="w-full max-w-[240px]">
+        <Button 
+          variant="primary"
+          fullWidth
+          className="gap-3 py-5"
+        >
+          <Play size={20} fill="currentColor" />
+          <span className="uppercase font-black italic tracking-widest">В зал</span>
+        </Button>
+      </NavLink>
     </div>
   );
 };

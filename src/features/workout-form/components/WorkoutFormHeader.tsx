@@ -1,19 +1,21 @@
+import React from 'react';
 import { ArrowLeft } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
-export const WorkoutFormHeader = ({ isEdit }: { isEdit: boolean }) => (
-  <div className="flex items-center justify-between mb-10 sm:mb-12 py-2 transition-colors duration-300">
-    <button 
-      onClick={() => window.history.back()} 
-      className="cursor-pointer p-2 text-text-muted hover:text-brand-blue transition-all active:scale-90"
-      aria-label="Назад"
+export const WorkoutFormHeader: React.FC<{ isEdit: boolean }> = ({ isEdit }) => (
+  <div className="flex items-center justify-between px-2 mb-8 select-none" role="navigation">
+    <NavLink 
+      to="/" 
+      className="p-2 -ml-2 text-text-muted hover:text-brand-blue transition-colors active:scale-90"
+      title="Назад в зал"
     >
-      <ArrowLeft size={26} strokeWidth={2.5} />
-    </button>
+      <ArrowLeft size={28} strokeWidth={2.5} />
+    </NavLink>
 
-    <h2 className="text-xl sm:text-2xl font-black text-text-primary uppercase tracking-wider text-center flex-1 italic">
-      {isEdit ? 'Редактирование' : 'Новая тренировка'}
+    <h2 className="text-[11px] font-black uppercase italic tracking-[0.3em] text-text-primary leading-none">
+      {isEdit ? 'Редактирование' : 'Новая программа'}
     </h2>
 
-    <div className="w-10" />
+    <div className="w-11" /> 
   </div>
 );

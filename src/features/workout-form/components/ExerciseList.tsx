@@ -24,7 +24,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
           <div 
             {...provided.droppableProps} 
             ref={provided.innerRef} 
-            className="space-y-4"
+            className="flex flex-col gap-3"
           >
             {exercises.map((exercise, index) => (
               <Draggable 
@@ -36,31 +36,32 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
-                    className={`flex items-center gap-1 sm:gap-2 transition-all duration-300 ${
-                      snapshot.isDragging 
-                        ? 'z-50 scale-[1.03] rotate-1' 
-                        : 'opacity-100'
+                    className={`flex items-center gap-1 relative group transition-all ${
+                      snapshot.isDragging ? 'z-50' : 'z-0'
                     }`}
                   >
+                    {/* ЗОНА ЗАХВАТА (GRIP) */}
                     <div 
                       {...provided.dragHandleProps} 
-                      className={`p-2 transition-colors duration-200 ${
-                        snapshot.isDragging 
-                          ? 'text-brand-blue' 
-                          : 'text-text-muted hover:text-text-primary'
-                      } cursor-grab active:cursor-grabbing`}
+                      className={`
+                        flex items-center justify-center
+                        w-10 h-16 -mr-1 z-20 shrink-0
+                        text-text-muted/20 hover:text-brand-blue 
+                        active:text-brand-blue transition-colors
+                        cursor-grab active:cursor-grabbing
+                      `}
+                      title="Перетащить"
                     >
-                      <GripVertical size={20} />
+                      <GripVertical size={20} strokeWidth={2.5} />
                     </div>
 
-                    <div className={`flex-1 min-w-0 transition-shadow duration-300 ${
-                      snapshot.isDragging ? 'shadow-2xl shadow-brand-blue/10' : ''
-                    }`}>
+                    {/* КАРТОЧКА УПРАЖНЕНИЯ */}
+                    <div className="flex-1 min-w-0">
                       <ExerciseItem
-                        index={index}
                         exercise={exercise}
                         onUpdate={onUpdate}
                         onRemove={onRemove}
+                        isDragging={snapshot.isDragging}
                       />
                     </div>
                   </div>

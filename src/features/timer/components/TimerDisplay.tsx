@@ -10,25 +10,28 @@ interface Props {
 export const TimerDisplay: React.FC<Props> = ({ isResting, workoutName, exerciseName }) => {
   return (
     <div 
-      className="text-center mb-10 sm:mb-12 animate-in fade-in duration-500" 
+      className="flex flex-col items-center text-center space-y-2 animate-in fade-in zoom-in duration-500" 
       key={isResting ? 'rest' : 'work'}
     >
-      <div className="flex items-center justify-center gap-2 mb-4">
+      {/* ВЕРХНЯЯ СТРОКА: Название программы или статус "Перерыв" */}
+      <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-surface-accent/30 border border-text-primary/5">
         {isResting ? (
-          <Coffee size={18} className="text-brand-emerald" />
+          <Coffee size={14} className="text-brand-emerald animate-pulse" />
         ) : (
-          <Zap size={18} className="text-brand-blue fill-brand-blue animate-pulse" />
+          <Zap size={14} className="text-brand-blue animate-pulse" fill="currentColor" />
         )}
-        <span className={`font-black uppercase tracking-[0.3em] text-[11px] italic ${
+        <span className={`text-[10px] font-black uppercase tracking-[0.2em] italic ${
           isResting ? 'text-brand-emerald' : 'text-brand-blue'
         }`}>
-          {isResting ? 'Перерыв' : workoutName}
+          {isResting ? 'Время восстановиться' : workoutName}
         </span>
       </div>
       
-      <h2 className={`text-4xl font-black uppercase tracking-tighter sm:text-7xl drop-shadow-2xl transition-colors duration-500 leading-none italic ${
-        isResting ? 'text-brand-emerald' : 'text-text-primary'
-      }`}>
+      {/* ГЛАВНЫЙ ЗАГОЛОВОК: Что делать сейчас */}
+      <h2 className={`
+        text-4xl xs:text-5xl font-black uppercase italic tracking-tighter leading-tight px-4
+        ${isResting ? 'text-brand-emerald' : 'text-text-primary'}
+      `}>
         {isResting ? 'ОТДЫХАЙ' : exerciseName}
       </h2>
     </div>

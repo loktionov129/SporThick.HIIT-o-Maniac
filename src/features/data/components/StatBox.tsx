@@ -5,13 +5,13 @@ interface StatBoxProps {
 }
 
 export const StatBox = ({ count, label, color }: StatBoxProps) => (
-  <div className="bg-surface-accent/50 dark:bg-surface-accent p-4 rounded-2xl border border-text-muted/10 transition-colors duration-300">
-    <span className={`block text-3xl font-black ${color} tabular-nums tracking-tighter drop-shadow-sm`}>
+  <div className="flex flex-col items-center justify-center w-full">
+    <span className={`text-4xl font-black italic leading-none tracking-tighter ${color}`}>
       {count}
     </span>
-    
-    <span className="text-[10px] text-text-muted uppercase font-black tracking-widest mt-1 block opacity-80 italic">
+    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted mt-2 opacity-80">
       {label}
     </span>
   </div>
 );
+

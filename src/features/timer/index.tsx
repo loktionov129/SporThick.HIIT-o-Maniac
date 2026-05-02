@@ -1,18 +1,18 @@
 import React, { useCallback } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { useWorkoutTimer } from './hooks/useWorkoutTimer';
 import { useWakeLock } from './hooks/useWakeLock';
 import { TimerHeader } from './components/TimerHeader';
-import { TimerControls } from './components/TimerControls';
 import { TimerDisplay } from './components/TimerDisplay';
 import { ProgressCircle } from './components/ProgressCircle';
-import { TimerFinished } from './components/TimerFinished';
+import { TimerControls } from './components/TimerControls';
 import { NotFoundView } from './components/NotFoundView';
+import { TimerFinished } from './components/TimerFinished';
+import { NextStep } from './components/NextStep';
 
 export const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const { workouts } = useWorkoutStore();
   const { addHistoryEntry } = useWorkoutActions();
   
@@ -24,7 +24,7 @@ export const TimerScreen: React.FC = () => {
     }
     
     addHistoryEntry({
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       workoutId: workout.id,
       workoutName: workout.name,
       timestamp: Date.now(),
@@ -36,54 +36,75 @@ export const TimerScreen: React.FC = () => {
   const { state, actions } = useWorkoutTimer(workout, onFinish);
   useWakeLock(state.isRunning);
 
-  if (!workout) return <NotFoundView onBack={() => navigate('/')} />;
+  if (!workout) {
+    return <NotFoundView />;
+  }
 
   const isFinished = state.wasStarted && state.remainingTime === 0 && !state.isRunning;
   if (isFinished) {
-    return <TimerFinished onFinish={() => navigate('/')} totalTime={0} totalRounds={workout.rounds} />;
+    const totalExercisesTime = workout.exercises.reduce((acc, ex) => acc + ex.duration, 0);
+    const totalRestTimePerRound = (workout.exercises.length) * (workout.restDuration || 0);
+    const totalWorkoutSeconds = (totalExercisesTime + totalRestTimePerRound) * (workout.rounds || 1);
+    return <TimerFinished totalTime={totalWorkoutSeconds} totalRounds={workout.rounds} />;
   }
 
   const currentEx = workout.exercises[state.currentExerciseIndex];
   const totalDuration = state.isResting ? (workout.restDuration || 1) : (currentEx?.duration || 1);
 
   return (
-    <div className="flex flex-col h-[100svh] relative overflow-hidden bg-surface-main animate-in fade-in duration-500">
+    <div className="h-[100dvh] w-full max-w-md mx-auto flex flex-col bg-surface-main overflow-hidden relative">
       
-      <div className="w-full max-w-md mx-auto px-4 pt-4 z-20">
+      {/* 1. HEADER: Прогресс раундов и упр. */}
+      <div className="shrink-0 p-2 z-20">
         <TimerHeader 
           round={state.currentRound} 
           totalRounds={workout.rounds}
           currentEx={state.currentExerciseIndex} 
           totalEx={workout.exercises.length}
           isResting={state.isResting} 
-          onBack={() => navigate(-1)}
         />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md mx-auto px-6 -mt-10 sm:-mt-16">
-        <div className="w-full space-y-10 sm:space-y-14">
+      {/* 2. MAIN CONTENT: Только Дисплей и Круг */}
+      <main className="flex-1 flex flex-col items-center justify-evenly px-6 py-4 relative z-10">
+        
+        {/* Что делаем сейчас */}
+        <div className="w-full text-center animate-in fade-in slide-in-from-top-4 duration-700">
           <TimerDisplay 
             isResting={state.isResting} 
             workoutName={workout.name} 
             exerciseName={currentEx?.name} 
           />
-
-          <div className="flex justify-center transform scale-90 sm:scale-100">
-            <ProgressCircle 
-              remainingTime={state.remainingTime} 
-              progress={(state.remainingTime / totalDuration) * 100} 
-              isResting={state.isResting}
-            />
-          </div>
         </div>
+        <NextStep
+          isResting={state.isResting}
+          workout={workout}
+          currentExerciseIndex={state.currentExerciseIndex}
+          currentRound={state.currentRound}
+        />
+        {/* Главный Визуальный Якорь */}
+        <div className="relative flex items-center justify-center scale-110 xs:scale-125 transition-transform duration-500">
+          <ProgressCircle 
+            remainingTime={state.remainingTime} 
+            progress={(state.remainingTime / totalDuration) * 100} 
+            isResting={state.isResting}
+          />
+        </div>
+      </main>
+
+      {/* 3. CONTROLS: Управление в самом низу */}
+      <div className="shrink-0 p-8 pb-12 z-20">
+        <TimerControls 
+          isRunning={state.isRunning}
+          onToggle={actions.toggleRunning}
+          onReset={actions.handleReset}
+        />
       </div>
 
-      <TimerControls 
-        isRunning={state.isRunning}
-        onToggle={actions.toggleRunning}
-        onReset={actions.handleReset}
-      />
-      
+      {/* ФОНОВЫЕ ЭФФЕКТЫ */}
+      {state.isResting && (
+        <div className="absolute inset-0 bg-brand-emerald/[0.03] animate-pulse -z-10" />
+      )}
     </div>
   );
 };

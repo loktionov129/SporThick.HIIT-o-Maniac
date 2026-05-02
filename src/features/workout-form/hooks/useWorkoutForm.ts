@@ -2,7 +2,7 @@ import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { DropResult } from '@hello-pangea/dnd';
 import { useWorkoutActions } from '../../../store/useWorkoutStore';
-import type { Exercise, Workout } from '../../../types';
+import type { Exercise, Intensity, Workout } from '../../../types';
 
 export const useWorkoutForm = (currentWorkout: Workout | null | undefined) => {
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ export const useWorkoutForm = (currentWorkout: Workout | null | undefined) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    console.log(42)
     e.preventDefault();
     if (!name.trim()) return;
 
@@ -44,6 +45,7 @@ export const useWorkoutForm = (currentWorkout: Workout | null | undefined) => {
       exercises: exercises.filter(ex => ex.name.trim() !== ''),
       rounds,
       restDuration,
+      intensity: 'light' as Intensity
     };
 
     if (currentWorkout?.id) updateWorkout(currentWorkout.id, workoutData);

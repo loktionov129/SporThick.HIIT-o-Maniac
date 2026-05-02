@@ -1,8 +1,7 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ConfirmModal } from './components/ui/ConfirmModal';
-import { MainLayout } from './components/Layout/MainLayout';
 import { PageContainer } from './components/Layout/PageContainer';
 import { ToastContainer } from './components/ui/ToastContainer';
 import { WorkoutList } from './features/workout-list';
@@ -12,7 +11,6 @@ import { HistoryScreen } from './features/history';
 import { DataScreen } from './features/data';
 import { PresetsScreen } from './features/presets';
 import { Onboarding } from './features/onboarding';
-import './App.css';
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -20,24 +18,22 @@ const AppContent: React.FC = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route element={<MainLayout />}>
+        
+        <Route element={
+          <PageContainer withBottomNav withHeader>
+            <Outlet /> 
+          </PageContainer>
+        }>
           <Route path="/" element={<WorkoutList />} />
-          <Route path="/presets" element={<PresetsScreen  />} />
           <Route path="/history" element={<HistoryScreen />} />
           <Route path="/data" element={<DataScreen />} />
         </Route>
-
-        <Route path="/timer" element={
-          <PageContainer maxWidth="sm" className="animate-in fade-in zoom-in-95">
-            <TimerScreen />
-          </PageContainer>
-        } />
-
-        <Route path="/create-edit-workout" element={
-          <PageContainer maxWidth="md" className="animate-in slide-in-from-right">
-            <CreateEditWorkoutScreen />
-          </PageContainer>
-        } />
+        <Route element={<PageContainer><Outlet /></PageContainer>}>
+          <Route path="/presets" element={<PresetsScreen />} />
+          <Route path="/timer" element={<TimerScreen />} />
+          <Route path="/workout/create" element={<CreateEditWorkoutScreen />} />
+          <Route path="/workout/edit" element={<CreateEditWorkoutScreen />} />
+        </Route>
       </Routes>
     </AnimatePresence>
   );
@@ -46,7 +42,7 @@ const AppContent: React.FC = () => {
 export const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen bg-surface-main transition-colors duration-300">
+      <div className="fixed inset-0 overflow-hidden bg-surface-main text-text-primary">
         <Onboarding />
         <AppContent />
         <ToastContainer />

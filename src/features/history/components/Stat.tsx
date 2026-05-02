@@ -5,12 +5,11 @@ interface StatProps {
 }
 
 export const Stat = ({ label, value, color }: StatProps) => (
-  <div className="flex flex-col items-end">
-    <span className={`${color} font-black tabular-nums text-xl leading-none italic tracking-tighter`}>
+  <div className="flex flex-col">
+    <span className={`text-2xl font-black italic leading-none tracking-tighter ${color}`}>
       {value}
     </span>
-    
-    <span className="text-[9px] text-text-muted uppercase font-black tracking-[0.2em] mt-1.5 opacity-60">
+    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-text-muted mt-1 opacity-70">
       {label}
     </span>
   </div>

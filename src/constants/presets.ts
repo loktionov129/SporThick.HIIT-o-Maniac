@@ -1,9 +1,4 @@
-import { type Workout } from '../types';
-
-// Расширяем тип для поддержки интенсивности (только для этого файла)
-export interface PresetWorkout extends Omit<Workout, 'id'> {
-  intensity: 'light' | 'standard' | 'extreme';
-}
+import type { PresetWorkout } from "../types";
 
 export const PRESET_WORKOUTS: PresetWorkout[] = [
   {

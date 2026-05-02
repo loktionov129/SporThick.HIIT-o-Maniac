@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-}
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-export const Input: React.FC<InputProps> = ({ label, className = '', ...props }) => {
-  return (
-    <div className="w-full space-y-1.5 group">
-      {label && (
-        <label className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-black ml-1 italic transition-colors group-focus-within:text-brand-blue">
-          {label}
-        </label>
-      )}
-      <div className="relative">
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div className="relative w-full group">
         <input
-          className={`
-            w-full bg-surface-accent border border-text-muted/10 text-text-primary px-5 py-4 rounded-[20px] 
-            placeholder:text-text-muted/40 font-bold text-base
-            outline-none transition-all duration-300
-            focus:bg-surface-card focus:border-brand-blue/50 
-            focus:shadow-[0_0_20px_rgba(59,130,246,0.1)]
+          ref={ref}
+          className={`peer
+            flex h-12 w-full rounded-xl 
+            bg-surface-accent/20 border border-text-primary/5 
+            px-4 py-2 text-text-primary 
+            placeholder:text-text-muted/30 
+            focus:outline-hidden focus:ring-0
+            transition-all duration-300
             ${className}
           `}
           {...props}
         />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-brand-blue rounded-full transition-all duration-300 group-focus-within:w-1/3 opacity-50" />
+        
+        <div className="
+  absolute bottom-0 left-0 right-0 h-[2px] 
+  bg-brand-blue shadow-[0_0_10px_rgba(59,130,246,0.5)] 
+  scale-x-0 peer-focus-within:scale-x-100 
+  transition-transform duration-500 ease-out origin-center
+  pointer-events-none
+        " />
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
+
+Input.displayName = 'Input';

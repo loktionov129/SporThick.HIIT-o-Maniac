@@ -2,43 +2,50 @@ import React from 'react';
 import { Trash2 } from 'lucide-react';
 import { type Exercise } from '../../../types';
 import { TimerInput } from '../../../components/ui/TimerInput';
+import { Button } from '../../../components/ui/Button';
+import { Input } from '../../../components/ui/Input';
 
 interface ExerciseItemProps {
   exercise: Exercise;
-  index: number;
   onUpdate: (id: string, field: 'name' | 'duration', value: string | number) => void;
   onRemove: (id: string) => void;
+  isDragging?: boolean;
 }
 
-export const ExerciseItem: React.FC<ExerciseItemProps> = ({ exercise, index, onUpdate, onRemove }) => {
+export const ExerciseItem: React.FC<ExerciseItemProps> = ({ 
+  exercise, onUpdate, onRemove, isDragging 
+}) => {
   return (
-    <div className="group bg-surface-card border border-text-muted/10 p-3 sm:p-4 rounded-2xl flex items-center gap-3 sm:gap-4 transition-all duration-300 focus-within:border-brand-blue/30 focus-within:shadow-lg focus-within:shadow-brand-blue/5">
+    <div className={`
+      flex items-center gap-4 p-3 pl-6 rounded-2xl transition-all duration-300
+      bg-surface-card border border-text-primary/5
+      ${isDragging ? 'z-50 scale-[1.02] shadow-2xl border-brand-blue/30 bg-surface-accent/60' : ''}
+    `}>
       
-      <div className="flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic shadow-lg shadow-brand-blue/20 text-sm">
-        {index + 1}
+      <div className="flex-1 min-w-0">
+        <Input
+          value={exercise.name}
+          onChange={(e) => onUpdate(exercise.id, 'name', e.target.value)}
+          placeholder="Упражнение..."
+          className="!bg-transparent !border-none !p-0 !h-auto text-xl font-black italic uppercase tracking-tighter text-text-primary shadow-none truncate"
+        />
       </div>
-      
-      <input
-        type="text"
-        value={exercise.name}
-        onChange={(e) => onUpdate(exercise.id, 'name', e.target.value)}
-        placeholder="Напр. Отжимания"
-        className="flex-1 bg-transparent text-text-primary font-bold focus:outline-none placeholder:text-text-muted/30 placeholder:font-medium transition-colors"
-      />
 
-      <TimerInput 
-        value={exercise.duration} 
-        onChange={(val) => onUpdate(exercise.id, 'duration', val)} 
-      />
+      <div className="w-32 shrink-0">
+        <TimerInput 
+          value={exercise.duration} 
+          onChange={(val) => onUpdate(exercise.id, 'duration', val)} 
+        />
+      </div>
 
-      <button
+      <Button
         type="button"
+        variant="danger"
         onClick={() => onRemove(exercise.id)}
-        className="cursor-pointer p-2 text-text-muted hover:text-brand-rose transition-all active:scale-110"
-        title="Удалить"
+        className="!p-2 text-text-muted/20 hover:text-brand-rose transition-colors shrink-0"
       >
-        <Trash2 size={18} className="sm:w-5 sm:h-5" />
-      </button>
+        <Trash2 size={18} />
+      </Button>
     </div>
   );
 };

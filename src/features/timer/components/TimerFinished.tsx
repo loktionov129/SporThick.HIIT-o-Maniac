@@ -3,14 +3,14 @@ import { Trophy, Clock, RotateCcw } from 'lucide-react';
 import { Button } from '../../../components/ui/Button';
 import { FullScreenCenter } from './FullScreenCenter';
 import { StatBox } from './StatBox';
+import { NavLink } from 'react-router-dom';
 
 interface TimerFinishedProps {
-  onFinish: () => void;
   totalTime: number;
   totalRounds: number;
 }
 
-export const TimerFinished: React.FC<TimerFinishedProps> = ({ onFinish, totalTime, totalRounds }) => {
+export const TimerFinished: React.FC<TimerFinishedProps> = ({ totalTime, totalRounds }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -18,45 +18,56 @@ export const TimerFinished: React.FC<TimerFinishedProps> = ({ onFinish, totalTim
   };
 
   return (
-    <FullScreenCenter>
-      <div className="flex flex-col items-center text-center animate-in fade-in zoom-in duration-700 px-4 w-full">
-        <div className="relative mb-10">
-          <div className="absolute inset-0 bg-amber-500 blur-3xl opacity-20 dark:opacity-30 animate-pulse" />
-          <div className="relative bg-amber-500/10 p-8 rounded-[40px] inline-block border border-amber-500/20 shadow-2xl shadow-amber-500/5">
-            <Trophy className="text-amber-500 w-20 h-20 sm:w-24 sm:h-24" />
-          </div>
+  <FullScreenCenter>
+    <div className="flex flex-col items-center w-full max-w-[320px] animate-in fade-in zoom-in duration-700">
+      
+      {/* ТРОФЕЙ: В золотом ореоле */}
+      <div className="relative mb-8 group">
+        {/* Мягкое свечение на фоне */}
+        <div className="absolute inset-0 bg-amber-500/20 blur-3xl rounded-full animate-pulse" />
+        
+        <div className="relative size-24 rounded-[2.5rem] bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-[0_15px_40px_rgba(245,158,11,0.4)] transition-transform group-hover:scale-110 duration-500">
+          <Trophy className="text-white drop-shadow-lg" size={48} strokeWidth={1.5} />
         </div>
+      </div>
 
-        <h2 className="text-4xl sm:text-5xl font-black text-text-primary mb-3 tracking-tighter uppercase italic leading-none">
-          Победа!
+      {/* ТЕКСТ ТРИУМФА */}
+      <div className="text-center space-y-3 mb-10">
+        <h2 className="text-4xl font-black uppercase italic tracking-tighter text-text-primary leading-none">
+          Победа<span className="text-amber-500">!</span>
         </h2>
-        <p className="text-text-muted mb-12 font-bold uppercase text-[11px] tracking-[0.2em] opacity-80">
-          Тренировка завершена. Мощный результат!
+        <p className="text-sm font-bold text-text-muted italic leading-relaxed px-4">
+          Тренировка завершена.<br />
+          Результат — просто <span className="text-text-primary uppercase tracking-widest">разрыв</span>.
         </p>
+      </div>
 
-        <div className="grid grid-cols-2 gap-4 w-full max-w-sm mb-12">
-          <StatBox 
-            icon={<Clock className="text-brand-blue" size={24} />}
-            value={formatTime(totalTime)}
-            label="Время"
-          />
-          <StatBox 
-            icon={<RotateCcw className="text-brand-emerald" size={24} />}
-            value={totalRounds}
-            label="Кругов"
-          />
-        </div>
+      {/* ИТОГОВЫЕ СТАТЫ: В два столбца */}
+      <div className="grid grid-cols-2 gap-4 w-full mb-12">
+        <StatBox 
+          icon={<Clock className="text-brand-blue" />}
+          value={formatTime(totalTime)}
+          label="Время"
+        />
+        <StatBox 
+          icon={<RotateCcw className="text-brand-emerald" />}
+          value={totalRounds}
+          label="Кругов"
+        />
+      </div>
 
+      {/* КНОПКА ЗАВЕРШЕНИЯ: Массивная и тактильная */}
+      <NavLink to="/history" className="w-full">
         <Button 
-          onClick={onFinish} 
           fullWidth 
           variant="primary" 
-          className="py-6 text-sm font-black uppercase tracking-[0.2em] shadow-2xl active:scale-95"
+          className="!py-5 !rounded-3xl shadow-[0_15px_40px_rgba(59,130,246,0.3)] hover:brightness-110 active:scale-95 transition-all"
         >
-          Завершить
+          Зафиксировать
         </Button>
-      </div>
-    </FullScreenCenter>
+      </NavLink>
+    </div>
+  </FullScreenCenter>
   );
 };
 

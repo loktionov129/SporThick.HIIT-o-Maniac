@@ -1,5 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { SoundToggle } from '../../../components/ui/SoundToggle';
+import { NavLink } from 'react-router-dom';
+import { Button } from '../../../components/ui/Button';
 
 interface Props {
   round: number;
@@ -7,35 +9,43 @@ interface Props {
   currentEx: number;
   totalEx: number;
   isResting: boolean;
-  onBack: () => void;
 }
 
-export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting, onBack }: Props) => (
-  <div className="w-full flex items-center justify-between mb-6 sm:mb-10 transition-colors duration-300">
-    <button 
-      onClick={onBack} 
-      className="cursor-pointer p-3 bg-surface-accent/50 backdrop-blur-md border border-text-muted/10 text-text-muted hover:text-text-primary rounded-2xl active:scale-90 transition-all"
-      aria-label="Назад"
-    >
-      <ArrowLeft size={22} strokeWidth={2.5} />
-    </button>
+export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting }: Props) => (
+  <div className="flex items-center justify-between px-4 py-4 select-none h-20">
+    <NavLink to="/">
+      <Button 
+        variant="ghost" 
+        className="!p-2 -ml-2 text-text-muted hover:text-text-primary"
+        aria-label="Назад"
+      >
+        <ArrowLeft size={24} strokeWidth={2.5} />
+      </Button>
+    </NavLink>
 
-    <div className="flex flex-col items-center text-center">
-      <p className="text-text-muted font-black uppercase tracking-[0.2em] text-[10px] opacity-60 italic mb-1">
-        Круг {round} <span className="opacity-40">/</span> {totalRounds}
+    <div className="flex flex-col items-center gap-1.5">
+      <p className="text-[10px] font-black uppercase tracking-[0.4em] text-text-muted italic leading-none">
+        Круг <span className="text-text-primary">{round}</span> <span className="opacity-20">/</span> {totalRounds}
       </p>
       
-      <div className={`px-4 py-1.5 rounded-full border shadow-lg transition-colors duration-500 ${
-        isResting ? 'bg-brand-emerald/10 border-brand-emerald/20' : 'bg-brand-blue/10 border-brand-blue/20'
-      }`}>
-        <p className={`font-black text-[11px] uppercase tracking-widest italic leading-none ${
-          isResting ? 'text-brand-emerald' : 'text-brand-blue'
-        }`}>
+      <div className={`
+        px-3 py-1.5 rounded-full border transition-all duration-500
+        ${isResting 
+          ? 'bg-brand-emerald/10 border-brand-emerald/20 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
+          : 'bg-brand-blue/10 border-brand-blue/20 shadow-[0_0_15px_rgba(59,130,246,0.15)]'
+        }
+      `}>
+        <p className={`
+          text-[10px] font-black tracking-widest italic leading-none
+          ${isResting ? 'text-brand-emerald' : 'text-brand-blue'}
+        `}>
           {isResting ? 'ОТДЫХ' : `УПР. ${currentEx + 1} / ${totalEx}`}
         </p>
       </div>
     </div>
 
-    <SoundToggle className="!bg-surface-accent/50 backdrop-blur-md !border-text-muted/10 shadow-sm" />
+    <div className="p-2 -mr-2">
+      <SoundToggle />
+    </div>
   </div>
 );

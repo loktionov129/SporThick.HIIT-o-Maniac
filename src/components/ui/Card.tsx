@@ -15,13 +15,12 @@ export const Card: React.FC<CardProps> = ({
     <div 
       onClick={onClick}
       className={`
-        bg-surface-card border border-text-muted/10 p-5 rounded-[24px] 
-        transition-all duration-300 shadow-sm
-        ${onClick ? `
-          cursor-pointer 
-          hover:bg-surface-accent hover:border-brand-blue/30 
-          hover:shadow-md active:scale-[0.98]
-        ` : ''} 
+        bg-surface-card 
+        rounded-[2.5rem] 
+        p-6 
+        border border-text-primary/5 
+        transition-all duration-300
+        ${onClick ? 'cursor-pointer active:scale-[0.98] active:bg-surface-accent' : ''}
         ${className}
       `}
     >

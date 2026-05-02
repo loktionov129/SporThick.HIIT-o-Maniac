@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Share, Library, Settings } from 'lucide-react';
+import { Zap, Share, Settings, Moon, History, Database, Dumbbell, Volume2 } from 'lucide-react';
 import { useWorkoutStore, useWorkoutActions } from '../../store/useWorkoutStore';
 import { Button } from '../../components/ui/Button';
 
@@ -8,31 +8,67 @@ const SLIDES = [
   {
     id: 'welcome',
     title: 'MANIAC MODE',
-    desc: 'Здесь нет места оправданиям. Только ты и твой результат.',
-    icon: <Zap size={48} className="text-brand-blue" />,
-    color: 'bg-brand-blue'
-  },
-  {
-    id: 'pwa',
-    title: 'ПРИЛОЖЕНИЕ ВСЕГДА С ТОБОЙ',
-    desc: 'Нажми "Поделиться" и выбери "На экран Домой", чтобы тренироваться в один тап.',
-    icon: <Share size={48} className="text-brand-emerald" />,
-    color: 'bg-brand-emerald',
-    isPWA: true
-  },
-  {
-    id: 'presets',
-    title: 'ГОТОВЫЕ ПРОГРАММЫ',
-    desc: 'В библиотеке уже ждут Tabata, HIIT и авторские протоколы.',
-    icon: <Library size={48} className="text-brand-blue" />,
-    color: 'bg-brand-blue'
+    desc: 'Твой новый уровень HIIT. Здесь нет места оправданиям — только дисциплина и результат.',
+    icon: <Zap size={48} />,
+    color: 'text-brand-blue',
+    bg: 'bg-brand-blue/10'
   },
   {
     id: 'custom',
-    title: 'ПОДСТРОЙ ПОД СЕБЯ',
-    desc: 'Меняй раунды, отдых и звуковые сигналы. Маньяк любит контроль.',
-    icon: <Settings size={48} className="text-text-muted" />,
-    color: 'bg-surface-accent'
+    title: 'ПОЛНЫЙ КОНТРОЛЬ',
+    desc: 'Настраивай круги, время отдыха и звуковые сигналы под свой темп. Маньяк любит детали.',
+    icon: <Settings size={48} />,
+    color: 'text-brand-emerald',
+    bg: 'bg-brand-emerald/10'
+  },
+  {
+    id: 'theme',
+    title: 'ТЬМА ИЛИ СВЕТ',
+    desc: 'Смена темы одним тапом в навигации. Экономь заряд или тренируйся на ярком солнце.',
+    icon: <Moon size={48} />,
+    color: 'text-brand-blue',
+    bg: 'bg-brand-blue/5'
+  },
+  {
+    id: 'audio',
+    title: 'ЗВУКОВОЙ ДРАЙВ',
+    desc: 'Включай или отключай звуковые сигналы в один тап в шапке профиля. Твой ритм — твои правила.',
+    icon: <Volume2 size={48} />,
+    color: 'text-brand-blue',
+    bg: 'bg-brand-blue/10'
+  },
+  {
+    id: 'content',
+    title: 'БИБЛИОТЕКА И ЗАЛ',
+    desc: 'Выбирай готовые Tabata/HIIT шаблоны или создавай свои уникальные программы с нуля.',
+    icon: <Dumbbell size={48} />,
+    color: 'text-brand-emerald',
+    bg: 'bg-brand-emerald/10'
+  },
+  {
+    id: 'history',
+    title: 'ТВОЯ ИСТОРИЯ',
+    desc: 'Отслеживай каждую завершенную сессию. Анализируй прогресс и бей свои рекорды.',
+    icon: <History size={48} />,
+    color: 'text-brand-blue',
+    bg: 'bg-brand-blue/10'
+  },
+  {
+    id: 'data',
+    title: 'БЕЗОПАСНОСТЬ',
+    desc: 'Импортируй и экспортируй свои данные в JSON. Твои программы всегда под твоим контролем.',
+    icon: <Database size={48} />,
+    color: 'text-brand-emerald',
+    bg: 'bg-brand-emerald/10'
+  },
+  {
+    id: 'pwa',
+    title: 'НА ЭКРАН ДОМОЙ',
+    desc: 'Жми "Поделиться" → "На экран Домой". Тренируйся без браузерных строк, как в нативном приложении.',
+    icon: <Share size={48} />,
+    color: 'text-brand-rose',
+    bg: 'bg-brand-rose/10',
+    isPWA: true
   }
 ];
 
@@ -41,15 +77,6 @@ export const Onboarding = () => {
   const { hasSeenOnboarding } = useWorkoutStore(s => s.settings);
   const { completeOnboarding } = useWorkoutActions();
 
-  useEffect(() => {
-    if (!hasSeenOnboarding) {
-      setCurrent(0);
-    }
-  }, [hasSeenOnboarding]);
-  
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
-    || (window.navigator as any).standalone;
-
   if (hasSeenOnboarding) return null;
 
   const next = () => {
@@ -57,73 +84,66 @@ export const Onboarding = () => {
     else completeOnboarding();
   };
 
-  const prev = () => {
-    if (current > 0) setCurrent(c => c - 1);
-  };
-
   const slide = SLIDES[current];
 
   return (
-    <div className="fixed inset-0 z-[200] bg-surface-main flex flex-col overflow-hidden">
-      <div className="flex gap-1.5 px-4 pt-6 relative z-10">
+    <div className="fixed inset-0 z-[200] bg-surface-main flex flex-col p-8 overflow-hidden">
+      {/* Прогресс-бары сверху */}
+      <div className="flex gap-2 mb-12">
         {SLIDES.map((_, i) => (
-          <div key={i} className="h-1 flex-1 bg-white/10 rounded-full overflow-hidden">
+          <div key={i} className="h-1 flex-1 bg-surface-accent rounded-full overflow-hidden">
             <motion.div 
-              className="h-full bg-white"
+              className="h-full bg-brand-blue"
               initial={{ width: 0 }}
               animate={{ width: i === current ? '100%' : i < current ? '100%' : '0%' }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
             />
           </div>
         ))}
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={slide.id}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50 }}
-          className="flex-1 flex flex-col items-center justify-center p-8 text-center"
-        >
-          <div className={`p-8 rounded-[40px] ${slide.color}/10 mb-10 relative`}>
-            <div className={`absolute inset-0 ${slide.color}/20 blur-3xl rounded-full`} />
-            <div className="relative z-10 text-white">{slide.icon}</div>
-            
-            {slide.isPWA && !isStandalone && (
-              <motion.div 
-                animate={{ y: [0, -10, 0] }} 
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap"
-              >
-                ЖМИ ПОДЕЛИТЬСЯ ↑
-              </motion.div>
-            )}
-          </div>
+      {/* Контент слайда */}
+      <div className="flex-1 flex flex-col items-center justify-center text-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={slide.id}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 1.1, y: -20 }}
+            className="flex flex-col items-center"
+          >
+            <div className={`size-32 ${slide.bg} ${slide.color} rounded-[2.5rem] flex items-center justify-center mb-10 shadow-2xl relative`}>
+               {/* Декоративное свечение */}
+               <div className={`absolute inset-0 ${slide.bg} blur-3xl opacity-50`} />
+               <div className="relative z-10">{slide.icon}</div>
+            </div>
 
-          <h2 className="text-3xl font-black text-text-primary uppercase italic tracking-tighter mb-4">
-            {slide.title}
-          </h2>
-          <p className="text-text-muted text-base font-medium leading-relaxed max-w-[280px]">
-            {slide.desc}
-          </p>
-        </motion.div>
-      </AnimatePresence>
-
-      <div className="absolute inset-0 flex">
-        <div className="w-1/3 h-full cursor-pointer" onClick={prev} />
-        <div className="w-2/3 h-full cursor-pointer" onClick={next} />
+            <h2 className="text-4xl font-black uppercase italic tracking-tighter text-text-primary mb-4 leading-none">
+              {slide.title}
+            </h2>
+            <p className="text-sm text-text-muted leading-relaxed max-w-[280px]">
+              {slide.desc}
+            </p>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      <div className="p-8 relative z-20">
+      {/* Кнопка управления */}
+      <div className="pt-8">
         <Button 
-          variant={current === SLIDES.length - 1 ? 'primary' : 'ghost'} 
+          variant={current === SLIDES.length - 1 ? 'primary' : 'secondary'} 
           fullWidth 
           onClick={next}
-          className="py-6"
+          className="py-5 uppercase font-black italic tracking-widest text-lg"
         >
           {current === SLIDES.length - 1 ? 'ПОГНАЛИ ТРЕНИТЬ!' : 'ДАЛЕЕ'}
         </Button>
+      </div>
+      
+      {/* Зоны тапа для быстрого переключения (как в сторис) */}
+      <div className="absolute inset-x-0 top-20 bottom-32 flex">
+        <div className="flex-1 cursor-pointer" onClick={() => setCurrent(c => Math.max(0, c - 1))} />
+        <div className="flex-1 cursor-pointer" onClick={next} />
       </div>
     </div>
   );

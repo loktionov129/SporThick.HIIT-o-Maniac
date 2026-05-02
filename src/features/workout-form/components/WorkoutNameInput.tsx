@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input } from '../../../components/ui/Input';
 
 interface WorkoutNameInputProps {
   value: string;
@@ -7,34 +8,22 @@ interface WorkoutNameInputProps {
 
 export const WorkoutNameInput: React.FC<WorkoutNameInputProps> = ({ value, onChange }) => {
   return (
-    <section className="space-y-3 group">
-      <div className="flex items-center justify-between px-1">
-        <label className="text-[11px] uppercase tracking-[0.25em] text-text-muted font-black italic transition-colors group-focus-within:text-brand-blue">
+    <section className="space-y-4 px-2 mb-10 group">
+      <div className="flex items-center gap-2 ml-1">
+        <div className="size-1 bg-brand-blue rounded-full" />
+        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-text-primary/60 dark:text-text-muted italic leading-none">
           Название тренировки
         </label>
       </div>
       
       <div className="relative">
-        <div className="absolute -inset-1 bg-brand-blue/10 dark:bg-brand-blue/20 rounded-[22px] blur-xl opacity-0 group-focus-within:opacity-100 transition-all duration-500" />
-        
-        <input
+        <Input
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="Напр. Взрывной HIIT"
-          className={`
-            relative w-full bg-surface-accent border border-text-muted/10 text-text-primary 
-            px-6 py-5 rounded-2xl text-xl font-black italic outline-none transition-all duration-300
-            placeholder:text-text-muted/30 placeholder:not-italic
-            /* Фокус-стейт */
-            focus:bg-surface-card focus:border-brand-blue/50 focus:shadow-2xl focus:shadow-brand-blue/5
-          `}
+          className="text-2xl font-black italic uppercase tracking-tighter !p-6 shadow-xl shadow-brand-blue/5"
         />
-        
-        <div className={`
-          absolute right-5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full transition-all duration-500
-          ${value.trim() ? 'bg-brand-emerald shadow-[0_0_8px_rgba(16,185,129,0.6)]' : 'bg-text-muted/20'}
-        `} />
       </div>
     </section>
   );

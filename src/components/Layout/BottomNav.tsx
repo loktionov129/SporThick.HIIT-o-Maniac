@@ -14,8 +14,8 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-6 pt-2 bg-gradient-to-t from-surface-main via-surface-main/90 to-transparent">
-      <div className="max-w-md mx-auto bg-surface-card/80 backdrop-blur-xl border border-white/5 rounded-[24px] p-2 flex items-center justify-around shadow-2xl shadow-black/50">
+    <nav className="h-24 w-full bg-surface-card/80 backdrop-blur-xl border-t border-text-primary/5 px-8 flex items-center shrink-0">
+      <div className="flex w-full justify-between items-center max-w-md mx-auto">
         
         {navItems.map((item) => (
           <BottomNavItem key={item.to} {...item} />
@@ -23,21 +23,16 @@ export const BottomNav: React.FC = () => {
 
         <button
           onClick={toggleTheme}
-          className="cursor-pointer flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300 text-text-muted hover:text-brand-blue active:scale-90"
+          className="flex flex-col items-center gap-1.5 cursor-pointer text-text-muted hover:text-text-primary transition-colors active:scale-90"
         >
-          <div className="transition-transform duration-500 rotate-0 dark:rotate-[360deg]">
-            {theme === 'dark' ? (
-              <Moon size={24} className="text-blue-400" />
-            ) : (
-              <Sun size={24} className="text-amber-500" />
-            )}
+          <div className="transition-transform duration-200">
+            {theme === 'dark' ? <Moon size={24} /> : <Sun size={24} />}
           </div>
-          <span className="text-[10px] font-black uppercase tracking-widest leading-none">
-            {theme === 'dark' ? 'Темная' : 'Светлая'}
+          <span className="text-[10px] font-black uppercase tracking-[0.15em] leading-none">
+            {theme === 'dark' ? 'Тьма' : 'Свет'}
           </span>
         </button>
       </div>
     </nav>
   );
 };
-

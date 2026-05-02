@@ -1,3 +1,5 @@
+import { Card } from "../../../components/ui/Card";
+
 interface ConfigCardProps {
   label: string;
   subLabel: string;
@@ -5,18 +7,17 @@ interface ConfigCardProps {
 }
 
 export const ConfigCard = ({ label, subLabel, children }: ConfigCardProps) => (
-  <div className="bg-surface-card/50 dark:bg-surface-accent/20 border border-text-muted/10 p-5 rounded-[24px] flex items-center justify-between transition-colors duration-300">
-    <div className="space-y-1">
-      <label className="text-[10px] uppercase tracking-[0.25em] text-text-muted font-black italic block">
-        {label}
-      </label>
-      <p className="text-[9px] text-text-muted/60 uppercase font-black tracking-tighter italic">
-        {subLabel}
-      </p>
+  <Card className="flex-1 !p-5 bg-surface-card border border-text-primary/5 shadow-xl transition-colors">
+    <div className="space-y-4">
+      <div className="space-y-1">
+        <label className="text-[9px] font-black uppercase tracking-widest text-brand-blue italic leading-none">
+          {label}
+        </label>
+        <p className="text-xs font-bold text-text-primary uppercase italic leading-none">
+          {subLabel}
+        </p>
+      </div>
+      <div className="flex justify-center">{children}</div>
     </div>
-    
-    <div className="relative z-10">
-      {children}
-    </div>
-  </div>
+  </Card>
 );

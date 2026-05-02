@@ -28,23 +28,26 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
   };
 
   return (
-    <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center mb-12 sm:mb-16 select-none transition-all duration-500">
-      <div 
-        className={`absolute inset-0 ${styles.blur} blur-3xl rounded-full transition-colors duration-1000 opacity-60 dark:opacity-100`} 
-      />
+    <div className="relative flex items-center justify-center select-none group">
+      {/* 1. ФОНОВОЕ СВЕЧЕНИЕ (Глубина) */}
+      <div className={`absolute inset-0 rounded-full blur-[80px] transition-colors duration-1000 ${styles.blur}`} />
       
+      {/* 2. SVG КОЛЬЦО */}
       <svg 
-        className="absolute w-full h-full -rotate-90 transition-all duration-700" 
+        className="relative z-10 size-[288px] -rotate-90 transition-all duration-300" 
         style={{ filter: `drop-shadow(0 0 12px ${styles.glow})` }}
         viewBox="0 0 288 288"
       >
+        {/* Фоновая дорожка (недозаполненное кольцо) */}
         <circle 
           cx="144" cy="144" r={radius} 
           fill="transparent" 
           stroke="currentColor" 
-          strokeWidth="12" 
-          className="text-surface-accent dark:text-slate-900/40 transition-colors" 
+          strokeWidth="10" 
+          className="text-text-primary/5" 
         />
+        
+        {/* Активный прогресс */}
         <circle
           cx="144" cy="144" r={radius}
           fill="transparent"
@@ -53,15 +56,25 @@ export const ProgressCircle: React.FC<ProgressCircleProps> = ({
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          className={`${styles.stroke} transition-all duration-1000 ease-linear will-change-[stroke-dashoffset]`}
+          /* transition-all duration-1000 ease-linear делает движение кольца абсолютно плавным */
+          className={`transition-all duration-1000 ease-linear ${styles.stroke}`}
         />
       </svg>
       
-      <div className="flex flex-col items-center relative z-10">
-        <span className={`text-7xl sm:text-8xl font-black tabular-nums tracking-tighter transition-colors duration-300 ${styles.text}`}>
+      {/* 3. ЦИФРЫ ВНУТРИ: Максимальный фокус */}
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pt-2">
+        <span className={`
+          text-[110px] font-black italic leading-none tracking-tighter tabular-nums
+          transition-colors duration-500
+          ${styles.text}
+        `}>
           {remainingTime}
         </span>
-        <span className="text-text-muted font-black uppercase tracking-[0.4em] text-[10px] sm:text-[11px] mt-1 italic opacity-70">
+        
+        <span className={`
+          text-[10px] font-black uppercase tracking-[0.5em] italic -mt-2 opacity-40
+          ${isResting ? 'text-brand-emerald' : 'text-text-primary'}
+        `}>
           {isResting ? 'отдых' : 'сек.'}
         </span>
       </div>

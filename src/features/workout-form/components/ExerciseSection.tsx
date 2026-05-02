@@ -1,5 +1,6 @@
-import { Plus } from "lucide-react";
+import { Plus, ListChecks } from "lucide-react";
 import { ExerciseList } from "./ExerciseList";
+import { Button } from "../../../components/ui/Button";
 
 interface ExerciseSectionProps {
   exercises: any[];
@@ -17,15 +18,24 @@ export const ExerciseSection = ({
   onDragEnd 
 }: ExerciseSectionProps) => (
   <div className="space-y-6">
+    {/* Шапка секции: Заголовок + Счет */}
     <div className="flex items-center justify-between px-2">
-      <label className="text-[11px] uppercase tracking-[0.25em] text-text-muted font-black italic">
-        Упражнения
-      </label>
-      <span className="text-[10px] text-brand-blue font-black uppercase tracking-widest bg-brand-blue/10 px-3 py-1 rounded-full">
-        {exercises.length} всего
-      </span>
+      <div className="flex items-center gap-2.5">
+        <div className="size-1.5 bg-brand-blue rounded-full animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-text-primary/60 dark:text-text-muted italic leading-none">
+          Упражнения
+        </label>
+      </div>
+      
+      <div className="flex items-center gap-1.5 bg-brand-blue/5 px-2 py-1 rounded-lg border border-brand-blue/10">
+        <ListChecks size={10} className="text-brand-blue" />
+        <span className="text-[10px] font-black text-brand-blue italic tabular-nums leading-none">
+          {exercises.length}
+        </span>
+      </div>
     </div>
 
+    {/* Список упражнений с DND */}
     <ExerciseList 
       exercises={exercises} 
       onDragEnd={onDragEnd}
@@ -33,24 +43,24 @@ export const ExerciseSection = ({
       onRemove={onRemove}
     />
 
-    <button 
+    {/* Кнопка "Добавить": Делаем её вторичной, но заметной */}
+    <Button 
       type="button" 
       onClick={onAdd} 
-      className={`
-        w-full py-6 border-2 border-dashed rounded-[24px] 
-        flex items-center justify-center gap-3 transition-all duration-300
-        font-black uppercase text-[11px] tracking-[0.2em]
-        
-        /* Цвета для темной и светлой темы */
-        bg-surface-accent/20 border-text-muted/20 text-text-muted
-        hover:bg-brand-blue/5 hover:border-brand-blue/40 hover:text-brand-blue
-        active:scale-[0.98]
-      `}
+      variant="secondary"
+      fullWidth
+      className="
+        group py-4 border-dashed border-2 border-text-primary/10 
+        hover:border-brand-blue/30 hover:bg-brand-blue/5 
+        transition-all duration-300 gap-3
+      "
     >
-      <div className="p-1 bg-current rounded-lg">
-        <Plus size={16} className="text-surface-main" />
+      <div className="size-6 bg-brand-blue/10 text-brand-blue rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+        <Plus size={16} strokeWidth={3} />
       </div>
-      Добавить упражнение
-    </button>
+      <span className="text-[10px] font-black uppercase tracking-[0.2em] italic text-text-primary/70 group-hover:text-brand-blue transition-colors">
+        Добавить упражнение
+      </span>
+    </Button>
   </div>
 );
