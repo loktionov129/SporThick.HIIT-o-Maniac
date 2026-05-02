@@ -45,7 +45,7 @@ const playFallback = (type: SignalType) => {
 const getSoundPaths = (id: string) => 
   Object.keys(SIGNAL_NAMES).reduce((acc, signal) => ({
     ...acc,
-    [signal]: `/sounds/${id}/${signal}.wav`
+    [signal]: `./sounds/${id}/${signal}.wav`
   }), {} as Record<SignalType, string>);
 
 export const initManiacSounds = async (preset: SoundPreset) => {

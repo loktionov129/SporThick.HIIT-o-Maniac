@@ -3,7 +3,6 @@ import { persist } from 'zustand/middleware';
 import type { SoundPreset, WorkoutSettings, WorkoutState } from '@app-types/index';
 import { initManiacSounds } from '@utils/beep';
 
-
 const defaultSettings: WorkoutSettings = { 
   soundEnabled: true,
   soundPreset: 'maniac',
