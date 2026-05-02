@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-export const Input = forwardRef<React.InputHTMLAttributes<HTMLInputElement>, InputProps>(
+export const Input = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, ...props }, ref) => {
     return (
       <div className="relative w-full group">

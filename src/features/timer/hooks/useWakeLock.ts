@@ -6,7 +6,7 @@ export const useWakeLock = (enabled: boolean) => {
   const requestLock = async () => {
     try {
       if ('wakeLock' in navigator) {
-        wakeLock.current = await (navigator as any).wakeLock.request('screen');
+        wakeLock.current = await navigator.wakeLock.request('screen');
         console.log('Wake Lock active 📱');
       }
     } catch (err) {

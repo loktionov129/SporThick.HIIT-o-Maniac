@@ -1,13 +1,15 @@
 import { Plus, ListChecks } from 'lucide-react';
 import { Button } from '@ui/Button';
 import { ExerciseList } from './ExerciseList';
+import type { Exercise } from '@app-types/index';
+import type { DropResult } from '@hello-pangea/dnd';
 
 interface ExerciseSectionProps {
-  exercises: any[];
+  exercises: Exercise[];
   onAdd: () => void;
   onRemove: (id: string) => void;
   onUpdate: (id: string, field: 'name' | 'duration', value: string | number) => void;
-  onDragEnd: (result: any) => void;
+  onDragEnd: (result: DropResult<string>) => void;
 }
 
 export const ExerciseSection = ({ 

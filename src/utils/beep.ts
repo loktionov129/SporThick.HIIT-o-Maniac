@@ -2,7 +2,12 @@ import { SIGNAL_NAMES } from '@/constants/sounds';
 import type { SoundPreset } from '@app-types/index';
 import { useWorkoutStore } from '@store/useWorkoutStore';
 
-const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+declare global {
+  interface Window {
+    webkitAudioContext: typeof AudioContext;
+  }
+}
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const audioBuffers: Record<string, AudioBuffer> = {};
 let activeSource: AudioBufferSourceNode | null = null;
 
