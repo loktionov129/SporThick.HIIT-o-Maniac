@@ -1,4 +1,3 @@
-import React from "react";
 import { Plus, ListChecks } from "lucide-react";
 import { ExerciseList } from "./ExerciseList";
 import { Button } from "../../../components/ui/Button";

@@ -10,6 +10,7 @@ import { FormFooterActions } from './components/FormFooterActions';
 import { WorkoutFormHeader } from './components/WorkoutFormHeader';
 import { WorkoutNameInput } from './components/WorkoutNameInput';
 import { PresetsButton } from '../presets/components/PresetsButton';
+import type { Workout } from '../../types';
 
 export const CreateEditWorkoutScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +18,7 @@ export const CreateEditWorkoutScreen: React.FC = () => {
   const currentWorkout = useWorkoutStore(s => 
     workoutId ? s.workouts.find(w => w.id === workoutId) : null
   );
-  const { state, controls } = useWorkoutForm(currentWorkout as any);
+  const { state, controls } = useWorkoutForm(currentWorkout as Workout);
 
   return (
     <div className="max-w-md mx-auto w-full min-h-screen flex flex-col bg-surface-main animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -66,10 +67,9 @@ export const CreateEditWorkoutScreen: React.FC = () => {
             onUpdate={controls.updateExercise}
             onDragEnd={controls.onDragEnd}
           />
+          <FormFooterActions />
         </form>
       </main>
-
-      <FormFooterActions />
     </div>
   );
 };

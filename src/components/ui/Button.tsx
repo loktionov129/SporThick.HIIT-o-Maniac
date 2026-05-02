@@ -16,7 +16,8 @@ export const Button: React.FC<ButtonProps> = ({
   children, 
   variant = 'primary', 
   fullWidth, 
-  className = '', 
+  className = '',
+  type = 'button',
   ...props 
 }) => {
   const hasCustomPadding = className.includes('p-') || className.includes('px-') || className.includes('py-');
@@ -24,6 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button 
+      type={type}
       className={`
         inline-flex items-center justify-center 
         rounded-2xl font-black italic uppercase tracking-widest

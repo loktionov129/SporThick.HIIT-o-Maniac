@@ -36,6 +36,7 @@ export const useWorkoutForm = (currentWorkout: Workout | null | undefined) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    console.log(42)
     e.preventDefault();
     if (!name.trim()) return;
 
