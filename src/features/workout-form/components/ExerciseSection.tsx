@@ -1,6 +1,6 @@
-import { Plus, ListChecks } from "lucide-react";
-import { Button } from "@ui/Button";
-import { ExerciseList } from "./ExerciseList";
+import { Plus, ListChecks } from 'lucide-react';
+import { Button } from '@ui/Button';
+import { ExerciseList } from './ExerciseList';
 
 interface ExerciseSectionProps {
   exercises: any[];

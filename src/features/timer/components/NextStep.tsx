@@ -17,7 +17,7 @@ export const NextStep = ({ workout, isResting, currentExerciseIndex, currentRoun
       {(() => {
         // 1. Если сейчас работа, то дальше будет отдых (если он настроен)
         if (!isResting && (workout.restDuration || 0) > 0) {
-          return "Отдых";
+          return 'Отдых';
         }
 
         // 2. Если сейчас отдых или отдых не предусмотрен, ищем следующее упражнение в этом круге
@@ -31,7 +31,7 @@ export const NextStep = ({ workout, isResting, currentExerciseIndex, currentRoun
         }
 
         // 4. Если это совсем конец
-        return "Финиш";
+        return 'Финиш';
       })()}
     </span>
   </div>

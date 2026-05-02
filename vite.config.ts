@@ -10,12 +10,12 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@Layout': path.resolve(__dirname, './src/components/Layout'),
-      "@ui": path.resolve(__dirname, "./src/components/ui"),
-      "@constants": path.resolve(__dirname, "./src/constants"),
-      "@features": path.resolve(__dirname, "./src/features"),
-      "@store": path.resolve(__dirname, "./src/store"),
-      "@app-types": path.resolve(__dirname, "./src/types"),
-      "@utils": path.resolve(__dirname, "./src/utils"),
+      '@ui': path.resolve(__dirname, './src/components/ui'),
+      '@constants': path.resolve(__dirname, './src/constants'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@store': path.resolve(__dirname, './src/store'),
+      '@app-types': path.resolve(__dirname, './src/types'),
+      '@utils': path.resolve(__dirname, './src/utils'),
     },
   },
   plugins: [

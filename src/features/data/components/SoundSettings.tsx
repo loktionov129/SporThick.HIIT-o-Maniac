@@ -1,9 +1,9 @@
-import { Volume2, Settings2 } from "lucide-react";
-import { Button } from "@ui/Button";
-import { DataCard } from "./DataCard";
-import { useWorkoutStore } from "../../../store/useWorkoutStore";
-import { NavLink } from "react-router-dom";
-import { SOUND_PRESETS } from "@/constants/sounds";
+import { Volume2, Settings2 } from 'lucide-react';
+import { Button } from '@ui/Button';
+import { DataCard } from './DataCard';
+import { useWorkoutStore } from '../../../store/useWorkoutStore';
+import { NavLink } from 'react-router-dom';
+import { SOUND_PRESETS } from '@/constants/sounds';
 
 export const SoundSettings = () => {
   const { settings, actions } = useWorkoutStore();

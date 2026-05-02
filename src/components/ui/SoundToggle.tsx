@@ -8,7 +8,7 @@ interface SoundToggleProps {
   className?: string;
 }
 
-export const SoundToggle: React.FC<SoundToggleProps> = ({ className = "" }) => {
+export const SoundToggle: React.FC<SoundToggleProps> = ({ className = '' }) => {
   const { toggleSound } = useWorkoutActions();
   const soundEnabled = useWorkoutStore((s) => s.settings.soundEnabled);
   const showToast = useToastStore((s) => s.showToast);
@@ -26,7 +26,7 @@ export const SoundToggle: React.FC<SoundToggleProps> = ({ className = "" }) => {
       className={`p-2 rounded-xl ${
         soundEnabled ? 'text-brand-blue' : 'text-text-muted'
       } ${className}`}
-      title={soundEnabled ? "Выключить звук" : "Включить звук"}
+      title={soundEnabled ? 'Выключить звук' : 'Включить звук'}
     >
       {soundEnabled ? <Volume2 size={24} /> : <VolumeX size={24} />}
     </Button>
