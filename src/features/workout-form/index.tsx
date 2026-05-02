@@ -42,7 +42,7 @@ export const CreateEditWorkoutScreen: React.FC = () => {
         <WorkoutNameInput value={state.name} onChange={controls.setName} />
 
         <div className="">
-          <ConfigCard label="Раунды" subLabel="Круги упражнений">
+          <ConfigCard label="Круги" subLabel="Круги упражнений">
             <PlusMinusInput min={1} value={state.rounds} onChange={controls.setRounds} />
           </ConfigCard>
           

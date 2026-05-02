@@ -31,7 +31,8 @@ const AppContent: React.FC = () => {
         <Route element={<PageContainer><Outlet /></PageContainer>}>
           <Route path="/presets" element={<PresetsScreen />} />
           <Route path="/timer" element={<TimerScreen />} />
-          <Route path="/create-edit-workout" element={<CreateEditWorkoutScreen />} />
+          <Route path="/workout/create" element={<CreateEditWorkoutScreen />} />
+          <Route path="/workout/edit" element={<CreateEditWorkoutScreen />} />
         </Route>
       </Routes>
     </AnimatePresence>

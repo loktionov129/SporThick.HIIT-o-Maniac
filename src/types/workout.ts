@@ -4,13 +4,18 @@ export interface Exercise {
   duration: number;
 }
 
+export type Intensity = 'light' | 'standard' | 'extreme';
+
 export interface Workout {
   id: string;
   name: string;
   exercises: Exercise[];
   rounds: number;
   restDuration: number;
+  intensity: Intensity;
 }
+
+export interface PresetWorkout extends Omit<Workout, 'id'> {}
 
 export interface AppState {
   workouts: Workout[];

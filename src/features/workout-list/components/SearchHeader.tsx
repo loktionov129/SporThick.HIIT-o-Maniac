@@ -28,7 +28,7 @@ export const SearchHeader: React.FC<SearchHeaderProps> = ({
         />
       </div>
 
-      <NavLink to="/create-edit-workout">
+      <NavLink to="/workout/create">
         <Button 
           variant="primary"
           title="Создать тренировку"
