@@ -45,12 +45,12 @@ export const TimerFinished: React.FC<TimerFinishedProps> = ({ totalTime, totalRo
       {/* ИТОГОВЫЕ СТАТЫ: В два столбца */}
       <div className="grid grid-cols-2 gap-4 w-full mb-12">
         <StatBox 
-          icon={<Clock className="text-brand-blue" />}
+          Icon={<Clock className="text-brand-blue" size={20} strokeWidth={2.5} />}
           value={formatTime(totalTime)}
           label="Время"
         />
         <StatBox 
-          icon={<RotateCcw className="text-brand-emerald" />}
+          Icon={<RotateCcw className="text-brand-emerald" size={20} strokeWidth={2.5} />}
           value={totalRounds}
           label="Кругов"
         />
