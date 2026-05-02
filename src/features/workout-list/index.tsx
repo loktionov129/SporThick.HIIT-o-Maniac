@@ -5,6 +5,7 @@ import { SearchHeader } from './components/SearchHeader';
 import { DraggableWorkoutItem } from './components/DraggableWorkoutItem';
 import { useWorkoutList } from './hooks/useWorkoutList';
 import { WorkoutSection } from './components/WorkoutSection';
+import { FloatingAddButton } from './components/FloatingAddButton';
 
 export const WorkoutList: React.FC = () => {
   const { 
@@ -20,7 +21,7 @@ export const WorkoutList: React.FC = () => {
   if (totalCount === 0) return <EmptyWorkouts />;
 
   return (
-    <div className="flex flex-col gap-2 pb-10">
+    <div className="flex flex-col gap-2 pb-32 max-w-md mx-auto w-full">
       <SearchHeader 
         query={searchQuery} 
         onQueryChange={setSearchQuery} 
@@ -52,6 +53,7 @@ export const WorkoutList: React.FC = () => {
           </Droppable>
         </DragDropContext>
       </WorkoutSection>
+      <FloatingAddButton />
     </div>
   );
 };

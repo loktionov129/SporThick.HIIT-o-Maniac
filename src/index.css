@@ -41,4 +41,16 @@
     color: var(--text-main);
     font-family: system-ui, sans-serif;
   }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-brand-blue);
+    border-radius: 10px;
+    opacity: 0.3;
+  }
 }
