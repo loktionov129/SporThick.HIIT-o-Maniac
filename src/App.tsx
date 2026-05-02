@@ -11,6 +11,7 @@ import { HistoryScreen } from '@features/history';
 import { DataScreen } from '@features/data';
 import { PresetsScreen } from '@features/presets';
 import { Onboarding } from '@features/onboarding';
+import { SoundsScreen } from '@features/sounds';
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const AppContent: React.FC = () => {
         </Route>
         <Route element={<PageContainer><Outlet /></PageContainer>}>
           <Route path="/presets" element={<PresetsScreen />} />
+          <Route path="/sounds" element={<SoundsScreen />} />
           <Route path="/timer" element={<TimerScreen />} />
           <Route path="/workout/create" element={<CreateEditWorkoutScreen />} />
           <Route path="/workout/edit" element={<CreateEditWorkoutScreen />} />

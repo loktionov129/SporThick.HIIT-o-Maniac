@@ -1,6 +1,6 @@
 import React from 'react';
 import { useWorkoutStore } from '@store/useWorkoutStore';
-import { SoundSettings } from '@ui/SoundSettings';
+import { SoundSettings } from '@/features/data/components/SoundSettings';
 import { useDataOperations } from './hooks/useDataOperations';
 import { StorageInfo } from './components/StorageInfo';
 import { BackupActions } from './components/BackupActions';
@@ -17,12 +17,12 @@ export const DataScreen: React.FC = () => {
         Данные
       </h2>
 
+      <SoundSettings />
+
       <StorageInfo
         workoutsCount={workoutsCount}
         historyCount={historyCount}
       />
-
-      <SoundSettings />
       
       <BackupActions 
         onExport={ops.handleExport}

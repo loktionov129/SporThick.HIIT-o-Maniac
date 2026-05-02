@@ -27,4 +27,10 @@ RUN pip install --no-cache-dir audiocraft
 RUN pip install --no-cache-dir --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 
+# Создаем папку для моделей
+RUN mkdir -p /app/models
+ENV HUGGINGFACE_HUB_CACHE=/app/models
+# Заставляем python скачать модель один раз на этапе сборки образа
+RUN python -c "from audiocraft.models import AudioGen; AudioGen.get_pretrained('facebook/audiogen-medium')"
+
 CMD ["python", "generate_sounds.py"]

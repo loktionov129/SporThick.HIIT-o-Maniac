@@ -1,8 +1,11 @@
-import { SOUND_PRESETS } from '@constants/sounds';
+import { SIGNAL_NAMES } from '@/constants/sounds';
+import type { SoundPreset } from '@app-types/index';
 import { useWorkoutStore } from '@store/useWorkoutStore';
 
 const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
 const audioBuffers: Record<string, AudioBuffer> = {};
+let activeSource: AudioBufferSourceNode | null = null;
+
 export type SignalType = 'START_WORK' | 'END_WORK' | 'END_ROUND' | 'FINISH' | 'COUNTDOWN';
 
 const playFallback = (type: SignalType) => {
@@ -34,10 +37,15 @@ const playFallback = (type: SignalType) => {
   }
 };
 
-export const initManiacSounds = async () => {
-  // Берем пресет из стора (по умолчанию 'maniac')
-  const currentPreset = useWorkoutStore.getState().settings.soundPreset || 'maniac';
-  const urls = SOUND_PRESETS[currentPreset];
+const getSoundPaths = (id: string) => 
+  Object.keys(SIGNAL_NAMES).reduce((acc, signal) => ({
+    ...acc,
+    [signal]: `/sounds/${id}/${signal}.wav`
+  }), {} as Record<SignalType, string>);
+
+export const initManiacSounds = async (preset: SoundPreset) => {
+  const urls = getSoundPaths(preset);
+  Object.keys(audioBuffers).forEach(key => delete audioBuffers[key]);
 
   for (const [key, url] of Object.entries(urls)) {
     try {
@@ -46,18 +54,25 @@ export const initManiacSounds = async () => {
       const arrayBuffer = await response.arrayBuffer();
       audioBuffers[key] = await audioCtx.decodeAudioData(arrayBuffer);
     } catch (e) {
-      console.warn(`Fallback active for: ${key} (reason: ${e})`);
+      console.warn(`Fallback active for: ${key}`, e);
     }
   }
 };
 
 export const playSignal = (type: SignalType) => {
   const { soundEnabled } = useWorkoutStore.getState().settings;
-  
   if (!soundEnabled) return;
 
   if (audioCtx.state === 'suspended') {
     audioCtx.resume();
+  }
+
+  if (activeSource) {
+    try {
+      activeSource.stop();
+    } catch (e) {
+    }
+    activeSource = null;
   }
 
   if (audioBuffers[type]) {
@@ -65,12 +80,17 @@ export const playSignal = (type: SignalType) => {
     const gainNode = audioCtx.createGain();
     
     source.buffer = audioBuffers[type];
-    
-    if (type === 'COUNTDOWN') gainNode.gain.value = 0.4;
+    gainNode.gain.value = type === 'COUNTDOWN' ? 0.4 : 1.0;
     
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
+    
     source.start(0);
+    activeSource = source;
+
+    source.onended = () => {
+      if (activeSource === source) activeSource = null;
+    };
   } else {
     playFallback(type);
   }

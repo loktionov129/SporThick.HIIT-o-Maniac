@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { playSignal } from '@utils/beep';
-import type { Workout } from @app-types/index;
+import type { Workout } from '@app-types/index';
 
 export const useWorkoutTimer = (workout: Workout | null, onFinish: (totalTime: number) => void) => {
   const [currentExerciseIndex, setIndex] = useState(0);

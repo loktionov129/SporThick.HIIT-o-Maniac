@@ -129,3 +129,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ai audio models
+tools/beep/models

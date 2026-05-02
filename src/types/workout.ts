@@ -31,7 +31,8 @@ export interface WorkoutHistoryEntry {
   totalRounds: number;
 }
 
-export type SoundPreset = 'maniac' | 'army' | 'sexy' | 'tabata' | 'classic'
+export type SoundPreset = 'maniac' | 'army' | 'sexy' | 'tabata' | 'classic' | 'asmr_female' | 'cyberpunk' | 'fantasy';
+
 export interface WorkoutSettings { 
   soundEnabled: boolean;
   soundPreset: SoundPreset;

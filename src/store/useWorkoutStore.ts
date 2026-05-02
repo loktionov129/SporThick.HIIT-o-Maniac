@@ -58,7 +58,7 @@ export const useWorkoutStore = create<WorkoutState>()(
           set((state) => ({
             settings: { ...state.settings, soundPreset: preset }
           }));
-          initManiacSounds(); 
+          initManiacSounds(preset); 
         },
         toggleSound: () => set((state) => ({ 
           settings: { ...state.settings, soundEnabled: !state.settings.soundEnabled } 
@@ -103,7 +103,7 @@ export const useWorkoutStore = create<WorkoutState>()(
       },
       onRehydrateStorage: () => (state) => {
         if (state?.settings.soundEnabled) {
-          initManiacSounds();
+          initManiacSounds(state.settings.soundPreset || 'maniac');
         }
         if (state?.settings.theme === 'dark') {
           document.documentElement.classList.add('dark');
