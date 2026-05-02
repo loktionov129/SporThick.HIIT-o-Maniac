@@ -9,6 +9,7 @@ import { ProgressCircle } from './components/ProgressCircle';
 import { TimerControls } from './components/TimerControls';
 import { NotFoundView } from './components/NotFoundView';
 import { TimerFinished } from './components/TimerFinished';
+import { NextStep } from './components/NextStep';
 
 export const TimerScreen: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -75,7 +76,12 @@ export const TimerScreen: React.FC = () => {
             exerciseName={currentEx?.name} 
           />
         </div>
-
+        <NextStep
+          isResting={state.isResting}
+          workout={workout}
+          currentExerciseIndex={state.currentExerciseIndex}
+          currentRound={state.currentRound}
+        />
         {/* Главный Визуальный Якорь */}
         <div className="relative flex items-center justify-center scale-110 xs:scale-125 transition-transform duration-500">
           <ProgressCircle 
@@ -84,16 +90,6 @@ export const TimerScreen: React.FC = () => {
             isResting={state.isResting}
           />
         </div>
-
-        {/* Пустое место для "воздуха" или подсказки следующего упражнения */}
-        {!state.isResting && state.currentExerciseIndex < workout.exercises.length - 1 ? (
-          <div className="flex flex-col items-center opacity-20">
-            <span className="text-[8px] font-black uppercase tracking-[0.4em] mb-1 italic">Далее</span>
-            <span className="text-xs font-black uppercase italic tracking-wider truncate max-w-[200px]">
-              {workout.exercises[state.currentExerciseIndex + 1].name}
-            </span>
-          </div>
-        ) : <div className="h-8" />}
       </main>
 
       {/* 3. CONTROLS: Управление в самом низу */}

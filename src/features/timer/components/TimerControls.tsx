@@ -16,7 +16,6 @@ export const TimerControls: React.FC<TimerControlsProps> = ({
   return (
     <div className="w-full max-w-sm mx-auto px-4">
       <div className="flex items-center gap-4">
-        {/* КНОПКА СБРОСА */}
         <Button 
           variant="secondary" 
           onClick={onReset}
@@ -30,7 +29,6 @@ export const TimerControls: React.FC<TimerControlsProps> = ({
           />
         </Button>
         
-        {/* ГЛАВНАЯ КНОПКА с мощным ховером */}
         <Button 
           variant={isRunning ? 'secondary' : 'primary'}
           onClick={onToggle}
@@ -56,7 +54,6 @@ export const TimerControls: React.FC<TimerControlsProps> = ({
             </span>
           </div>
 
-          {/* Глянцевый блик, который становится ярче при наведении */}
           <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none" />
         </Button>
       </div>

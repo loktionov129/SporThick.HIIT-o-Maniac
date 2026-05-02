@@ -13,7 +13,6 @@ interface Props {
 
 export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting }: Props) => (
   <div className="flex items-center justify-between px-4 py-4 select-none h-20">
-    {/* ВЫХОД: юзаем ui/Button, передаем !p-2 чтобы перебить дефолты */}
     <NavLink to="/">
       <Button 
         variant="ghost" 
@@ -24,7 +23,6 @@ export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting 
       </Button>
     </NavLink>
 
-    {/* ЦЕНТРАЛЬНЫЙ БЛОК: Статус и Круги */}
     <div className="flex flex-col items-center gap-1.5">
       <p className="text-[10px] font-black uppercase tracking-[0.4em] text-text-muted italic leading-none">
         Круг <span className="text-text-primary">{round}</span> <span className="opacity-20">/</span> {totalRounds}
@@ -46,7 +44,6 @@ export const TimerHeader = ({ round, totalRounds, currentEx, totalEx, isResting 
       </div>
     </div>
 
-    {/* ЗВУК */}
     <div className="p-2 -mr-2">
       <SoundToggle />
     </div>
