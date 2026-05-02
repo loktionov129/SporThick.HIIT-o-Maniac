@@ -18,10 +18,10 @@ export const HistoryScreen = () => {
 
   const handleClearEntry = (id: string) => {
     openModal({
-      title: "Удалить?",
-      message: "Эта запись исчезнет навсегда. Ты уверен?",
-      confirmText: "Удалить",
-      variant: "danger",
+      title: 'Удалить?',
+      message: 'Эта запись исчезнет навсегда. Ты уверен?',
+      confirmText: 'Удалить',
+      variant: 'danger',
       onConfirm: () => {
         deleteHistoryEntry(id);
         showToast('Запись удалена', 'info');
@@ -31,10 +31,10 @@ export const HistoryScreen = () => {
 
   const handleClearAll = () => {
     openModal({
-      title: "Очистить?",
-      message: "История тренировок исчезнет навсегда. Ты уверен?",
-      confirmText: "Очистить",
-      variant: "danger",
+      title: 'Очистить?',
+      message: 'История тренировок исчезнет навсегда. Ты уверен?',
+      confirmText: 'Очистить',
+      variant: 'danger',
       onConfirm: () => {
         clearHistory();
         showToast('История очищена', 'error');

@@ -1,15 +1,15 @@
-import React from 'react';
+import type { LucideIcon } from 'lucide-react';
 
 interface StatBoxProps {
-  icon: React.ReactNode;
+  icon: LucideIcon;
   value: string | number;
   label: string;
 }
 
-export const StatBox = ({ icon, value, label }: StatBoxProps) => (
+export const StatBox = ({ icon: Icon, value, label }: StatBoxProps) => (
   <div className="flex flex-col items-center justify-center p-4 rounded-[2rem] bg-surface-card/40 border border-text-primary/5 backdrop-blur-sm shadow-xl">
     <div className="size-10 rounded-full bg-surface-accent/30 flex items-center justify-center mb-3 text-brand-blue shadow-inner">
-      {React.cloneElement(icon as React.ReactElement, { size: 20, strokeWidth: 2.5 })}
+      <Icon size={20} strokeWidth={2.5} />
     </div>
     
     <span className="text-2xl font-black italic text-text-primary tracking-tighter leading-none mb-1 tabular-nums">

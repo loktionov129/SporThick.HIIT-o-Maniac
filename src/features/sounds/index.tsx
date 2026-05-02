@@ -3,9 +3,9 @@ import { ArrowLeft, Play, Check } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useWorkoutStore } from '@store/useWorkoutStore';
-import { initManiacSounds, playSignal } from '@utils/beep';
+import { initManiacSounds, playSignal, type SignalType } from '@utils/beep';
 import type { SoundPreset } from '@app-types/index';
-import { PRESETS_ARRAY, SIGNAL_NAMES, SOUND_PRESETS } from '@/constants/sounds';
+import { PRESETS_ARRAY, SIGNAL_NAMES } from '@/constants/sounds';
 
 export const SoundsScreen = () => {
   const [searchParams] = useSearchParams();
@@ -13,7 +13,6 @@ export const SoundsScreen = () => {
   const { settings, actions } = useWorkoutStore();
 
   const isSelected = settings.soundPreset === activeId;
-  const presetSounds = SOUND_PRESETS[activeId];
   initManiacSounds(activeId);
 
   return (
@@ -109,7 +108,7 @@ export const SoundsScreen = () => {
               <Button 
                 variant="secondary" 
                 className="!size-10 !p-0 !rounded-lg hover:bg-brand-blue hover:text-white"
-                onClick={() => playSignal(signalKey as any)}
+                onClick={() => playSignal(signalKey as SignalType)}
               >
                 <Play size={14} fill="currentColor" />
               </Button>

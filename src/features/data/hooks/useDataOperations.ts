@@ -38,10 +38,10 @@ export const useDataOperations = () => {
         }
 
         openModal({
-          title: "Продолжить?",
-          message: "Внимание! Это полностью заменит текущие данные.",
-          confirmText: "Продолжить",
-          variant: "primary",
+          title: 'Продолжить?',
+          message: 'Внимание! Это полностью заменит текущие данные.',
+          confirmText: 'Продолжить',
+          variant: 'primary',
           onConfirm: () => {
             importData(json);
             showToast('Данные успешно импортированы', 'success');
@@ -59,10 +59,10 @@ export const useDataOperations = () => {
 
   const handleReset = () => {
     openModal({
-      title: "Сбросить?",
-      message: "ВНИМАНИЕ! Это удалит ВСЕ данные. Ты уверен?",
-      confirmText: "Сбросить",
-      variant: "danger",
+      title: 'Сбросить?',
+      message: 'ВНИМАНИЕ! Это удалит ВСЕ данные. Ты уверен?',
+      confirmText: 'Сбросить',
+      variant: 'danger',
       onConfirm: () => {
         resetAll();
         showToast('Приложение сброшено', 'error');

@@ -13,7 +13,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
   children, 
   withHeader = false,
   withBottomNav = false,
-  className = ""
+  className = ''
 }) => {
   
   return (

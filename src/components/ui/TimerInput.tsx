@@ -10,7 +10,7 @@ interface TimerInputProps {
   icon?: React.ReactNode;
 }
 
-export const TimerInput: React.FC<TimerInputProps> = ({ value, onChange, label = "S", icon = <Clock size={14} /> }) => {
+export const TimerInput: React.FC<TimerInputProps> = ({ value, onChange, label = 'S', icon = <Clock size={14} /> }) => {
   return (
     <div className="relative flex items-center w-full group">
       <Input

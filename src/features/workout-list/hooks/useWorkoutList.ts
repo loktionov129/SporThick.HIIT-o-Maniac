@@ -31,10 +31,10 @@ export const useWorkoutList = () => {
   const actions = {
     delete: (id: string) => {
       openModal({
-        title: "Удалить?",
-        message: "Эта тренировка исчезнет навсегда. Ты уверен?",
-        confirmText: "Удалить",
-        variant: "primary",
+        title: 'Удалить?',
+        message: 'Эта тренировка исчезнет навсегда. Ты уверен?',
+        confirmText: 'Удалить',
+        variant: 'primary',
         onConfirm: () => {
           deleteWorkout(id);
           showToast('Тренировка удалена', 'info');

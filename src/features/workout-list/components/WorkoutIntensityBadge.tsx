@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+import { Zap } from 'lucide-react';
 
 const intensityStyles = {
   light: { label: 'Light', color: 'text-brand-emerald', bg: 'bg-brand-emerald/10' },

@@ -12,10 +12,6 @@ interface PlusMinusInputProps {
 export const PlusMinusInput: React.FC<PlusMinusInputProps> = ({ value, onChange, min = 1 }) => {
   const [inputValue, setInputValue] = useState<string>(value.toString());
 
-  useEffect(() => {
-    setInputValue(value.toString());
-  }, [value]);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
     setInputValue(rawValue);

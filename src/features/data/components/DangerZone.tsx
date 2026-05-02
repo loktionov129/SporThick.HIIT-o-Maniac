@@ -1,6 +1,6 @@
-import { Trash2 } from "lucide-react";
-import { Button } from "@ui/Button";
-import { DataCard } from "./DataCard";
+import { Trash2 } from 'lucide-react';
+import { Button } from '@ui/Button';
+import { DataCard } from './DataCard';
 
 export const DangerZone = ({ onReset }: { onReset: () => void }) => (
   <DataCard
