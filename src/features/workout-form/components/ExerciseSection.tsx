@@ -1,5 +1,7 @@
-import { Plus } from "lucide-react";
+import React from "react";
+import { Plus, ListChecks } from "lucide-react";
 import { ExerciseList } from "./ExerciseList";
+import { Button } from "../../../components/ui/Button";
 
 interface ExerciseSectionProps {
   exercises: any[];
@@ -16,16 +18,25 @@ export const ExerciseSection = ({
   onUpdate, 
   onDragEnd 
 }: ExerciseSectionProps) => (
-  <div className="">
-    <div className="">
-      <label className="">
-        Упражнения
-      </label>
-      <span className="">
-        {exercises.length} всего
-      </span>
+  <div className="space-y-6">
+    {/* Шапка секции: Заголовок + Счет */}
+    <div className="flex items-center justify-between px-2">
+      <div className="flex items-center gap-2.5">
+        <div className="size-1.5 bg-brand-blue rounded-full animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-text-primary/60 dark:text-text-muted italic leading-none">
+          Упражнения
+        </label>
+      </div>
+      
+      <div className="flex items-center gap-1.5 bg-brand-blue/5 px-2 py-1 rounded-lg border border-brand-blue/10">
+        <ListChecks size={10} className="text-brand-blue" />
+        <span className="text-[10px] font-black text-brand-blue italic tabular-nums leading-none">
+          {exercises.length}
+        </span>
+      </div>
     </div>
 
+    {/* Список упражнений с DND */}
     <ExerciseList 
       exercises={exercises} 
       onDragEnd={onDragEnd}
@@ -33,15 +44,24 @@ export const ExerciseSection = ({
       onRemove={onRemove}
     />
 
-    <button 
+    {/* Кнопка "Добавить": Делаем её вторичной, но заметной */}
+    <Button 
       type="button" 
       onClick={onAdd} 
-      className=""
+      variant="secondary"
+      fullWidth
+      className="
+        group py-4 border-dashed border-2 border-text-primary/10 
+        hover:border-brand-blue/30 hover:bg-brand-blue/5 
+        transition-all duration-300 gap-3
+      "
     >
-      <div className="">
-        <Plus size={16} className="" />
+      <div className="size-6 bg-brand-blue/10 text-brand-blue rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+        <Plus size={16} strokeWidth={3} />
       </div>
-      Добавить упражнение
-    </button>
+      <span className="text-[10px] font-black uppercase tracking-[0.2em] italic text-text-primary/70 group-hover:text-brand-blue transition-colors">
+        Добавить упражнение
+      </span>
+    </Button>
   </div>
 );

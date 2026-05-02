@@ -24,7 +24,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
           <div 
             {...provided.droppableProps} 
             ref={provided.innerRef} 
-            className=""
+            className="flex flex-col gap-3"
           >
             {exercises.map((exercise, index) => (
               <Draggable 
@@ -36,21 +36,32 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
-                    className=""
+                    className={`flex items-center gap-1 relative group transition-all ${
+                      snapshot.isDragging ? 'z-50' : 'z-0'
+                    }`}
                   >
+                    {/* ЗОНА ЗАХВАТА (GRIP) */}
                     <div 
                       {...provided.dragHandleProps} 
-                      className=""
+                      className={`
+                        flex items-center justify-center
+                        w-10 h-16 -mr-1 z-20 shrink-0
+                        text-text-muted/20 hover:text-brand-blue 
+                        active:text-brand-blue transition-colors
+                        cursor-grab active:cursor-grabbing
+                      `}
+                      title="Перетащить"
                     >
-                      <GripVertical size={20} />
+                      <GripVertical size={20} strokeWidth={2.5} />
                     </div>
 
-                    <div className="">
+                    {/* КАРТОЧКА УПРАЖНЕНИЯ */}
+                    <div className="flex-1 min-w-0">
                       <ExerciseItem
-                        index={index}
                         exercise={exercise}
                         onUpdate={onUpdate}
                         onRemove={onRemove}
+                        isDragging={snapshot.isDragging}
                       />
                     </div>
                   </div>
