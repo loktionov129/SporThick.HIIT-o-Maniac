@@ -1,12 +1,10 @@
 import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import type { DropResult } from '@hello-pangea/dnd';
 import { useWorkoutStore, useWorkoutActions } from '../../../store/useWorkoutStore';
 import { useToastStore } from '../../../store/useToastStore';
 import { useModalStore } from '../../../store/useModalStore';
 
 export const useWorkoutList = () => {
-  const navigate = useNavigate();
   const { workouts } = useWorkoutStore();
   const { reorderWorkouts, deleteWorkout } = useWorkoutActions();
   const [searchQuery, setSearchQuery] = useState('');
@@ -31,9 +29,6 @@ export const useWorkoutList = () => {
   };
 
   const actions = {
-    start: (id: string) => navigate(`/timer?workoutId=${id}`),
-    edit: (id: string) => navigate(`/create-edit-workout?workoutId=${id}`),
-    create: () => navigate('/create-edit-workout'),
     delete: (id: string) => {
       openModal({
         title: "Удалить?",

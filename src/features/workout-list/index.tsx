@@ -4,6 +4,8 @@ import { EmptyWorkouts } from './components/EmptyWorkouts';
 import { SearchHeader } from './components/SearchHeader';
 import { DraggableWorkoutItem } from './components/DraggableWorkoutItem';
 import { useWorkoutList } from './hooks/useWorkoutList';
+import { WorkoutSection } from './components/WorkoutSection';
+import { WorkoutFooter } from './components/WorkoutFooter';
 
 export const WorkoutList: React.FC = () => {
   const { 
@@ -16,46 +18,45 @@ export const WorkoutList: React.FC = () => {
     isSearchActive 
   } = useWorkoutList();
 
-  if (totalCount === 0) {
-    return <EmptyWorkouts />;
-  }
+  if (totalCount === 0) return <EmptyWorkouts />;
 
   return (
-    <div className="">
+    <div className="flex flex-col gap-8 pb-12">
       <SearchHeader 
         query={searchQuery} 
         onQueryChange={setSearchQuery} 
         onCreate={actions.create} 
       />
 
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="workouts-list">
-          {(provided) => (
-            <div 
-              {...provided.droppableProps} 
-              ref={provided.innerRef} 
-              className=""
-            >
-              {workouts.map((workout, index) => (
-                <DraggableWorkoutItem
-                  key={workout.id}
-                  workout={workout}
-                  index={index}
-                  isDragDisabled={isSearchActive}
-                  actions={actions}
-                />
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <WorkoutSection 
+        title={isSearchActive ? 'Результаты поиска' : 'Твои программы'} 
+        count={workouts.length}
+      >
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="workouts-list">
+            {(provided) => (
+              <div 
+                {...provided.droppableProps} 
+                ref={provided.innerRef} 
+                className="flex flex-col gap-4 min-h-[50px]"
+              >
+                {workouts.map((workout, index) => (
+                  <DraggableWorkoutItem
+                    key={workout.id}
+                    workout={workout}
+                    index={index}
+                    isDragDisabled={isSearchActive}
+                    actions={actions}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </WorkoutSection>
 
-      {workouts.length > 3 && !isSearchActive && (
-        <p className="">
-          Зажми и тяни для сортировки
-        </p>
-      )}
+      <WorkoutFooter showHint={workouts.length > 1 && !isSearchActive} />
     </div>
   );
 };

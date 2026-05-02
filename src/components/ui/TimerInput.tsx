@@ -1,5 +1,7 @@
 import React from 'react';
 import { Clock, ChevronUp, ChevronDown } from 'lucide-react';
+import { Input } from './Input';
+import { Button } from './Button';
 
 interface TimerInputProps {
   value: number;
@@ -19,39 +21,40 @@ export const TimerInput: React.FC<TimerInputProps> = ({
   const decrement = () => onChange(Math.max(0, value - 1));
 
   return (
-    <div className="">
-      <div className="">
-        {icon}
-      </div>
-
-      <input
+    <div className="relative flex items-center w-full group">
+      <Input
         type="number"
         value={value}
         onChange={(e) => onChange(Math.max(0, parseInt(e.target.value) || 0))}
-        className=""
+        className="!pl-12 !pr-24 !text-2xl font-black italic tracking-tighter"
       />
 
-      <span className="">
-        {label}
-      </span>
+      <div className="absolute left-4 text-brand-blue opacity-50 group-focus-within:opacity-100 transition-opacity">
+        {icon}
+      </div>
 
-      <div className="">
-        <button 
-          type="button" 
-          onClick={increment}
-          className=""
-          aria-label="Увеличить"
-        >
-          <ChevronUp size={16} strokeWidth={3} />
-        </button>
-        <button 
-          type="button" 
-          onClick={decrement}
-          className=""
-          aria-label="Уменьшить"
-        >
-          <ChevronDown size={16} strokeWidth={3} />
-        </button>
+      <div className="absolute right-2 flex items-center gap-2">
+        <span className="text-[10px] font-black uppercase text-text-muted tracking-widest italic mr-1">
+          {label}
+        </span>
+        
+        <div className="flex flex-col gap-0.5 border-l border-text-primary/5 pl-2">
+          <Button 
+            variant="ghost" 
+            onClick={increment}
+            className="!p-1 !h-6 !w-8 rounded-lg text-text-muted hover:text-brand-blue"
+          >
+            <ChevronUp size={16} strokeWidth={4} />
+          </Button>
+
+          <Button 
+            variant="ghost" 
+            onClick={decrement}
+            className="!p-1 !h-6 !w-8 rounded-lg text-text-muted hover:text-brand-rose"
+          >
+            <ChevronDown size={16} strokeWidth={4} />
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -9,8 +9,6 @@ interface DraggableWorkoutItemProps {
   index: number;
   isDragDisabled: boolean;
   actions: {
-    start: (id: string) => void;
-    edit: (id: string) => void;
     delete: (id: string) => void;
   };
 }
@@ -45,8 +43,6 @@ export const DraggableWorkoutItem: React.FC<DraggableWorkoutItemProps> = ({
           <div className="">
             <WorkoutCard
               workout={workout}
-              onStart={actions.start}
-              onEdit={actions.edit}
               onDelete={actions.delete}
               isDragging={snapshot.isDragging}
             />
